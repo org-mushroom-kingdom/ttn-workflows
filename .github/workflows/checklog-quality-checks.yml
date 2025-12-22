@@ -68,6 +68,9 @@ jobs:
         # This will checkout the caller repo if event is workflow_call?
         - name: Checkout repo
           uses: actions/checkout@v4
+
+        - name: 'Manual run: Set PR_NUMBER to 1'
+          run: echo "PR_NUMBER=1" >> $GITHUB_ENV
         
         - name: Echo relevant vars
           run: |
