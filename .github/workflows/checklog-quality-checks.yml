@@ -1,0 +1,78 @@
+# Scenario:
+# A large organization "org-mushroom-kingdom" owns an app called "Toad Town News" 
+# The frontend and backend are in their own repositories. Future repositiories are an inevitability.
+# There is also a separate repository solely for resuable workflows used for the development of Toad Town News. That repo is named org-mushroom-kingdom/ttn-actions   
+# In this organization, it is a standard across repositories to include a specific changelog file in their release branch  
+# This file should begin with CHANGELOG, followed by a dash (-), followed by the piece of the project they're working on
+# Repositories and release branches are named in a standardized way. The changelog file name should be formed from a combination of these.
+# ex. The frontend repo is named org-mk/ttn-frontend. 
+#     A release branch in it is named release/v1.0. 
+#     The changelog file should be named ----------------> CHANGELOG-frontend-v1.0.txt
+# The ttn-actions has a reusable workflow (this one) with these qualities:
+#     Uses env and github context to get the repo name, source branch (release branch) name, and other relevant crap
+#     ****Checks out the ttn-actions repo****
+#     Sets up Python 
+#     Creates a Python virtual environment
+#     Installs dependencies needed 
+#     Activates the virtual environment
+#     In the activated virtual environment, run a Python script located in the ttn-actions repo  TO DO THE BELOW:  // Use path!!!
+#          Initialize a changelog_ok variable = 1. This is a status variable that reflects the changelog file is present and correctly named. 
+#          Uses the repo name and release branch name to make the expected changelog filename (ex. expected_changelog_name = f"CHANGELOG-{reponame.substring("org-mk/ttn-",2)}-sourcebranchname.substring("release/",2)}).txt"
+#          Get the changed files of the PR 
+#          Get solely the file names and extensions (ex. /changelogs/CHANGELOG-frontend-v1.0.txt becomes CHANGELOG-frontend-v1.0.txt) and put them in an array
+#          Iterates through this 'filenames' array:
+#               If a filename matches expected_changelog_name, set changelog_ok = 0, exit iteration early
+#               If the end of the array is reached and nothing was matching, do nothing (because changelog_ok was initialized as 1)
+#          The script should somehow return this status variable to the ttn-actions workflow (This is possible but I forget how)
+#     The workflow saves this status code as an environmental variable CHANGELOG_STATUS
+#     Deactivate the virtual environment??
+#     
+#     If the status code received from the script was 0, the workflow exits as 0
+#     If the status code received from the script was 1: 
+#          The workflow posts a comment on the PR saying the changelog file doesn't exist or has a bad naming convention.
+#          This comment should also show what the expected naming convention should be for the changelog file
+#          Then it should exit with 1
+#          
+# In the frontend and backend repo, there is a caller workflow that:
+#     Is fired off when a PR opened whose source branch begins with "release" and whose target branch is "main"
+#     Has a token with repo permissions that can be used to checkout the ttn-actions repo
+#     When it's fired off, calls the reusable workflow using the token
+
+
+# This all means I have to move this crap over to a different repo. Womp womp
+
+name: Changelog Check (Exists and Naming)
+
+on:
+  
+  workflow_dispatch:
+
+  workflow_call:
+    secrets:
+        SOMETHING_THAT_DOES_ORG_READ:
+            required: true
+    outputs:
+        status_code:
+            description: "Status code: Result of CHANGELOG file exists and named properly"
+            value: "TBD"
+        
+jobs:
+  changelog-check:
+    name: "Changelog file check job"
+    runs-on: ubuntu-latest
+    env:
+        REPO: ${{ github.repository }}
+    steps:
+      
+        # This will checkout the caller repo if event is workflow_call?
+        - name: Checkout repo
+          uses: actions/checkout@v4
+        
+        - name: Echo relevant vars
+          run: |
+            echo "REPO = $REPO" 
+
+        - name: repo sanity check
+          run: echo "TBD"
+
+
