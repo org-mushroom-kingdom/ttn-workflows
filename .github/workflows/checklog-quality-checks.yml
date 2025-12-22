@@ -89,6 +89,9 @@ jobs:
                 -H "Authorization: Bearer $GH_TOKEN" \
                 /repos/$REPO/pulls/$PR_NUMBER/files | jq -r '.[].filename')
             echo "changed_files = ${changed_files[@]}"
+            IFS=","
+            joined_changed_files=${changed_files[*]}
+            echo "joined_changed_files = $joined_changed_files"
             
 
 
