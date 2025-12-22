@@ -63,24 +63,34 @@ jobs:
     env:
         REPO: ${{ github.repository }}
         PR_NUMBER: ${{ github.event.pull_request.number }}
+        # Need to replace this with secrets.SOMETHING_THAT_DOES_ORG_READ 
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       
-        # This will checkout the caller repo if event is workflow_call?
+        # This will checkout the caller repo if event is workflow_call
         - name: Checkout repo
           uses: actions/checkout@v4
+
+        # If testing manually in the ttn-workflows repo ONLY, manually set the PR_NUMBER
+        - name: 'Manual run: Set PR_NUMBER to 1'
+          if: env.REPO=='org-mushroom-kingdom/ttn-workflows' && github.event_name == 'workflow_dispatch'
+          run: echo "PR_NUMBER=1" >> $GITHUB_ENV
         
         - name: Echo relevant vars
           run: |
             echo "REPO = $REPO" 
             echo "PR_NUMBER = $PR_NUMBER" 
-
+        
         - name: Get PR changed files 
           run: |
-            mapfile -t changed_files <(gh api \
+            mapfile -t changed_files < <(gh api \
                 -H "Accept: application/vnd.github+json" \
                 -H "X-GitHub-Api-Version: 2022-11-28" \
-                /repos/OWNER/REPO/pulls/$PR_NUMBER/files | jq -r '.[].filename')
+                -H "Authorization: Bearer $GH_TOKEN" \
+                /repos/$REPO/pulls/$PR_NUMBER/files | jq -r '.[].filename')
             echo "changed_files = $changed_files"
+            
+
 
 
 
