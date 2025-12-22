@@ -90,6 +90,7 @@ jobs:
                 /repos/$REPO/pulls/$PR_NUMBER/files | jq -r '.[].filename')
             echo "changed_files = ${changed_files[@]}"
             IFS=","
+            # Expand the array to a single string using IFS as delimiter
             joined_changed_files=${changed_files[*]}
             echo "joined_changed_files = $joined_changed_files"
             
