@@ -82,7 +82,7 @@ jobs:
 
         - name: Get PR changed files 
           run: |
-            mapfile -t changed_files <(gh api \
+            mapfile -t changed_files < <(gh api \
                 -H "Accept: application/vnd.github+json" \
                 -H "X-GitHub-Api-Version: 2022-11-28" \
                 -H "Authorization: Bearer $GH_TOKEN" \
