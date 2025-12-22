@@ -65,6 +65,7 @@ jobs:
         PR_NUMBER: ${{ github.event.pull_request.number }}
         # Need to replace this with secrets.SOMETHING_THAT_DOES_ORG_READ 
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        CHANGED_FILES_STR: ""
     steps:
       
         # This will checkout the caller repo if event is workflow_call
@@ -91,8 +92,9 @@ jobs:
             echo "changed_files = ${changed_files[@]}"
             IFS=","
             # Expand the array to a single string using IFS as delimiter
-            joined_changed_files=${changed_files[*]}
-            echo "joined_changed_files = $joined_changed_files"
+            changed_files_str=${changed_files[*]}
+            echo "changed_files_str = $changed_files_str"
+            echo "CHANGED_FILES_STR=${changed_files_str}" >> $GITHUB_ENV
             
 
 
