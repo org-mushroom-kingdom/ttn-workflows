@@ -92,7 +92,7 @@ jobs:
           run: |
             # Remove the longest (##) instance of 'release/' from the branch name (ex. 'release/v1.0' --> 'v1.0')
             repo_full_name=$REPO
-            repo_ttn="${repo_full_name##*org-mushroom-kingdom/ttn-}"
+            repo_ttn="${$REPO##*org-mushroom-kingdom/ttn-}"
             
             source_branch_name=$SOURCE_BRANCH
             release_version="${source_branch_name##*release/}"
