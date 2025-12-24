@@ -116,8 +116,6 @@ jobs:
             echo "changed_files_str = $changed_files_str"
             echo "CHANGED_FILES_STR=${changed_files_str}" >> $GITHUB_ENV
 
-        
-
         - name: Setup Python 3.13 (temp echo EXPECTED_CHANGELOG_FILENAME)
           run: echo "$EXPECTED_CHANGELOG_FILENAME"
 

@@ -1,4 +1,21 @@
 # Take in an argument of changed_files_str (a comma-delimited string)
 # Turn that str into an arr called changed_files
+# Set a status var called changelog_exists to false
+# Set a status var called expected_changelog_name to false
 # For each filename in changed_files
-#   Assess the filename is equal to the expected CHANGELOG filename
+#   If filename starts with "CHANGELOG"
+#       Set changelog_exists = true
+#       files_with_changelog.push(filename) OR files_with_changelog += "$filename,"
+#       IF: Assess the filename is equal to the expected CHANGELOG filename
+#           If filename == expected --> set expected_naming_passes = true, exit loop early
+# End of for loop
+# If changelog_exists == true && expected_changelog_name == true
+#   sys.exit(0)   ?? --> Pass up to workflow and have workflow output a success message
+# Elseif changelog_exists == true && expected_changelog_name == false
+#   sys.exit(1) ?? --> Pass up to workflow, have workflow output failure message, also comment on PR
+#   The failure message and comment should basically be the same
+#   To compose the failure message: "file(s) beginning with CHANGELOG found, but none with expected name ($expected_name) \n: ${files_with_changelog}"
+# Else 
+    # Must not have been able to find any files that had CHANGELOG in them
+    # sys.exit(1) ?? --> Pass up to workflow and have workflow output message and PR comment
+    # The failure message = "No CHANGELOG files found in PR."
