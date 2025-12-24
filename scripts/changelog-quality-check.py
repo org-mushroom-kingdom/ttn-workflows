@@ -19,3 +19,17 @@
     # Must not have been able to find any files that had CHANGELOG in them
     # sys.exit(1) ?? --> Pass up to workflow and have workflow output message and PR comment
     # The failure message = "No CHANGELOG files found in PR."
+
+changed_files = sys.argv[1]
+expected_changelog_name = sys.argv[2]
+
+file_beg_w_changelog_exists = False
+changed_files_arr = changed_files.split(',')
+files_beg_w_changelog = []
+
+for changed_filename in changed_files_arr:
+    if changed_filename.startswith("CHANGELOG"):
+        print("changed filename starts with CHANGELOG")
+        files_beg_w_changelog.append(changed_filename)
+        if changed_filename == expected_changelog_name:
+
