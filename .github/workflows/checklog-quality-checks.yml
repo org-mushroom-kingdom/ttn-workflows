@@ -91,17 +91,16 @@ jobs:
         - name: Set expected CHANGELOG filename
           run: |
             # Remove the longest (##) instance of 'release/' from the branch name (ex. 'release/v1.0' --> 'v1.0')
-            # This is kind of weird because the REPO environmental variable isn't prefixed with $. You can't use "${$REPO...}" as this gives a 'bad substitution' error
+            # Note the REPO environmental variable isn't prefixed with $. You can't use "${$REPO...}" as this gives a 'bad substitution' error
             # When using Bash parameter expansion ${} with Github environmental variables, you don't need to use a $ inside the {} for the first variable--it's just like regular Bash 
             repo_ttn_type="${REPO##*org-mushroom-kingdom/ttn-}"
             release_version="${SOURCE_BRANCH##*release/}"
             
             expected_changelog_filename="CHANGELOG-${repo_ttn_type}-${release_version}.txt"
             echo "expected_changelog_filename = ${expected_changelog_filename}"
+            echo "EXPECTED_CHANGELOG_FILENAME=${expected_changelog_filename}" >> $GITHUB_ENV
 
             # CHANGELOG-ttn-frontend-v1.0
-            # Uses the repo name and release branch name to make the expected changelog filename (ex. expected_changelog_name =
-            #  f"CHANGELOG-{reponame.substring("org-mk/ttn-",2)}-sourcebranchname.substring("release/",2)}).txt"
 
         - name: Get PR changed files 
           run: |
@@ -119,8 +118,8 @@ jobs:
 
         
 
-        - name: Setup Python 3.13
-          run: echo "Something"
+        - name: Setup Python 3.13 (temp echo EXPECTED_CHANGELOG_FILENAME)
+          run: echo "$EXPECTED_CHANGELOG_FILENAME"
 
         - name: Something else
           run: echo "Okay"
