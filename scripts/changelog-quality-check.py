@@ -1,7 +1,7 @@
 # Take in an argument of changed_files_str (a comma-delimited string)
 # Turn that str into an arr called changed_files
 # Set a status var called changelog_exists to false
-# Set a status var called expected_changelog_name to false
+# Set a status var called changelog_naming_passes to false
 # For each filename in changed_files
 #   If filename starts with "CHANGELOG"
 #       Set changelog_exists = true
@@ -29,7 +29,10 @@ files_beg_w_changelog = []
 
 for changed_filename in changed_files_arr:
     if changed_filename.startswith("CHANGELOG"):
+        file_beg_w_changelog_exists = True
         print("changed filename starts with CHANGELOG")
         files_beg_w_changelog.append(changed_filename)
         if changed_filename == expected_changelog_name:
+            changelog_naming_passes = True
+            break
 
