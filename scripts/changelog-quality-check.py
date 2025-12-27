@@ -38,3 +38,4 @@ for changed_filename in changed_files_arr:
 if changelog_exists == true and changelog_naming_correct == true:
     output = "A CHANGELOG file was found and matches the expected naming convention for this repo and release branch."
 elif  file_beg_w_changelog_exists == true and changelog_naming_correct == false:
+    output = "A CHANGELOG file was found (specifically, a file beginning with 'CHANGELOG' was found), but is not the correct name for this release branch. The name of the CHANGELOG file should be {expected_changelog_name}"
