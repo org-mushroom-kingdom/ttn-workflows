@@ -55,6 +55,9 @@ on:
         status_code:
             description: "Status code: Result of CHANGELOG file exists and named properly"
             value: "TBD"
+        output_message: 
+            description: "Specific message based on presence and proper naming of CHANGELOG file"
+            value: "TBD"
         
 jobs:
   changelog-check:
