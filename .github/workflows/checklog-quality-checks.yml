@@ -47,13 +47,13 @@ on:
   
   workflow_dispatch:
     inputs:
-        changelog_filename:
-            description: 'CHANGELOG filename'
+        changelog_filename_man:
+            description: 'Expected CHANGELOG filename'
             required: true
             type: choice
             options:
-            - CHANGELOG_frontend_v1.0
-            - CHANGELOG_wrongname
+                - CHANGELOG_frontend_v1.0
+                - CHANGELOG_wrongname
 
   workflow_call:
     secrets:
@@ -98,6 +98,7 @@ jobs:
           run: |
             echo "REPO = $REPO" 
             echo "PR_NUMBER = $PR_NUMBER" 
+            echo "github.action_path = ${{ github.action_path }}" 
 
         - name: Set expected CHANGELOG filename
           run: |
@@ -131,15 +132,28 @@ jobs:
           uses: actions/setup-python@v6
           with:
             python-version: '3.13' 
-        
-        - name: Checkout ttn-workflows repo
-          uses: actions/checkout@v4
-          with:
-            repository: org-mushroom-kingdom/ttn-workflows
-            path: ttn-workflows-repo/
+
+        # TODO: Use these if below step doesn't work        
+        # - name: Checkout ttn-workflows repo
+        #   uses: actions/checkout@v4
+        #   with:
+        #     repository: org-mushroom-kingdom/ttn-workflows
+        #     path: ttn-workflows-repo
+
+        # - name: Grant Execute Permission to Python Script
+        #   run: chmod +x ttn-workflows-repo/scripts/changelog-quality-check.py
+
+        - name: "Manual run: set EXPECTED_CHANGELOG_FILENAME"
+          if: github.repository == 'ttn-workflows' && github.event_name == 'workflow_dispatch'
+          run: |
+            echo "Manually setting EXPECTED_CHANGELOG_FILENAME to ${{ inputs.changelog_filename_man }}"
+            echo "EXPECTED_CHANGELOG_FILENAME=${{ inputs.changelog_filename_man }}" >> $GITHUB_ENV
 
         - name: Run Python Script
-          run: echo "Okay"
+          run: ${{ github.action_path }}/scripts/changelog-quality-check.py
+
+        # - name: Run Python Script
+        #   run: echo "Okay"
 
 
             
