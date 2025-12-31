@@ -33,12 +33,12 @@ github_env_file = os.getenv('GITHUB_ENV')
 
 for changed_filename in changed_files_arr:
     if changed_filename.startswith("CHANGELOG"):
-        file_beg_w_changelog_exists = True
-        print("changed filename starts with CHANGELOG")
-        files_beg_w_changelog.append(changed_filename)
         if changed_filename == expected_changelog_name:
             changelog_naming_passes = True
             break
+        file_beg_w_changelog_exists = True
+        print("changed filename starts with CHANGELOG")
+        files_beg_w_changelog.append(changed_filename)
 # TODO: Write output as Github Actions env var which is possible but I forget how 
 if changelog_exists == true and changelog_naming_correct == true:
     output = "A CHANGELOG file was found and matches the expected naming convention for this repo and release branch."
