@@ -49,23 +49,24 @@ on:
             required: true
             type: choice
             options:
-                - CHANGELOG_frontend_v1.1
-                - CHANGELOG_wrongname
+                - CHANGELOG_frontend_v1.1.txt
+                - CHANGELOG_backend_v1.2.txt
         source_branch_man:
             description: 'Manual source branch name'
             required: true
             type: choice
             options:
                 - 'release/frontend/v1.1'
-                - 'release/backend/v1.1'
+                - 'release/backend/v1.2'
         pr_num_man:
             description: 'Manual PR number (changed files)'
             required: true
             type: choice
+            #TODO: Make the PRs with the filenames below, replace X with PR num
             options:
-                - "X - CHANGELOG_frontend_v1.1"
-                - "X - CHANGELOG_incorrect_name"
-                - CHANGELOG_wrongname
+                - "X - CHANGELOG_frontend_v1.1.txt"
+                - "X - CHANGELOG_backend_v1.2.txt"
+                - "X - CHANGELOG_backend_v1.1.txt,CHANGELOG_backend_v1.2.txt"
 
   workflow_call:
     secrets:

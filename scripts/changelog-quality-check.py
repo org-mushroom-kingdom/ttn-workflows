@@ -27,29 +27,41 @@ changed_files = sys.argv[1]
 expected_changelog_name = sys.argv[2]
 
 file_beg_w_changelog_exists = False
+changelog_naming_passes = False
 changed_files_arr = changed_files.split(',')
 files_beg_w_changelog = []
 github_env_file = os.getenv('GITHUB_ENV')
 
+output = ""
+changelog_found_msg = "A CHANGELOG file was found"
+only_1_changelog_msg = "All release branches going into main must have exactly 1 CHANGELOG file in the pull request."
+exp_name_msg = "The name of the CHANGELOG file should be {expected_changelog_name}"
+
 for changed_filename in changed_files_arr:
     if changed_filename.startswith("CHANGELOG"):
+        file_beg_w_changelog_exists = True
         if changed_filename == expected_changelog_name:
             changelog_naming_passes = True
             break
-        file_beg_w_changelog_exists = True
         print("changed filename starts with CHANGELOG")
         files_beg_w_changelog.append(changed_filename)
-# TODO: Write output as Github Actions env var which is possible but I forget how 
-if changelog_exists == true and changelog_naming_correct == true:
-    output = "A CHANGELOG file was found and matches the expected naming convention for this repo and release branch."
-elif  file_beg_w_changelog_exists == true and changelog_naming_correct == false:
-    output = "A CHANGELOG file was found (specifically, a file beginning with 'CHANGELOG' was found), but is not the correct name for this release branch. The name of the CHANGELOG file should be {expected_changelog_name}"
+
+# If more than one CHANGELOG file exists, don't bother checking for a passing name.
+if len(files_beg_w_changelog) >1:
+    output = "There are multiple files in the pull request that begin with CHANGELOG. {only_1_changelog_msg} {exp_name_msg}"
+    # sys.exit(1)
 else:
-    # Note: Make sure synchronize is specified in pull_request event in caller workflows.
-    # TODO: Make sure \n and += work in Python as expected.
-    output = "No CHANGELOG file found. All release branches going into main must have a CHANGELOG file in the pull request. \n"
-    output+= "The name of the CHANGELOG file should be {expected_name}. \n"
-    output+= "Please either amend this PR to include the CHANGELOG file, or close this PR and create a new one with the CHANGELOG file."
+    # TODO: Write output as Github Actions env var which is possible but I forget how 
+    if file_beg_w_changelog_exists == True and changelog_naming_passes == True:
+        output = "{changelog_found_msg} and matches the expected naming convention for this repo and release branch."
+    elif  file_beg_w_changelog_exists == True and changelog_naming_passes == False:
+        output = "{changelog_found_msg} (specifically, a file beginning with 'CHANGELOG' was found), but is not the correct name for this release branch. {exp_name_msg}"
+    else:
+        # Note: Make sure synchronize is specified in pull_request event in caller workflows.
+        # TODO: Make sure \n and += work in Python as expected.
+        output = "No CHANGELOG file found. {only_1_changelog_msg}\n"
+        output+= "{exp_name_msg} \n"
+        output+= "Please either amend this PR to include the CHANGELOG file, or close this PR and create a new one with the CHANGELOG file."
 
 # TODO: Test this and see if it works in the reusable workflow. If not, try doing the commented block below 
 # The "a" flair means open the file in append mode 
