@@ -52,7 +52,7 @@ else:
     output+= "Please either amend this PR to include the CHANGELOG file, or close this PR and create a new one with the CHANGELOG file."
 
 # TODO: Test this and see if it works in the reusable workflow. If not, try doing the commented block below 
-# The "a" flair means open the file in append mode
+# The "a" flair means open the file in append mode 
 # with open(github_env_file, "a") as github_env:
     # github_env.write("MY_VAR=MY_VALUE")
 github_env_file.write(f"{CHANGELOG_MSG}={output}\n")
