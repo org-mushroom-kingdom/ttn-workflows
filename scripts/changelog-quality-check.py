@@ -52,16 +52,19 @@ if len(files_beg_w_changelog) >1:
     # sys.exit(1)
 else:
     # TODO: Write output as Github Actions env var which is possible but I forget how 
-    if file_beg_w_changelog_exists == True and changelog_naming_passes == True:
+    if file_beg_w_changelog_exists and changelog_naming_passes:
         output = "{changelog_found_msg} and matches the expected naming convention for this repo and release branch."
-    elif  file_beg_w_changelog_exists == True and changelog_naming_passes == False:
+        # sys.exit(0)
+    elif file_beg_w_changelog_exists and not changelog_naming_passes:
         output = "{changelog_found_msg} (specifically, a file beginning with 'CHANGELOG' was found), but is not the correct name for this release branch. {exp_name_msg}"
+        # sys.exit(1)
     else:
         # Note: Make sure synchronize is specified in pull_request event in caller workflows.
         # TODO: Make sure \n and += work in Python as expected.
         output = "No CHANGELOG file found. {only_1_changelog_msg}\n"
-        output+= "{exp_name_msg} \n"
+        output+= "{exp_name_msg}\n"
         output+= "Please either amend this PR to include the CHANGELOG file, or close this PR and create a new one with the CHANGELOG file."
+        # sys.exit(1)
 
 # TODO: Test this and see if it works in the reusable workflow. If not, try doing the commented block below 
 # The "a" flair means open the file in append mode 
