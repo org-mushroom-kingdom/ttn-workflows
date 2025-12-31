@@ -46,6 +46,14 @@ name: Changelog Check (Exists and Naming)
 on:
   
   workflow_dispatch:
+    inputs:
+        changelog_filename:
+            description: 'CHANGELOG filename'
+            required: true
+            type: choice
+            options:
+            - CHANGELOG_frontend_v1.0
+            - CHANGELOG_wrongname
 
   workflow_call:
     secrets:
@@ -124,8 +132,15 @@ jobs:
           with:
             python-version: '3.13' 
         
-        - name: Something else
+        - name: Checkout ttn-workflows repo
+          uses: actions/checkout@v4
+          with:
+            repository: org-mushroom-kingdom/ttn-workflows
+            path: ttn-workflows-repo/
+
+        - name: Run Python Script
           run: echo "Okay"
+
 
             
 
