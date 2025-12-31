@@ -38,15 +38,16 @@
 #     Has a token with repo permissions that can be used to checkout the ttn-actions repo
 #     When it's fired off, calls the reusable workflow using the token
 
-
-# This all means I have to move this crap over to a different repo. Womp womp
-
 name: Changelog Check (Exists and Naming)
 
 on:
   
   workflow_dispatch:
     inputs:
+        changed_files_man:
+            description: "God, who knows"
+            type: boolean
+            default: false
         changelog_filename_man:
             description: 'Expected CHANGELOG filename'
             required: true
@@ -57,6 +58,7 @@ on:
 
   workflow_call:
     secrets:
+        # TODO: Rename this hahahaha
         SOMETHING_THAT_DOES_ORG_READ:
             required: true
     outputs:
@@ -150,7 +152,7 @@ jobs:
             echo "EXPECTED_CHANGELOG_FILENAME=${{ inputs.changelog_filename_man }}" >> $GITHUB_ENV
 
         - name: Run Python Script
-          run: ${{ github.action_path }}/scripts/changelog-quality-check.py
+          run: ${{ github.action_path }}/scripts/changelog-quality-check.py "ARG1" "ARG2"
 
         # - name: Run Python Script
         #   run: echo "Okay"
