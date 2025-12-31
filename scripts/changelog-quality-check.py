@@ -1,34 +1,16 @@
-# Take in an argument of changed_files_str (a comma-delimited string)
-# Turn that str into an arr called changed_files
-# Set a status var called changelog_exists to false
-# Set a status var called changelog_naming_passes to false
-# For each filename in changed_files
-#   If filename starts with "CHANGELOG"
-#       Set changelog_exists = true
-#       files_with_changelog.push(filename) OR files_with_changelog += "$filename,"
-#       IF: Assess the filename is equal to the expected CHANGELOG filename
-#           If filename == expected --> set expected_naming_passes = true, exit loop early
-# End of for loop
-# If changelog_exists == true && expected_changelog_name == true
-#   sys.exit(0)   ?? --> Pass up to workflow and have workflow output a success message
-# Elseif changelog_exists == true && expected_changelog_name == false
-#   sys.exit(1) ?? --> Pass up to workflow, have workflow output failure message, also comment on PR
-#   The failure message and comment should basically be the same
-#   To compose the failure message: "file(s) beginning with CHANGELOG found, but none with expected name ($expected_name) \n: ${files_with_changelog}"
-# Else 
-    # Must not have been able to find any files that had CHANGELOG in them
-    # sys.exit(1) ?? --> Pass up to workflow and have workflow output message and PR comment
-    # The failure message = "No CHANGELOG files found in PR."
+# Take in an argument of changed_files_str (a comma-delimited string). Turn that str into an arr called changed_files_arr
+# Iterate thru arr to see if properly named CHANGELOG file exists. Output result msg and status code
+# Note: If more than one CHANGELOG file found, immediately fail regardless of passing CHANGELOG name.
 
 import os
 
-
-changed_files = sys.argv[1]
+changed_files_str = sys.argv[1]
 expected_changelog_name = sys.argv[2]
 
 file_beg_w_changelog_exists = False
 changelog_naming_passes = False
-changed_files_arr = changed_files.split(',')
+
+changed_files_arr = changed_files_str.split(',')
 files_beg_w_changelog = []
 github_env_file = os.getenv('GITHUB_ENV')
 
