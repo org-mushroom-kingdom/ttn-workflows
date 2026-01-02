@@ -52,7 +52,7 @@ def main():
             output+= "Please either amend this PR to include the CHANGELOG file, or close this PR and create a new one with the CHANGELOG file."
             # sys.exit(1)
 
-    # TODO: Test this and see if it works in the reusable workflow. If not, try doing the commented block below 
+    # TODO: Test this and see if it works in the reusable workflow. Rework this into a function
     # The "a" flair means open the file in append mode
     # Each variable has to be set on a new line, so use \n as a best practice (even if no other vars get set in this script, it's a good habit to get into) 
     with open(github_env_file, "a") as github_env:
@@ -60,7 +60,10 @@ def main():
     # github_env_file.write(f"{CHANGELOG_MSG}={output}\n")
 
 # __name__ is a Python built-in. It is the name of the Python module assessed by the interpreter (usually CPython)
-# __main__ is the name of the environment where top-level code is run
-# When you pass a Python module to the interpreter as a file argument (ex. in the runner 'python changelog-quality-check.yml'), __name__ is set to '__main__' 
+# __main__ is the name of the environment where top-level code is run: top-level imports all other module the program needs
+# When you pass a Python module to the interpreter as a file argument (ex. in the workflow 'python changelog-quality-check.yml'), __name__ is set to '__main__'
+# Using this convention helps the module identify if it is top-level or not--if the module is top-level, it will execute 
+# The workflow for CHANGELOG stuff only runs this script, but for more complex scenarios some modules will have code meant only for script use. 
+# If a module with script-use code was TODO Finish this thought
 if __name__ == "__main__":
     main()
