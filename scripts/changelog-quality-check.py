@@ -4,6 +4,7 @@
 
 import os
 
+# Remember sys.argv[0] is the name of the script itself
 changed_files_str = sys.argv[1]
 expected_changelog_name = sys.argv[2]
 

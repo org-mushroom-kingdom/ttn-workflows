@@ -44,7 +44,7 @@ on:
   
   workflow_dispatch:
     inputs:
-        changelog_filename_man:
+        exp_changelog_filename_man:
             description: 'Expected CHANGELOG filename'
             required: true
             type: choice
@@ -116,6 +116,7 @@ jobs:
             echo "github.action_path = ${{ github.action_path }}" 
 
         - name: Set expected CHANGELOG filename
+          if: github.event_name != 'workflow_dispatch'
           run: |
             # Remove the longest (##) instance of 'release/' from the branch name (ex. 'release/v1.0' --> 'v1.0')
             # Note the REPO environmental variable isn't prefixed with $. You can't use "${$REPO...}" as this gives a 'bad substitution' error
@@ -165,7 +166,7 @@ jobs:
             echo "EXPECTED_CHANGELOG_FILENAME=${{ inputs.changelog_filename_man }}" >> $GITHUB_ENV
 
         - name: Run Python Script
-          run: ${{ github.action_path }}/scripts/changelog-quality-check.py "ARG1" "ARG2"
+          run: ./scripts/changelog-quality-check.py "ARG1" "ARG2"
 
         - name: Echo CHANGELOG_MSG (set from Python Script)
           run: echo "CHANGELOG_MSG = $CHANGELOG_MSG"
