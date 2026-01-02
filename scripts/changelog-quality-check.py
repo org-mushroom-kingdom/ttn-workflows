@@ -51,7 +51,8 @@ else:
         # sys.exit(1)
 
 # TODO: Test this and see if it works in the reusable workflow. If not, try doing the commented block below 
-# The "a" flair means open the file in append mode 
+# The "a" flair means open the file in append mode
+# Each variable has to be set on a new line, so use \n as a best practice (even if no other vars get set in this script, it's a good habit to get into) 
 with open(github_env_file, "a") as github_env:
-    github_env.write("CHANGELOG_MSG={output}")
+    github_env.write(f"CHANGELOG_MSG={output}\n")
 # github_env_file.write(f"{CHANGELOG_MSG}={output}\n")
