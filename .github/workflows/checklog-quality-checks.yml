@@ -1,4 +1,4 @@
-# Scenario:
+# Scenario: This is a reusable workflow
 # A large organization "org-mushroom-kingdom" owns an app called "Toad Town News" 
 # The frontend and backend are in their own repositories. Future repositiories are an inevitability.
 # There is also a separate repository solely for resuable workflows used for the development of Toad Town News. That repo is named org-mushroom-kingdom/ttn-actions   
