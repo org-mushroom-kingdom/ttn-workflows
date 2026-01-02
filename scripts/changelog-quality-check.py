@@ -6,6 +6,7 @@ import sys
 import os
 
 def main():
+    print("main() running!")
     # Remember sys.argv[0] is the name of the script itself
     changed_files_str = sys.argv[1]
     expected_changelog_name = sys.argv[2]
@@ -62,5 +63,4 @@ def main():
 # __main__ is the name of the environment where top-level code is run
 # When you pass a Python module to the interpreter as a file argument (ex. in the runner 'python changelog-quality-check.yml'), __name__ is set to '__main__' 
 if __name__ == "__main__":
-    # Example usage: set a variable named 'MY_DYNAMIC_VAR' with a specific value
     main()
