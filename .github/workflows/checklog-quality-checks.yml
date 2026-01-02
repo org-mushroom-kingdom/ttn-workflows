@@ -167,7 +167,7 @@ jobs:
 
         - name: Run Python Script
           #TODO: Rework args to use inputs 
-          run: python ttn-workflows-repo/scripts/changelog-quality-check.py "CHANGELOG_backend_v1.1.txt,CHANGELOG_backend_v1.2.txt" "CHANGELOG_frontend_v1.1.txt"
+          run: python ttn-workflows-repo/scripts/changelog-quality-check.py "nope.txt" "CHANGELOG_frontend_v1.1.txt"
 
         - name: Echo CHANGELOG_MSG (set from Python Script)
           run: echo "CHANGELOG_MSG = $CHANGELOG_MSG"
