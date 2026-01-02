@@ -20,7 +20,7 @@ def main():
 
     output = ""
     changelog_found_msg = "A CHANGELOG file was found"
-    only_1_changelog_msg = "All release branches going into main must have exactly 1 CHANGELOG file in the pull request."
+    only_1_changelog_msg = f"All release branches going into main must have exactly 1 CHANGELOG file in the pull request."
     exp_name_msg = f"The name of the CHANGELOG file should be {expected_changelog_name}"
 
     for changed_filename in changed_files_arr:
