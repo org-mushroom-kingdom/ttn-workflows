@@ -34,15 +34,15 @@ def main():
 
     # If more than one CHANGELOG file exists, don't bother checking for a passing name.
     if len(files_beg_w_changelog) >1:
-        output = "There are multiple files in the pull request that begin with CHANGELOG. {only_1_changelog_msg} {exp_name_msg}"
+        output = f"There are multiple files in the pull request that begin with CHANGELOG. {only_1_changelog_msg} {exp_name_msg}"
         # sys.exit(1)
     else:
         # TODO: Write output as Github Actions env var which is possible but I forget how 
         if file_beg_w_changelog_exists and changelog_naming_passes:
-            output = "{changelog_found_msg} and matches the expected naming convention for this repo and release branch."
+            output = f"{changelog_found_msg} and matches the expected naming convention for this repo and release branch."
             # sys.exit(0)
         elif file_beg_w_changelog_exists and not changelog_naming_passes:
-            output = "{changelog_found_msg} (specifically, a file beginning with 'CHANGELOG' was found), but is not the correct name for this release branch. {exp_name_msg}"
+            output = f"{changelog_found_msg} (specifically, a file beginning with 'CHANGELOG' was found), but is not the correct name for this release branch. {exp_name_msg}"
             # sys.exit(1)
         else:
             # Note: Make sure synchronize is specified in pull_request event in caller workflows.
