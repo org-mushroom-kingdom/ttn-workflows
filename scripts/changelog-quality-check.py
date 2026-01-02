@@ -2,6 +2,7 @@
 # Iterate thru arr to see if properly named CHANGELOG file exists. Output result msg and status code
 # Note: If more than one CHANGELOG file found, immediately fail regardless of passing CHANGELOG name.
 
+import sys
 import os
 
 # Remember sys.argv[0] is the name of the script itself
