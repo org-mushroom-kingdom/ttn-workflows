@@ -72,3 +72,5 @@ def main():
 # If a module with script-use code was TODO Finish this thought
 if __name__ == "__main__":
     main()
+
+# Snake, try to remember some of the basics of CQC
