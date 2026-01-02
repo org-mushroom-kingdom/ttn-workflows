@@ -162,8 +162,8 @@ jobs:
         - name: "Manual run: set EXPECTED_CHANGELOG_FILENAME"
           if: github.repository == 'ttn-workflows' && github.event_name == 'workflow_dispatch'
           run: |
-            echo "Manually setting EXPECTED_CHANGELOG_FILENAME to ${{ inputs.changelog_filename_man }}"
-            echo "EXPECTED_CHANGELOG_FILENAME=${{ inputs.changelog_filename_man }}" >> $GITHUB_ENV
+            echo "Manually setting EXPECTED_CHANGELOG_FILENAME to ${{ inputs.exp_changelog_filename_man }}"
+            echo "EXPECTED_CHANGELOG_FILENAME=${{ inputs.exp_changelog_filename_man }}" >> $GITHUB_ENV
 
         - name: Run Python Script
           run: ttn-workflows-repo/scripts/changelog-quality-check.py "ARG1" "ARG2"
