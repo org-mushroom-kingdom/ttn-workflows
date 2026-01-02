@@ -49,13 +49,14 @@ def main():
         else:
             # Note: Make sure synchronize is specified in pull_request event in caller workflows.
             # TODO: Make sure \n and += work in Python as expected.
-            output = f"No CHANGELOG file found. {only_1_changelog_msg}\n"
-            output+= f"{exp_name_msg}\n"
+            output = f"No CHANGELOG file found. {only_1_changelog_msg}<br>"
+            output+= f"{exp_name_msg}<br>"
             output+= f"Please either amend this PR to include the CHANGELOG file, or close this PR and create a new one with the CHANGELOG file."
             print(f"{output}")
             # sys.exit(1)
 
-    # TODO: Test this and see if it works in the reusable workflow. Rework this into a function
+    # TODO: Test this and see if it works in the reusable workflow. 
+    # TODO: Rework this into a function
     # The "a" flair means open the file in append mode
     # Each variable has to be set on a new line, so use \n as a best practice (even if no other vars get set in this script, it's a good habit to get into) 
     print("About to write to GITHUB_ENV")
