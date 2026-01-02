@@ -40,9 +40,11 @@ def main():
         # TODO: Write output as Github Actions env var which is possible but I forget how 
         if file_beg_w_changelog_exists and changelog_naming_passes:
             output = f"{changelog_found_msg} and matches the expected naming convention for this repo and release branch."
+            print(f"{output}")
             # sys.exit(0)
         elif file_beg_w_changelog_exists and not changelog_naming_passes:
             output = f"{changelog_found_msg} (specifically, a file beginning with 'CHANGELOG' was found), but is not the correct name for this release branch. {exp_name_msg}"
+            print(f"{output}")
             # sys.exit(1)
         else:
             # Note: Make sure synchronize is specified in pull_request event in caller workflows.
@@ -50,6 +52,7 @@ def main():
             output = "No CHANGELOG file found. {only_1_changelog_msg}\n"
             output+= "{exp_name_msg}\n"
             output+= "Please either amend this PR to include the CHANGELOG file, or close this PR and create a new one with the CHANGELOG file."
+            print(f"{output}")
             # sys.exit(1)
 
     # TODO: Test this and see if it works in the reusable workflow. Rework this into a function
