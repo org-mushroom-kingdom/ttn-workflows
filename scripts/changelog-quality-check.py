@@ -49,9 +49,9 @@ def main():
         else:
             # Note: Make sure synchronize is specified in pull_request event in caller workflows.
             # TODO: Make sure \n and += work in Python as expected.
-            output = "No CHANGELOG file found. {only_1_changelog_msg}\n"
-            output+= "{exp_name_msg}\n"
-            output+= "Please either amend this PR to include the CHANGELOG file, or close this PR and create a new one with the CHANGELOG file."
+            output = f"No CHANGELOG file found. {only_1_changelog_msg}\n"
+            output+= f"{exp_name_msg}\n"
+            output+= f"Please either amend this PR to include the CHANGELOG file, or close this PR and create a new one with the CHANGELOG file."
             print(f"{output}")
             # sys.exit(1)
 
