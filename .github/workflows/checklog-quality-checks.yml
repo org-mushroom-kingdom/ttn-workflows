@@ -150,11 +150,11 @@ jobs:
             python-version: '3.13' 
 
         # TODO: Use these if below step doesn't work        
-        # - name: Checkout ttn-workflows repo
-        #   uses: actions/checkout@v4
-        #   with:
-        #     repository: org-mushroom-kingdom/ttn-workflows
-        #     path: ttn-workflows-repo
+        - name: Checkout ttn-workflows repo
+          uses: actions/checkout@v4
+          with:
+            repository: org-mushroom-kingdom/ttn-workflows
+            path: ttn-workflows-repo
 
         - name: Grant Execute Permission to Python Script
           run: chmod +x ttn-workflows-repo/scripts/changelog-quality-check.py
