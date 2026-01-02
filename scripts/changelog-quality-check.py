@@ -53,5 +53,5 @@ else:
 # TODO: Test this and see if it works in the reusable workflow. If not, try doing the commented block below 
 # The "a" flair means open the file in append mode 
 with open(github_env_file, "a") as github_env:
-    github_env.write("MY_VAR=MY_VALUE")
+    github_env.write("CHANGELOG_MSG={output}")
 # github_env_file.write(f"{CHANGELOG_MSG}={output}\n")
