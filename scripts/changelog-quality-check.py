@@ -15,7 +15,7 @@ def main():
     changelog_naming_passes = False
 
     changed_files_arr = changed_files_str.split(',')
-    files_beg_w_changelog = []
+    potential_changelog_files = []
     github_env_file = os.getenv('GITHUB_ENV')
 
     output = ""
@@ -28,12 +28,13 @@ def main():
             file_beg_w_changelog_exists = True
             if changed_filename == expected_changelog_name:
                 changelog_naming_passes = True
+                # TODO: Reassess if you really want to exit early, because even if exp name exists, multiple other CHANGELOG files might.
                 break
             print("changed filename starts with CHANGELOG")
-            files_beg_w_changelog.append(changed_filename)
+            potential_changelog_files.append(changed_filename)
 
     # If more than one CHANGELOG file exists, don't bother checking for a passing name.
-    if len(files_beg_w_changelog) >1:
+    if len(potential_changelog_files) >1:
         output = f"There are multiple files in the pull request that begin with CHANGELOG. {only_1_changelog_msg} {exp_name_msg}"
         # sys.exit(1)
     else:

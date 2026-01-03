@@ -56,7 +56,10 @@ When called upon, this workflow will perform the following logic (Note: steps th
 7. Checks out the org-mushroom-kingdom/ttn-workflows repo. This is needed because the aforemetioned Python script is in the ttn-workflows repo. When this workflow is called, it is done within the context of the caller workflow's repository. Thus, we checkout the ttn-workflows repository to the 'ttn-workflows-repo' directory in our runner. We can then utilize the Python script via accessing this directory
 8. Grant execute permissions to the Python script (via the ttn-workflows-repo directory)
 9. Run the Python script:
-      a. For each changed file:
-            - See if it begins with 'CHANGELOG'
-            - If so, see if this file has the expected CHANGELOG name (see above subsection **__Expected CHANGELOG Filename__**)
+      a. For each changed file (LOOP): <br>
+            - IF it begins with 'CHANGELOG': <br>
+                - If true, add it to an array potential_changelog_files <br>
+                - If true, see IF this file has the expected CHANGELOG name (see above subsection **__Expected CHANGELOG Filename__**): <br>
+                    - If true, exit the LOOP early TODO Do we want to though?
+
 will look at a pull request's files. 
