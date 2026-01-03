@@ -43,6 +43,7 @@ name: Changelog Check (Exists and Naming)
 on:
   
   workflow_dispatch:
+    # Mix and match these to create various scenarios. First option for each = happy path.
     inputs:
         exp_changelog_filename_man:
             description: 'Expected CHANGELOG filename'
