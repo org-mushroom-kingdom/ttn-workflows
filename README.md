@@ -20,7 +20,9 @@ The following section and subsections explain how the TODO NAME reusable workflo
 
 TODO: LOTS of formatting (MAG?)
 
-This workflow will assess a pull request's files and ensure there is a properly named CHANGELOG file. A properly named CHANGELOG file meets the following criteria:
+This workflow will assess a pull request's files and ensure there is a singular, properly named CHANGELOG file. 
+
+A properly named CHANGELOG file meets the following criteria:
 - Begins with the text "CHANGELOG"
 - Has the repository name in it (known in the script as release_verison) in the fashion of "org-mushroom-kingdom/ttn-*" where * is the desired text. This text (known in the script as ttn_type) should be after the CHANGELOG prefix and a dash separator (ex. if the repository is org-mushroom-kingdom/ttn-frontend, then the text 'frontend' should be present)
 - Has the release version in it, after the above mentioned substring and a dash separator. The release version should match the name of the source branch that is being merged into the main/master branch (ex. if the source branch name is 'release/v1.1', the substring 'v1.1' should be present).
@@ -38,6 +40,9 @@ Examples CHANGELOG filenames that would NOT be valid are:
 - CHANGELOG-ttn-frontend-v1.1.txt (has 'ttn' in it, when the expected ttn_type should be 'frontend')
 - CHANGELOGfrontend-1.1.txt (has '1.1' in it, when the release_version should be 'v1.1')
 
+#### **CHANGELOG File Quantity Check**
+
+When assessing the changed files in a pull request, the workflow will assess how many potential CHANGELOG files there are. A potential CHANGELOG file is any file that begins with the substring "CHANGELOG" in this case. In the event the amount of potential CHANGELOG files is NOT 1, the workflow will evaluate this as a failure (even in a scenario where a properly-named CHANGELOG file may be present amongst other potential CHANGELOG files)
 
 #### **TODO SOME HEADER HERE**
 
