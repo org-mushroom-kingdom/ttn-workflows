@@ -81,8 +81,8 @@ When called upon, this workflow will perform the following logic (Note: steps th
                         &emsp;&emsp;&emsp;&emsp;&emsp;- Print this message. <br>
                         &emsp;&emsp;&emsp;&emsp;&emsp;- Exit with a passing status code. <br>
                     &emsp;&emsp;&emsp;&emsp;- If false: <br>
-                        - Set an output message as the environmental variable CHANGELOG_MSG stating the name of the CHANGELOG file is incorrect, as well as what it should be. <br> 
-                        - Print this message. <br>
-                        - Exit with a bad status code.<br>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;- Set an output message as the environmental variable CHANGELOG_MSG stating the name of the CHANGELOG file is incorrect, as well as what it should be. <br> 
+                        &emsp;&emsp;&emsp;&emsp;&emsp;- Print this message. <br>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;- Exit with a bad status code.<br>
 10. Use the CHANGELOG_MSG environmental variable that was set in step 9 in conjunction with the Github API to put a comment on the PR stating the status of the CHANGELOG file quality checks.
 11. Based upon the status code of the Python script, the workflow returns a passing or failing status. This status can be leveraged with a branch protection rule to allow or disallow merging the PR into the target branch. 
