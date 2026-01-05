@@ -62,14 +62,14 @@ When called upon, this workflow will perform the following logic (Note: steps th
 8. Grant execute permissions to the Python script (via the ttn-workflows-repo directory)
 9. Run the Python script: <br>
       &emsp;a. For each changed file (LOOP): <br>
-            - IF it begins with 'CHANGELOG': <br>
-                - If true, add it to an array potential_changelog_files <br>
-                - If false, do nothing <br>
-      b. After the changed file LOOP has finished, assess the length of potential_changelog_files:
-            - IF the length is > 1: <br>
-                - Set an output message as the environmental variable CHANGELOG_MSG stating only one CHANGELOG file is allowed
-                - Print this message<br>
-                - Exit with a bad status code<br>
+            &emsp;&emsp;- IF it begins with 'CHANGELOG': <br>
+                &emsp;&emsp;&emsp;- If true, add it to an array potential_changelog_files <br>
+                &emsp;&emsp;&emsp;- If false, do nothing <br>
+      &emsp;b. After the changed file LOOP has finished, assess the length of potential_changelog_files:
+            &emsp;&emsp;- IF the length is > 1: <br>
+                &emsp;&emsp;&emsp;- Set an output message as the environmental variable CHANGELOG_MSG stating only one CHANGELOG file is allowed
+                &emsp;&emsp;&emsp;- Print this message<br>
+                &emsp;&emsp;&emsp;- Exit with a bad status code<br>
             - ELSE IF the length is 0: <br>
                 - Set an output message as the environmental variable CHANGELOG_MSG stating a CHANGELOG file is required, <br>
                 - Print this message<br>
