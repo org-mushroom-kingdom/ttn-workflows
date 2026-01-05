@@ -102,18 +102,22 @@ jobs:
 
         # TODO: Rework this 
         # If testing manually in the ttn-workflows repo ONLY, manually set the PR_NUMBER
-        - name: 'Manual run: Set PR_NUMBER, SOURCE_BRANCH'
+        - name: 'Manual run: Set PR_NUMBER, SOURCE_BRANCH, EXPECTED_CHANGELOG_FILENAME'
           if: env.REPO=='org-mushroom-kingdom/ttn-workflows' && github.event_name == 'workflow_dispatch'
           run: |
             echo "Setting PR_NUMBER = 1" 
             echo "PR_NUMBER=1" >> $GITHUB_ENV
-            echo "Setting SOURCE_BRANCH = release/v1.1" 
-            echo "SOURCE_BRANCH=release/v1.1" >> $GITHUB_ENV
+            echo "Setting SOURCE_BRANCH = ${{ inputs.source_branch_man }}" 
+            echo "SOURCE_BRANCH=${{ inputs.source_branch_man }}" >> $GITHUB_ENV
+            echo "Setting EXPECTED_CHANGELOG_FILENAME = ${{ inputs.exp_changelog_filename_man }}" 
+            echo "EXPECTED_CHANGELOG_FILENAME=${{ inputs.exp_changelog_filename_man }}" >> $GITHUB_ENV
         
         - name: Echo relevant vars
           run: |
             echo "REPO = $REPO" 
             echo "PR_NUMBER = $PR_NUMBER" 
+            echo "SOURCE_BRANCH = $SOURCE_BRANCH" 
+            echo "EXPECTED_CHANGELOG_FILENAME = $EXPECTED_CHANGELOG_FILENAME" 
             echo "github.action_path = ${{ github.action_path }}" 
 
         - name: Set expected CHANGELOG filename
@@ -128,8 +132,6 @@ jobs:
             expected_changelog_filename="CHANGELOG-${repo_ttn_type}-${release_version}.txt"
             echo "expected_changelog_filename = ${expected_changelog_filename}"
             echo "EXPECTED_CHANGELOG_FILENAME=${expected_changelog_filename}" >> $GITHUB_ENV
-
-            # CHANGELOG-ttn-frontend-v1.0
 
         - name: Get PR changed files 
           run: |
