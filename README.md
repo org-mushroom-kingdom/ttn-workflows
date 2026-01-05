@@ -65,15 +65,15 @@ When called upon, this workflow will perform the following logic (Note: steps th
             &emsp;&emsp;- IF it begins with 'CHANGELOG': <br>
                 &emsp;&emsp;&emsp;- If true, add it to an array potential_changelog_files <br>
                 &emsp;&emsp;&emsp;- If false, do nothing <br>
-      &emsp;b. After the changed file LOOP has finished, assess the length of potential_changelog_files:
+      &emsp;b. After the changed file LOOP has finished, assess the length of potential_changelog_files: <br>
             &emsp;&emsp;- IF the length is > 1: <br>
                 &emsp;&emsp;&emsp;- Set an output message as the environmental variable CHANGELOG_MSG stating only one CHANGELOG file is allowed
                 &emsp;&emsp;&emsp;- Print this message<br>
                 &emsp;&emsp;&emsp;- Exit with a bad status code<br>
-            - ELSE IF the length is 0: <br>
-                - Set an output message as the environmental variable CHANGELOG_MSG stating a CHANGELOG file is required, <br>
-                - Print this message<br>
-                - Exit with a bad status code<br>
+            &emsp;&emsp;- ELSE IF the length is 0: <br>
+                &emsp;&emsp;&emsp;- Set an output message as the environmental variable CHANGELOG_MSG stating a CHANGELOG file is required, <br>
+                &emsp;&emsp;&emsp;- Print this message<br>
+                &emsp;&emsp;&emsp;- Exit with a bad status code<br>
             - ELSE (potential_changelog_files is exactly 1 length):<br>
                 - IF the file has the expected CHANGELOG name (see above subsection **__Expected CHANGELOG Filename__**): <br>
                     - If true:<br>
