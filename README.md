@@ -67,21 +67,21 @@ When called upon, this workflow will perform the following logic (Note: steps th
                 &emsp;&emsp;&emsp;- If false, do nothing <br>
       &emsp;b. After the changed file LOOP has finished, assess the length of potential_changelog_files: <br>
             &emsp;&emsp;- IF the length is > 1: <br>
-                &emsp;&emsp;&emsp;- Set an output message as the environmental variable CHANGELOG_MSG stating only one CHANGELOG file is allowed
+                &emsp;&emsp;&emsp;- Set an output message as the environmental variable CHANGELOG_MSG stating only one CHANGELOG file is allowed<br>
                 &emsp;&emsp;&emsp;- Print this message<br>
                 &emsp;&emsp;&emsp;- Exit with a bad status code<br>
             &emsp;&emsp;- ELSE IF the length is 0: <br>
-                &emsp;&emsp;&emsp;- Set an output message as the environmental variable CHANGELOG_MSG stating a CHANGELOG file is required, <br>
+                &emsp;&emsp;&emsp;- Set an output message as the environmental variable CHANGELOG_MSG stating a CHANGELOG file is required. <br>
                 &emsp;&emsp;&emsp;- Print this message<br>
                 &emsp;&emsp;&emsp;- Exit with a bad status code<br>
-            - ELSE (potential_changelog_files is exactly 1 length):<br>
-                - IF the file has the expected CHANGELOG name (see above subsection **__Expected CHANGELOG Filename__**): <br>
-                    - If true:<br>
-                        - Set an output message as the environmental variable CHANGELOG_MSG stating the name of the CHANGELOG file is correct. <br>
-                        - Print this message. <br>
-                        - Exit with a passing status code. <br>
-                    - If false: <br>
-                        - Set an output message as the environmental variable CHANGELOG_MSG stating the name of the CHANGELOG file is incorrect, as well as <br>what it should be. 
+            &emsp;&emsp;- ELSE (potential_changelog_files is exactly 1 length):<br>
+                &emsp;&emsp;&emsp;- IF the file has the expected CHANGELOG name (see above subsection **__Expected CHANGELOG Filename__**): <br>
+                    &emsp;&emsp;&emsp;&emsp;- If true:<br>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;- Set an output message as the environmental variable CHANGELOG_MSG stating the name of the CHANGELOG file is correct. <br>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;- Print this message. <br>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;- Exit with a passing status code. <br>
+                    &emsp;&emsp;&emsp;&emsp;- If false: <br>
+                        - Set an output message as the environmental variable CHANGELOG_MSG stating the name of the CHANGELOG file is incorrect, as well as what it should be. <br> 
                         - Print this message. <br>
                         - Exit with a bad status code.<br>
 10. Use the CHANGELOG_MSG environmental variable that was set in step 9 in conjunction with the Github API to put a comment on the PR stating the status of the CHANGELOG file quality checks.
