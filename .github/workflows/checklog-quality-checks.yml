@@ -171,7 +171,7 @@ jobs:
 
         - name: Run Python Script
           #TODO: Rework args to use inputs 
-          run: python ttn-workflows-repo/scripts/changelog-quality-check.py "nope.txt" "CHANGELOG_frontend_v1.1.txt"
+          run: python ttn-workflows-repo/scripts/changelog-quality-check.py "$CHANGED_FILES_STR" "$EXPECTED_CHANGELOG_FILENAME"
 
         # TODO: A multiline comment here will have <br>'s in it. This SHOULD work for Github PR comments but try to replace with \n and see what happens  
         - name: Echo CHANGELOG_MSG (set from Python Script)

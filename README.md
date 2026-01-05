@@ -59,7 +59,25 @@ When called upon, this workflow will perform the following logic (Note: steps th
       a. For each changed file (LOOP): <br>
             - IF it begins with 'CHANGELOG': <br>
                 - If true, add it to an array potential_changelog_files <br>
-                - If true, see IF this file has the expected CHANGELOG name (see above subsection **__Expected CHANGELOG Filename__**): <br>
-                    - If true, exit the LOOP early TODO Do we want to though?
-
-will look at a pull request's files. 
+                - If false, do nothing
+      b. After the changed file LOOP has finished, assess the length of potential_changelog_files:
+            - IF the length is > 1: <br>
+                - Set an output message as the environmental variable CHANGELOG_MSG stating only one CHANGELOG file is allowed
+                - Print this message
+                - Exit with a bad status code
+            - ELSE IF the length is 0: <br>
+                - Set an output message as the environmental variable CHANGELOG_MSG stating a CHANGELOG file is required, 
+                - Print this message
+                - Exit with a bad status code
+            - ELSE (potential_changelog_files is exactly 1 length):
+                - IF the file has the expected CHANGELOG name (see above subsection **__Expected CHANGELOG Filename__**): <br>
+                    - If true:
+                        - Set an output message as the environmental variable CHANGELOG_MSG stating the name of the CHANGELOG file is correct. 
+                        - Print this message. 
+                        - Exit with a passing status code. 
+                    - If false: 
+                        - Set an output message as the environmental variable CHANGELOG_MSG stating the name of the CHANGELOG file is incorrect, as well as what it should be. 
+                        - Print this message. 
+                        - Exit with a bad status code.
+10. Use the CHANGELOG_MSG environmental variable that was set in step 9 in conjunction with the Github API to put a comment on the PR stating the status of the CHANGELOG file quality checks.
+11. Based upon the status code of the Python script, the workflow returns a passing or failing status. This status can be leveraged with a branch protection rule to allow or disallow merging the PR into the target branch. 
