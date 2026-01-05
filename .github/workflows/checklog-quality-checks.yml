@@ -163,12 +163,6 @@ jobs:
         - name: Grant Execute Permission to Python Script
           run: chmod +x ttn-workflows-repo/scripts/changelog-quality-check.py
 
-        - name: "Manual run: set EXPECTED_CHANGELOG_FILENAME"
-          if: github.repository == 'ttn-workflows' && github.event_name == 'workflow_dispatch'
-          run: |
-            echo "Manually setting EXPECTED_CHANGELOG_FILENAME to ${{ inputs.exp_changelog_filename_man }}"
-            echo "EXPECTED_CHANGELOG_FILENAME=${{ inputs.exp_changelog_filename_man }}" >> $GITHUB_ENV
-
         - name: Run Python Script
           #TODO: Rework args to use inputs 
           run: python ttn-workflows-repo/scripts/changelog-quality-check.py "$CHANGED_FILES_STR" "$EXPECTED_CHANGELOG_FILENAME"
