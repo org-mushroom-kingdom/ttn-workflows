@@ -51,7 +51,6 @@ def main():
             print(f"{output}")
             # sys.exit(1)
 
-
     # TODO: Rework this into a function
     # The "a" flair means open the file in append mode
     # Each variable has to be set on a new line, so use \n as a best practice (even if no other vars get set in this script, it's a good habit to get into) 
