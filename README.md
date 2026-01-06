@@ -117,4 +117,6 @@ Scenario 1 is the most easily tested since the first option in each input match 
 
 Scenario 2 is tested by having the inputs be misaligned with each other. One CHANGELOG file exists in the changed file list, but does not match the expected CHANGELOG name.
 
-Scenario 3
+Scenario 3 is tested by using the pr_num_man option '4 - CHANGELOG_backend_v1.1.txt,CHANGELOG_backend_v1.2.txt' which corresponds to a pull request with more than one CHANGELOG file in it. 
+
+Scenario 4 is tested by using the pr_num_man option TODO MAKE THE PR
