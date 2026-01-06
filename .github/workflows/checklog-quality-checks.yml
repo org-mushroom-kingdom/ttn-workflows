@@ -50,8 +50,8 @@ on:
             required: true
             type: choice
             options:
-                - CHANGELOG_frontend_v1.1.txt
-                - CHANGELOG_backend_v1.2.txt
+                - 'CHANGELOG_frontend_v1.1.txt'
+                - 'CHANGELOG_backend_v1.2.txt'
         source_branch_man:
             description: 'Manual source branch name'
             required: true
@@ -63,11 +63,10 @@ on:
             description: 'Manual PR number (changed files)'
             required: true
             type: choice
-            #TODO: Make the PRs with the filenames below, replace X with PR num
             options:
-                - "2 - CHANGELOG_frontend_v1.1.txt"
-                - "3 - CHANGELOG_backend_v1.2.txt"
-                - "4 - CHANGELOG_backend_v1.1.txt,CHANGELOG_backend_v1.2.txt"
+                - '2 - CHANGELOG_frontend_v1.1.txt'
+                - '3 - CHANGELOG_backend_v1.2.txt'
+                - '4 - CHANGELOG_backend_v1.1.txt,CHANGELOG_backend_v1.2.txt'
 
   workflow_call:
     secrets:
