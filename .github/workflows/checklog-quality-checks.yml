@@ -52,13 +52,6 @@ on:
             options:
                 - 'CHANGELOG_frontend_v1.1.txt'
                 - 'CHANGELOG_backend_v1.2.txt'
-        source_branch_man:
-            description: 'Manual source branch name'
-            required: true
-            type: choice
-            options:
-                - 'release/frontend/v1.1'
-                - 'release/backend/v1.2'
         pr_num_man:
             description: 'Manual PR number (changed files)'
             required: true

@@ -56,11 +56,12 @@ When called upon, this workflow will perform the following logic (Note: steps th
 2. Checkout the repository using actions/checkout (this will checkout the caller repository)
 3. Print (echo) various environmental variables and select other variables
 4. Set the expected CHANGELOG filename based on the (caller) repository name and source branch name. (see above subsection **__Expected CHANGELOG Filename__**)
-5. Get the changed files of the pull request that triggered the workflow (i.e. the changed files of the pull request in the caller workflow's repo.). These files will be written to a comma-delimited string.
+5. Get the changed files of the pull request that triggered the workflow (i.e. the changed files of the pull request in the caller workflow's repo.). This is done via a Github API call. These files will be written to a comma-delimited string (the environmental variable CHANGED_FILES_STR).
 6. Uses actions/setup-python to setup Python in the Github-hosted runner, since a Python script will be called to do some of the work.
 7. Checks out the org-mushroom-kingdom/ttn-workflows repo. This is needed because the aforemetioned Python script is in the ttn-workflows repo. When this workflow is called, it is done within the context of the caller workflow's repository. Thus, we checkout the ttn-workflows repository to the 'ttn-workflows-repo' directory in our runner. We can then utilize the Python script via accessing this directory
 8. Grant execute permissions to the Python script (via the ttn-workflows-repo directory)
 9. Run the Python script: <br>
+      &emsp; We provide the expected CHANGELOG filename and changed file list as arguments. <br>
       &emsp;a. For each changed file (LOOP): <br>
             &emsp;&emsp;- IF it begins with 'CHANGELOG': <br>
                 &emsp;&emsp;&emsp;- If true, add it to an array potential_changelog_files <br>
@@ -94,8 +95,26 @@ TODO AND ALSO FROM THE CALLER??? HOW TO MENTION
 
 #### **Inputs**
 
+The following inputs are used for manual testing:
+
 | Name | Description | Type | Notes |
 |---|---|---|---|
-| exp_changelog_filename_man | Expected CHANGELOG filename | choice | Options: <br> - CHANGELOG_frontend_v1.1.txt <br> - CHANGELOG_backend_v1.2.txt |
-| source_branch_man | Manual source branch name | choice | Options: <br> - 'release/frontend/v1.1' <br> - 'release/backend/v1.2'|
-| pr_num_man | Manual PR number (changed files) | choice | Options: <br> - "2 - CHANGELOG_frontend_v1.1.txt" <br>- "3 - CHANGELOG_backend_v1.2.txt" <br> - "4 - CHANGELOG_backend_v1.1.txt,CHANGELOG_backend_v1.2.txt"|
+| exp_changelog_filename_man | Expected CHANGELOG filename | choice | Options: <br> - 'CHANGELOG_frontend_v1.1.txt' <br> - 'CHANGELOG_backend_v1.2.txt' |
+| pr_num_man | Manual PR number (changed files) | choice | Options: <br> - '2 - CHANGELOG_frontend_v1.1.txt' <br>- '3 - CHANGELOG_backend_v1.2.txt' <br> - '4 - CHANGELOG_backend_v1.1.txt,CHANGELOG_backend_v1.2.txt' |
+
+The first input is the name of the expected CHANGELOG filename. 
+
+The other input is what the changed files might be in hypothetical pull request (which we can refer to as "pull request"). There is a number before the lis of changed files. This is because that number points to a real pull request in the ttn-workflows repo; that number is used in the Github API call mentioned in the __**Workflow and Script Logic**__ section. Having it be set up this way allows us to test the workflow more organically (versus doing something like setting the CHANGED_FILES_STR to the value of some input). You may ask why didn't I be fancy and try to take pull requests from other repos and the reason I didn't is because this way is simpler and I also didn't even think about that until I wrote this sentence.
+
+The mixing and matching of these inputs allow you to produce the following scenarios:
+
+1. (Happy Path) The CHANGELOG file has the expected name because its name properly corresponds with the source (release) branch name and it is the only CHANGELOG file present in the "pull request"
+2. The CHANGELOG file is NOT properly named, because its name does NOT properly correspond with the source (release) branch name. However, it is the only CHANGELOG file present in the "pull request".
+3. There are too many potential CHANGELOG files.
+4. There are no CHANGELOG files. 
+
+Scenario 1 is the most easily tested since the first option in each input match up with each other. To test Scenario 1, simply just hit the Run test button without changing any input. You could also test Scenario 1 by using the second option of each input.
+
+Scenario 2 is tested by having the inputs be misaligned with each other. One CHANGELOG file exists in the changed file list, but does not match the expected CHANGELOG name.
+
+Scenario 3
