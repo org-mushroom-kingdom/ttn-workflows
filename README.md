@@ -44,13 +44,13 @@ Examples CHANGELOG filenames that would NOT be valid are:
 
 When assessing the changed files in a pull request, the workflow will assess how many potential CHANGELOG files there are. A potential CHANGELOG file is any file that begins with the substring "CHANGELOG" in this case. In the event the amount of potential CHANGELOG files is NOT 1, the workflow will evaluate this as a failure (even in a scenario where a properly-named CHANGELOG file may be present amongst other potential CHANGELOG files)
 
-#### **TODO SOME HEADER HERE**
+#### **Workflow and Script Logic**
 
 TODO: Text Formatting (MAG?)
 
-This workflow consists of 1 job 'changelog-check' (full name TODO FULL NAME). 
+This workflow consists of 1 job 'changelog-check' (full name 'Changelog Check (Exists and Naming)'). This workflow relies on a Python script for much of its work. 
 
-When called upon, this workflow will perform the following logic (Note: steps that are triggered by manual testing are not listed)
+When called upon, this workflow will perform the following logic (Note: steps that are triggered by manual testing are not listed. Additionally, the Python script is explained all in one step.)
 
 1. Set various environmental variables that relate to the pull request.
 2. Checkout the repository using actions/checkout (this will checkout the caller repository)
@@ -86,3 +86,15 @@ When called upon, this workflow will perform the following logic (Note: steps th
                         &emsp;&emsp;&emsp;&emsp;&emsp;- Exit with a bad status code.<br>
 10. Use the CHANGELOG_MSG environmental variable that was set in step 9 in conjunction with the Github API to put a comment on the PR stating the status of the CHANGELOG file quality checks.
 11. Based upon the status code of the Python script, the workflow returns a passing or failing status. This status can be leveraged with a branch protection rule to allow or disallow merging the PR into the target branch. 
+
+### Manual Testing
+
+This workflow has the workflow_dispatch trigger, meaning it can be triggered manually. This workflow was manually tested using the Github Actions UI page.
+TODO AND ALSO FROM THE CALLER??? HOW TO MENTION
+
+#### **Inputs**
+
+| Name | Description | Type | Notes |
+| exp_changelog_filename_man | Expected CHANGELOG filename | choice | Options: <br> - CHANGELOG_frontend_v1.1.txt <br> - CHANGELOG_backend_v1.2.txt |
+| source_branch_man | Manual source branch name | choice | Options: <br> - 'release/frontend/v1.1' <br> - 'release/backend/v1.2'
+| pr_num_man | Manual PR number (changed files) | choice | Options: <br> - "2 - CHANGELOG_frontend_v1.1.txt" <br>- "3 - CHANGELOG_backend_v1.2.txt"
