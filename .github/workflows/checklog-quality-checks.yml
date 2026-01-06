@@ -65,7 +65,7 @@ on:
             type: choice
             #TODO: Make the PRs with the filenames below, replace X with PR num
             options:
-                - "X - CHANGELOG_frontend_v1.1.txt"
+                - "2 - CHANGELOG_frontend_v1.1.txt"
                 - "X - CHANGELOG_backend_v1.2.txt"
                 - "X - CHANGELOG_backend_v1.1.txt,CHANGELOG_backend_v1.2.txt"
 
