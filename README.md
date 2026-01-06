@@ -95,6 +95,7 @@ TODO AND ALSO FROM THE CALLER??? HOW TO MENTION
 #### **Inputs**
 
 | Name | Description | Type | Notes |
+|---|---|---|---|
 | exp_changelog_filename_man | Expected CHANGELOG filename | choice | Options: <br> - CHANGELOG_frontend_v1.1.txt <br> - CHANGELOG_backend_v1.2.txt |
-| source_branch_man | Manual source branch name | choice | Options: <br> - 'release/frontend/v1.1' <br> - 'release/backend/v1.2'
-| pr_num_man | Manual PR number (changed files) | choice | Options: <br> - "2 - CHANGELOG_frontend_v1.1.txt" <br>- "3 - CHANGELOG_backend_v1.2.txt"
+| source_branch_man | Manual source branch name | choice | Options: <br> - 'release/frontend/v1.1' <br> - 'release/backend/v1.2'|
+| pr_num_man | Manual PR number (changed files) | choice | Options: <br> - "2 - CHANGELOG_frontend_v1.1.txt" <br>- "3 - CHANGELOG_backend_v1.2.txt"|
