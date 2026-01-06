@@ -7,3 +7,5 @@ An example CHANGELOG file. This name of this CHANGELOG will be correct if:
 It would be incorrect in cases like
 - The source branch name was release/v1.2
 - The repository this CHANGELOG file was in was is ttn-backend
+
+An additional change is made here for the sake of a different pull request that can be tested. 
