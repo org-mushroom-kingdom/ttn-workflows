@@ -60,6 +60,7 @@ on:
                 - '2 - CHANGELOG_frontend_v1.1.txt'
                 - '3 - CHANGELOG_backend_v1.2.txt'
                 - '4 - CHANGELOG_backend_v1.1.txt,CHANGELOG_backend_v1.2.txt'
+                - '5 - dummy-file.txt'
 
   workflow_call:
     secrets:
