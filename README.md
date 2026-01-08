@@ -50,13 +50,13 @@ TODO: Text Formatting (MAG?)
 
 This workflow consists of 1 job 'changelog-check' (full name 'Changelog Check (Exists and Naming)'). This workflow relies on a Python script for much of its work. 
 
-When called upon, this workflow will perform the following logic (Note: steps that are triggered by manual testing are not listed. Additionally, the Python script is explained all in one step.)
+When called upon, this workflow will perform the following logic <br>(Note: steps that are triggered by manual testing are not listed. Additionally, the Python script is explained all in one step.)
 
 1. Set various environmental variables that relate to the pull request.
 2. Checkout the repository using `actions/checkout` (this will checkout the caller repository)
 3. Print (echo) various environmental variables and select other variables
 4. Set the expected CHANGELOG filename based on the (caller) repository name and source branch name. (see above subsection **__Expected CHANGELOG Filename__**)
-5. Get the changed files of the pull request that triggered the workflow (i.e. the changed files of the pull request in the caller workflow's repo.). This is done via a Github API call. These files will be written to a comma-delimited string (the environmental variable CHANGED_FILES_STR).
+5. Get the changed files of the pull request that triggered the workflow (i.e. the changed files of the pull request in the caller workflow's repo.). This is done via a Github API call. These files will be written to a comma-delimited string (the environmental variable `CHANGED_FILES_STR`).
 6. Uses actions/setup-python to setup Python in the Github-hosted runner, since a Python script will be called to do some of the work.
 7. Checks out the org-mushroom-kingdom/ttn-workflows repo. This is needed because the aforemetioned Python script is in the ttn-workflows repo. When this workflow is called, it is done within the context of the caller workflow's repository. Thus, we checkout the ttn-workflows repository to the 'ttn-workflows-repo' directory in our runner. We can then utilize the Python script via accessing this directory
 8. Grant execute permissions to the Python script (via the ttn-workflows-repo directory)
