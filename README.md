@@ -53,7 +53,7 @@ This workflow consists of 1 job 'changelog-check' (full name 'Changelog Check (E
 When called upon, this workflow will perform the following logic (Note: steps that are triggered by manual testing are not listed. Additionally, the Python script is explained all in one step.)
 
 1. Set various environmental variables that relate to the pull request.
-2. Checkout the repository using actions/checkout (this will checkout the caller repository)
+2. Checkout the repository using `actions/checkout` (this will checkout the caller repository)
 3. Print (echo) various environmental variables and select other variables
 4. Set the expected CHANGELOG filename based on the (caller) repository name and source branch name. (see above subsection **__Expected CHANGELOG Filename__**)
 5. Get the changed files of the pull request that triggered the workflow (i.e. the changed files of the pull request in the caller workflow's repo.). This is done via a Github API call. These files will be written to a comma-delimited string (the environmental variable CHANGED_FILES_STR).
