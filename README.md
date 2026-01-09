@@ -24,7 +24,7 @@ This workflow will assess a pull request's files and ensure there is a singular,
 
 A properly named CHANGELOG file meets the following criteria:
 - Begins with the text "CHANGELOG"
-- Has the repository name in it (known in the script as release_verison) in the fashion of "org-mushroom-kingdom/ttn-*" where * is the desired text. This text (known in the script as `ttn_type`) should be after the CHANGELOG prefix and a dash separator (ex. if the repository is `org-mushroom-kingdom/ttn-frontend`, then the text 'frontend' should be present)
+- Has the repository name in it (known in the script as release_verison) in the fashion of `org-mushroom-kingdom/ttn-*` where * is the desired text. This text (known in the script as `ttn_type`) should be after the CHANGELOG prefix and a dash separator (ex. if the repository is `org-mushroom-kingdom/ttn-frontend`, then the text 'frontend' should be present)
 - Has the release version in it, after the above mentioned substring and a dash separator. The release version should match the name of the source branch that is being merged into the main/master branch (ex. if the source branch name is 'release/v1.1', the substring 'v1.1' should be present).
 - Ends with the extension ".txt"
 
@@ -57,14 +57,14 @@ When called upon, this workflow will perform the following logic <br>(Note: step
 3. Print (echo) various environmental variables and select other variables
 4. Set the expected CHANGELOG filename based on the (caller) repository name and source branch name. (see above subsection **__Expected CHANGELOG Filename__**)
 5. Get the changed files of the pull request that triggered the workflow (i.e. the changed files of the pull request in the caller workflow's repo.). This is done via a Github API call. These files will be written to a comma-delimited string (the environmental variable `CHANGED_FILES_STR`).
-6. Uses actions/setup-python to setup Python in the Github-hosted runner, since a Python script will be called to do some of the work.
-7. Checks out the org-mushroom-kingdom/ttn-workflows repo. This is needed because the aforemetioned Python script is in the ttn-workflows repo. When this workflow is called, it is done within the context of the caller workflow's repository. Thus, we checkout the ttn-workflows repository to the 'ttn-workflows-repo' directory in our runner. We can then utilize the Python script via accessing this directory
-8. Grant execute permissions to the Python script (via the ttn-workflows-repo directory)
+6. Uses `actions/setup-python` to setup Python in the Github-hosted runner, since a Python script will be called to do some of the work.
+7. Checks out the `org-mushroom-kingdom/ttn-workflows` repo. This is needed because the aforemetioned Python script is in the `ttn-workflows` repo. When this workflow is called, it is done within the context of the caller workflow's repository. Thus, we checkout the `ttn-workflows` repository to the `ttn-workflows-repo/` directory in our runner. We can then utilize the Python script via accessing this directory
+8. Grant execute permissions to the Python script (via the `ttn-workflows-repo/` directory)
 9. Run the Python script: <br>
       &emsp; We provide the expected CHANGELOG filename and changed file list as arguments. <br>
       &emsp;a. For each changed file (LOOP): <br>
             &emsp;&emsp;- IF it begins with 'CHANGELOG': <br>
-                &emsp;&emsp;&emsp;- If true, add it to an array potential_changelog_files <br>
+                &emsp;&emsp;&emsp;- If true, add it to an array `potential_changelog_files` <br>
                 &emsp;&emsp;&emsp;- If false, do nothing <br>
       &emsp;b. After the changed file LOOP has finished, assess the length of potential_changelog_files: <br>
             &emsp;&emsp;- IF the length is > 1: <br>
