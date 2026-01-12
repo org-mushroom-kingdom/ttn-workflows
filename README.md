@@ -2,7 +2,7 @@
 
 A repository that stores workflows and things surrounding them (scripts, etc) for the fake app "Toad Town News." Most of the workflows here should be reusable.
 
-1-3-26: At the time of writing, this only has one reusable workflow changelog-quality-check.py used as a supplement to the Medium article 'TODO ARTICLE NAME'. However, it may store more reusable workflows for testing purposes or as additional supplmental material for future articles.
+1-3-26: At the time of writing, this only has one reusable workflow changelog-quality-check.py used as a supplement to the Medium article 'TODO ARTICLE NAME'. However, it may store more reusable workflows for testing purposes or as additional supplemental material for future articles.
 
 # Workflows
 
@@ -14,7 +14,7 @@ A reusable workflow that should be called upon by caller workflows when the call
 
 ### Business Logic
 
-The following section and subsections explain how the TODO NAME reusable workflow performs its work. 
+The following section and subsections explain how the `changelog-quality-check.py` reusable workflow performs its work. 
 
 #### **Expected CHANGELOG Filename**
 
