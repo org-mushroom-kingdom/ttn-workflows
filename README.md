@@ -46,7 +46,7 @@ When assessing the changed files in a pull request, the workflow will assess how
 
 #### **Workflow and Script Logic**
 
-TODO: Text Formatting (MAG?)
+TODO: Text Formatting
 
 This workflow consists of 1 job 'changelog-check' (full name 'Changelog Check (Exists and Naming)'). This workflow relies on a Python script for much of its work. 
 
@@ -66,26 +66,26 @@ When called upon, this workflow will perform the following logic <br>(Note: step
             &emsp;&emsp;- IF it begins with 'CHANGELOG': <br>
                 &emsp;&emsp;&emsp;- If true, add it to an array `potential_changelog_files` <br>
                 &emsp;&emsp;&emsp;- If false, do nothing <br>
-      &emsp;b. After the changed file LOOP has finished, assess the length of potential_changelog_files: <br>
+      &emsp;b. After the changed file LOOP has finished, assess the length of `potential_changelog_files`: <br>
             &emsp;&emsp;- IF the length is > 1: <br>
-                &emsp;&emsp;&emsp;- Set an output message as the environmental variable CHANGELOG_MSG stating only one CHANGELOG file is allowed<br>
+                &emsp;&emsp;&emsp;- Set an output message as the environmental variable `CHANGELOG_MSG` stating only one CHANGELOG file is allowed<br>
                 &emsp;&emsp;&emsp;- Print this message<br>
                 &emsp;&emsp;&emsp;- Exit with a bad status code<br>
             &emsp;&emsp;- ELSE IF the length is 0: <br>
-                &emsp;&emsp;&emsp;- Set an output message as the environmental variable CHANGELOG_MSG stating a CHANGELOG file is required. <br>
+                &emsp;&emsp;&emsp;- Set an output message as the environmental variable `CHANGELOG_MSG` stating a CHANGELOG file is required. <br>
                 &emsp;&emsp;&emsp;- Print this message<br>
                 &emsp;&emsp;&emsp;- Exit with a bad status code<br>
-            &emsp;&emsp;- ELSE (potential_changelog_files is exactly 1 length):<br>
+            &emsp;&emsp;- ELSE (`potential_changelog_files` is exactly 1 length):<br>
                 &emsp;&emsp;&emsp;- IF the file has the expected CHANGELOG name (see above subsection **__Expected CHANGELOG Filename__**): <br>
                     &emsp;&emsp;&emsp;&emsp;- If true:<br>
-                        &emsp;&emsp;&emsp;&emsp;&emsp;- Set an output message as the environmental variable CHANGELOG_MSG stating the name of the CHANGELOG file is correct. <br>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;- Set an output message as the environmental variable `CHANGELOG_MSG` stating the name of the CHANGELOG file is correct. <br>
                         &emsp;&emsp;&emsp;&emsp;&emsp;- Print this message. <br>
                         &emsp;&emsp;&emsp;&emsp;&emsp;- Exit with a passing status code. <br>
                     &emsp;&emsp;&emsp;&emsp;- If false: <br>
                         &emsp;&emsp;&emsp;&emsp;&emsp;- Set an output message as the environmental variable CHANGELOG_MSG stating the name of the CHANGELOG file is incorrect, as well as what it should be. <br> 
                         &emsp;&emsp;&emsp;&emsp;&emsp;- Print this message. <br>
                         &emsp;&emsp;&emsp;&emsp;&emsp;- Exit with a bad status code.<br>
-10. Use the CHANGELOG_MSG environmental variable that was set in step 9 in conjunction with the Github API to put a comment on the PR stating the status of the CHANGELOG file quality checks.
+10. Use the `CHANGELOG_MSG` environmental variable that was set in step 9 in conjunction with the Github API to put a comment on the PR stating the status of the CHANGELOG file quality checks.
 11. Based upon the status code of the Python script, the workflow returns a passing or failing status. This status can be leveraged with a branch protection rule to allow or disallow merging the PR into the target branch. 
 
 ### Manual Testing
