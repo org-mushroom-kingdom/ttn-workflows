@@ -98,10 +98,10 @@ jobs:
         - name: 'Manual run: Set PR_NUMBER, SOURCE_BRANCH, EXPECTED_CHANGELOG_FILENAME'
           if: env.REPO=='org-mushroom-kingdom/ttn-workflows' && github.event_name == 'workflow_dispatch'
           run: |
+            pr_num="${inputs.pr_num_man:0:1}"
+            echo "pr_num="${pr_num}"
             echo "Setting PR_NUMBER = 1" 
             echo "PR_NUMBER=1" >> $GITHUB_ENV
-            echo "Setting SOURCE_BRANCH = ${{ inputs.source_branch_man }}" 
-            echo "SOURCE_BRANCH=${{ inputs.source_branch_man }}" >> $GITHUB_ENV
             echo "Setting EXPECTED_CHANGELOG_FILENAME = ${{ inputs.exp_changelog_filename_man }}" 
             echo "EXPECTED_CHANGELOG_FILENAME=${{ inputs.exp_changelog_filename_man }}" >> $GITHUB_ENV
         
