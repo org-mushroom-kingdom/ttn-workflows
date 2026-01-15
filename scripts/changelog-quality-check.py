@@ -20,7 +20,7 @@ def main():
     output = ""
     changelog_found_msg = "A CHANGELOG file was found (specifically, a file beginning with 'CHANGELOG' was found)"
     only_1_changelog_msg = f"All release branches going into main must have exactly 1 CHANGELOG file in the pull request."
-    exp_name_msg = f"The name of the CHANGELOG file should be {expected_changelog_name}"
+    exp_name_msg = f"The name of the CHANGELOG file should be '{expected_changelog_name}'"
 
     for changed_filename in changed_files_arr:
         if changed_filename.startswith("CHANGELOG"):
@@ -47,7 +47,7 @@ def main():
             print(f"{output}")
             # sys.exit(0)
         else:
-            output = f"{changelog_found_msg}, but is not the correct name for this release branch. The name of the found CHANGELOG file is {potential_changelog_files[0]}.  {exp_name_msg}"
+            output = f"{changelog_found_msg}, but is not the correct name for this release branch. <br>The name of the found CHANGELOG file is '{potential_changelog_files[0]}'.<br>  {exp_name_msg}"
             print(f"{output}")
             # sys.exit(1)
 
