@@ -100,7 +100,7 @@ jobs:
           run: |
             pr_num_man_input="${{ inputs.pr_num_man }}"
             # pr_num="${pr_num_man_input:0:1}"
-            pr_num="${INPUT_pr_num_man:0:1}"
+            pr_num="${INPUT_PR_NUM_MAN:0:1}"
             echo "Setting PR_NUMBER = ${pr_num}" 
             echo "PR_NUMBER=1" >> $GITHUB_ENV
             echo "Setting EXPECTED_CHANGELOG_FILENAME = ${{ inputs.exp_changelog_filename_man }}" 
