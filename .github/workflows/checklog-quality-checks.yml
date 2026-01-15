@@ -176,9 +176,9 @@ jobs:
           run: |
             if [[ "$CHANGELOG_MSG" == *"matches"* ]]
             then
-              echo -e "$GREEN $CHANGELOG_MSG $DONE"
+              echo -e "$GREEN $CHANGELOG_MSG $RESET"
             else
-              echo -e "$RED $CHANGELOG_MSG $DONE
+              echo -e "$RED $CHANGELOG_MSG $RESET"
             fi
 
             
