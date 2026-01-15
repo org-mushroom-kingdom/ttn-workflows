@@ -135,7 +135,7 @@ jobs:
                 /repos/$REPO/pulls/$PR_NUMBER/files | jq -r '.[].filename')
             for changed_full_filename in "${changed_full_files[@]}"
             do
-              changed_filename="${changed_full_filename##*/}
+              changed_filename="${changed_full_filename##*/}"
               echo "changed_filename=${changed_filename}"
             done
             
