@@ -128,11 +128,17 @@ jobs:
 
         - name: Get PR changed files 
           run: |
-            mapfile -t changed_files < <(gh api \
+            mapfile -t changed_full_files < <(gh api \
                 -H "Accept: application/vnd.github+json" \
                 -H "X-GitHub-Api-Version: 2022-11-28" \
                 -H "Authorization: Bearer $GH_TOKEN" \
                 /repos/$REPO/pulls/$PR_NUMBER/files | jq -r '.[].filename')
+            for changed_full_filename in "${changed_full_files[@]}"
+            do
+              changed_filename="${changed_full_filename##*/}
+              echo "changed_filename=${changed_filename}"
+            done
+            
             echo "changed_files = ${changed_files[@]}"
             IFS=","
             # Expand the array to a single string using IFS as delimiter
