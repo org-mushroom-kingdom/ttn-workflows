@@ -47,7 +47,7 @@ def main():
             print(f"{output}")
             # sys.exit(0)
         else:
-            output = f"{changelog_found_msg}, but is not the correct name for this release branch. {exp_name_msg}"
+            output = f"{changelog_found_msg}, but is not the correct name for this release branch. The name of the found CHANGELOG file is {potential_changelog_files[0]}.  {exp_name_msg}"
             print(f"{output}")
             # sys.exit(1)
 
