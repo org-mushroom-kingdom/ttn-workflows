@@ -87,6 +87,9 @@ jobs:
         # Need to replace this with secrets.SOMETHING_THAT_DOES_ORG_READ 
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         CHANGED_FILES_STR: ""
+        RED: "\e[31m"
+        GREEN: "\e[32m"
+        RESET: "\e[0m"
     steps:
       
         # This will checkout the caller repo if event is workflow_call
@@ -170,8 +173,13 @@ jobs:
 
         # TODO: A multiline comment here will have <br>'s in it. This SHOULD work for Github PR comments but try to replace with \n and see what happens  
         - name: Echo CHANGELOG_MSG (set from Python Script)
-          run: echo "CHANGELOG_MSG = $CHANGELOG_MSG"
-
+          run: |
+            if [[ "$CHANGELOG_MSG" == *"matches"* ]]
+            then
+              echo -e "$GREEN $CHANGELOG_MSG $DONE"
+            else
+              echo -e "$RED $CHANGELOG_MSG $DONE
+            fi
 
             
 
