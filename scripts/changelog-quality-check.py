@@ -46,7 +46,7 @@ def main():
             output = f"{changelog_found_msg} and matches the expected naming convention for this repo and release branch."
             print(f"{output}")
             # sys.exit(0)
-        elif:
+        else:
             output = f"{changelog_found_msg}, but is not the correct name for this release branch. {exp_name_msg}"
             print(f"{output}")
             # sys.exit(1)
