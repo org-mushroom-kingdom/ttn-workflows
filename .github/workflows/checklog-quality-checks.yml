@@ -186,9 +186,9 @@ jobs:
             echo "CHANGELOG_CHECK_PASSED = $CHANGELOG_CHECK_PASSED"
             if [[ "$CHANGELOG_CHECK_PASSED" == "True" ]]
             then
-              echo "YAY!"
+              exit 0
             else
-              echo "NAY!"
+              exit 1
             fi
 
             
