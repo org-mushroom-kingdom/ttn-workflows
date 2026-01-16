@@ -96,7 +96,6 @@ jobs:
         - name: Checkout repo
           uses: actions/checkout@v4
 
-        # TODO: Rework this 
         # If testing manually in the ttn-workflows repo ONLY, manually set the PR_NUMBER
         - name: 'Manual run: Set PR_NUMBER, SOURCE_BRANCH, EXPECTED_CHANGELOG_FILENAME'
           if: env.REPO=='org-mushroom-kingdom/ttn-workflows' && github.event_name == 'workflow_dispatch'
@@ -156,7 +155,6 @@ jobs:
           with:
             python-version: '3.13' 
 
-        # TODO: Use these if below step doesn't work      
         # TODO: TOKEN????????  
         - name: Checkout ttn-workflows repo
           uses: actions/checkout@v4
@@ -171,7 +169,6 @@ jobs:
           #TODO: Rework args to use inputs 
           run: python ttn-workflows-repo/scripts/changelog-quality-check.py "$CHANGED_FILES_STR" "$EXPECTED_CHANGELOG_FILENAME"
 
-        # TODO: A multiline comment here will have <br>'s in it. This SHOULD work for Github PR comments but try to replace with \n and see what happens  
         - name: Echo CHANGELOG_MSG (set from Python Script)
           run: |
             if [[ "$CHANGELOG_MSG" == *"matches"* ]]
@@ -180,6 +177,9 @@ jobs:
             else
               echo -e "$RED $CHANGELOG_MSG $RESET"
             fi
+        
+        # TODO: A multiline comment here will have <br>'s in it. This SHOULD work for Github PR comments but try to replace with \n and see what happens  
+        # TODO: The actual comment step
 
         - name: Return status
           run: |
