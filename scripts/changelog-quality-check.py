@@ -30,7 +30,7 @@ def main():
     # If more than one CHANGELOG file exists, don't bother checking for a passing name.
     if len(potential_changelog_files) >1:
         output = f"There are multiple files in the pull request that begin with CHANGELOG. {only_1_changelog_msg} {exp_name_msg}"
-        # sys.exit(1)
+        sys.exit(1)
     elif len(potential_changelog_files) == 0:
         # Note: Make sure synchronize is specified in pull_request event in caller workflows.
         # TODO: Make sure <br> and += work in Python as expected.
@@ -47,7 +47,7 @@ def main():
             print(f"{output}")
             # sys.exit(0)
         else:
-            output = f"{changelog_found_msg}, but is not the correct name for this release branch. <br>The name of the found CHANGELOG file is '{potential_changelog_files[0]}'.<br>  {exp_name_msg}"
+            output = f"{changelog_found_msg}, but is not the correct name for this release branch.<br>The name of the found CHANGELOG file is '{potential_changelog_files[0]}'.<br>{exp_name_msg}"
             print(f"{output}")
             # sys.exit(1)
 
