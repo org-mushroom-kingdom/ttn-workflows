@@ -67,6 +67,7 @@ on:
         # TODO: Rename this hahahaha
         SOMETHING_THAT_DOES_ORG_READ:
             required: true
+    # TODO: Mess with these
     outputs:
         status_code:
             description: "Status code: Result of CHANGELOG file exists and named properly"
@@ -156,11 +157,14 @@ jobs:
             python-version: '3.13' 
 
         # TODO: TOKEN????????  
+        # Manual run doesn't need token, but a caller workflow does. Is it possible to account for both in one step?
+        # Try this --> token: ${{ <your_condition> && secrets.PAT || '' }}
         - name: Checkout ttn-workflows repo
           uses: actions/checkout@v4
           with:
             repository: org-mushroom-kingdom/ttn-workflows
             path: ttn-workflows-repo
+            token: ${{ secrets.SOMETHING_THAT_DOES_ORG_READ }}
 
         - name: Grant Execute Permission to Python Script
           run: chmod +x ttn-workflows-repo/scripts/changelog-quality-check.py
