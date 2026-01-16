@@ -25,7 +25,7 @@ def main():
 
     for changed_filename in changed_files_arr:
         if changed_filename.startswith("CHANGELOG"):
-            print("changed filename starts with CHANGELOG")
+            # print("Found a changed file whose filename starts with CHANGELOG")
             potential_changelog_files.append(changed_filename)
 
     # If more than one CHANGELOG file exists, don't bother checking for a passing name.
@@ -54,13 +54,7 @@ def main():
     print("Writing this message to env var CHNAGELOG_MSG...")
     with open(github_env_file, "a") as github_env:
         github_env.write(f"CHANGELOG_MSG={output}\n")
-
-    if changelog_check_passed:
-        print("YAY")
-        # sys.exit(0)
-    else:
-        print("NAY")
-        # sys.exit(1)
+        github_env.write(f"CHANGELOG_CHECK_PASSED={changelog_check_passed}\n")
 
 # __name__ is a Python built-in. It is the name of the Python module assessed by the interpreter (usually CPython)
 # __main__ is the name of the environment where top-level code is run: top-level imports all other module the program needs

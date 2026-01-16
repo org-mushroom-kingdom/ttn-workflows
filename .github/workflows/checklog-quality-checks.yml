@@ -181,6 +181,15 @@ jobs:
               echo -e "$RED $CHANGELOG_MSG $RESET"
             fi
 
+        - name: Return status
+          run: |
+            if [[ "$CHANGELOG_CHECK_PASSED" == "true" ]]
+            then
+              echo "YAY!"
+            else
+              echo "NAY!"
+            fi
+
             
 
 
