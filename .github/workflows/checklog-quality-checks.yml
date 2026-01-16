@@ -183,6 +183,7 @@ jobs:
 
         - name: Return status
           run: |
+            echo "CHANGELOG_CHECK_PASSED = $CHANGELOG_CHECK_PASSED"
             if [[ "$CHANGELOG_CHECK_PASSED" == "true" ]]
             then
               echo "YAY!"
