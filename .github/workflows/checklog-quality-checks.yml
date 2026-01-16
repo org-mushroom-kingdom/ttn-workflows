@@ -166,7 +166,6 @@ jobs:
           run: chmod +x ttn-workflows-repo/scripts/changelog-quality-check.py
 
         - name: Run Python Script
-          #TODO: Rework args to use inputs 
           run: python ttn-workflows-repo/scripts/changelog-quality-check.py "$CHANGED_FILES_STR" "$EXPECTED_CHANGELOG_FILENAME"
 
         - name: Echo CHANGELOG_MSG (set from Python Script)
