@@ -15,6 +15,7 @@ def main():
 
     changed_files_arr = changed_files_str.split(',')
     potential_changelog_files = []
+    changelog_check_passed = False
     github_env_file = os.getenv('GITHUB_ENV')
 
     output = ""
@@ -30,34 +31,36 @@ def main():
     # If more than one CHANGELOG file exists, don't bother checking for a passing name.
     if len(potential_changelog_files) >1:
         output = f"There are multiple files in the pull request that begin with CHANGELOG. {only_1_changelog_msg} {exp_name_msg}"
-        sys.exit(1)
     elif len(potential_changelog_files) == 0:
         # Note: Make sure synchronize is specified in pull_request event in caller workflows.
         # TODO: Make sure <br> and += work in Python as expected.
         output = f"No CHANGELOG file found. {only_1_changelog_msg}<br>"
         output+= f"{exp_name_msg}<br>"
         output+= f"Please either amend this PR to include the CHANGELOG file, or close this PR and create a new one with the CHANGELOG file."
-        print(f"{output}")
-        # sys.exit(1)
+    
     else:
         # There must be only 1 potential CHANGELOG file to assess
         changelog_file_of_interest = potential_changelog_files[0]
         if potential_changelog_files[0] ==  expected_changelog_name:
             output = f"{changelog_found_msg} and matches the expected naming convention for this repo and release branch."
-            print(f"{output}")
-            # sys.exit(0)
+            changelog_check_passed = True
         else:
             output = f"{changelog_found_msg}, but is not the correct name for this release branch.<br>The name of the found CHANGELOG file is '{potential_changelog_files[0]}'.<br>{exp_name_msg}"
-            print(f"{output}")
-            # sys.exit(1)
-
+        
+    print(f"{output}")
     # TODO: Rework this into a function
     # The "a" flair means open the file in append mode
     # Each variable has to be set on a new line, so use \n as a best practice (even if no other vars get set in this script, it's a good habit to get into) 
-    print("About to write to GITHUB_ENV")
+    print("Writing this message to env var CHNAGELOG_MSG...")
     with open(github_env_file, "a") as github_env:
         github_env.write(f"CHANGELOG_MSG={output}\n")
-    # github_env_file.write(f"{CHANGELOG_MSG}={output}\n")
+
+    if changelog_check_passed:
+        print("YAY")
+        # sys.exit(0)
+    else:
+        print("NAY")
+        # sys.exit(1)
 
 # __name__ is a Python built-in. It is the name of the Python module assessed by the interpreter (usually CPython)
 # __main__ is the name of the environment where top-level code is run: top-level imports all other module the program needs
