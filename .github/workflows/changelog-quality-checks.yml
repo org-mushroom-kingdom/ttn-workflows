@@ -64,8 +64,8 @@ on:
 
   workflow_call:
     secrets:
-        # TODO: Rename this hahahaha
-        SOMETHING_THAT_DOES_ORG_READ:
+        # From caller workflow, has repo and workflow permissions
+        token:
             required: true
     # TODO: Mess with these
     outputs:
@@ -164,7 +164,7 @@ jobs:
           with:
             repository: org-mushroom-kingdom/ttn-workflows
             path: ttn-workflows-repo
-            token: ${{ secrets.SOMETHING_THAT_DOES_ORG_READ }}
+            token: ${{ secrets.token }}
 
         - name: Grant Execute Permission to Python Script
           run: chmod +x ttn-workflows-repo/scripts/changelog-quality-check.py
