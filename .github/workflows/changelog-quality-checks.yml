@@ -87,6 +87,7 @@ jobs:
         TARGET_BRANCH: ${{ github.base_ref }}
         # Need to replace this with secrets.SOMETHING_THAT_DOES_ORG_READ 
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        PATH: ""
         CHANGED_FILES_STR: ""
         RED: "\e[31m"
         GREEN: "\e[32m"
@@ -156,22 +157,23 @@ jobs:
           with:
             python-version: '3.13' 
 
-        # TODO: TOKEN????????  
-        # Manual run doesn't need token, but a caller workflow does. Is it possible to account for both in one step?
-        # Try this --> token: ${{ <your_condition> && secrets.PAT || '' }}
         - name: Checkout ttn-workflows repo
+          if: github.repository != 'org-mushroom-kingdom/ttn-workflows'
           uses: actions/checkout@v4
           with:
             repository: org-mushroom-kingdom/ttn-workflows
             path: ttn-workflows-repo
-            # token: ${{ secrets.token }}
-            # token: ${{ github.repository != 'ttn-workflows' && secrets.token || '' }}
-        
+            token: ${{ secrets.token }}
+            
+        - name: Set PATH (if non-manually triggered)
+          run: |
+            echo "PATH=ttn-workflows-repo" >> $GITHUB_ENV
+
         - name: Grant Execute Permission to Python Script
-          run: chmod +x ttn-workflows-repo/scripts/changelog-quality-check.py
+          run: chmod +x $PATH/scripts/changelog-quality-check.py
 
         - name: Run Python Script
-          run: python ttn-workflows-repo/scripts/changelog-quality-check.py "$CHANGED_FILES_STR" "$EXPECTED_CHANGELOG_FILENAME"
+          run: python $PATH/scripts/changelog-quality-check.py "$CHANGED_FILES_STR" "$EXPECTED_CHANGELOG_FILENAME"
 
         - name: Echo CHANGELOG_MSG (set from Python Script)
           run: |
