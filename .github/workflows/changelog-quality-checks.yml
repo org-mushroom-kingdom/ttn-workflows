@@ -87,7 +87,7 @@ jobs:
         TARGET_BRANCH: ${{ github.base_ref }}
         # Need to replace this with secrets.SOMETHING_THAT_DOES_ORG_READ 
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        REPO_PATH: ""
+        REPO_PATH: "."
         CHANGED_FILES_STR: ""
         RED: "\e[31m"
         GREEN: "\e[32m"
