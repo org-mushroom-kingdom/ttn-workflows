@@ -51,7 +51,7 @@ def main():
     # TODO: Rework this into a function
     # The "a" flair means open the file in append mode
     # Each variable has to be set on a new line, so use \n as a best practice (even if no other vars get set in this script, it's a good habit to get into) 
-    print("Writing this message to env var CHNAGELOG_MSG...")
+    print("Writing this message to env var CHANGELOG_MSG...")
     with open(github_env_file, "a") as github_env:
         github_env.write(f"CHANGELOG_MSG={output}\n")
         github_env.write(f"CHANGELOG_CHECK_PASSED={changelog_check_passed}\n")
