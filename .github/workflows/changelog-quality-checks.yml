@@ -166,6 +166,7 @@ jobs:
             path: ttn-workflows-repo
             # token: ${{ secrets.token }}
             token: ${{ github.repository != 'ttn-workflows' && secrets.token || '' }}
+        
         - name: Grant Execute Permission to Python Script
           run: chmod +x ttn-workflows-repo/scripts/changelog-quality-check.py
 
