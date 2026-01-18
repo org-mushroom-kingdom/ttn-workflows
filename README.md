@@ -2,7 +2,7 @@
 
 A repository that stores workflows and things surrounding them (scripts, etc) for the fake app "Toad Town News." Most of the workflows here should be reusable.
 
-1-3-26: At the time of writing, this only has one reusable workflow changelog-quality-check.py used as a supplement to the Medium article 'TODO ARTICLE NAME'. However, it may store more reusable workflows for testing purposes or as additional supplemental material for future articles.
+1-3-26: At the time of writing, this only has one reusable workflow `changelog-quality-checks.yml` used as a supplement to the Medium article 'TODO ARTICLE NAME'. However, it may store more reusable workflows for testing purposes or as additional supplemental material for future articles.
 
 # Workflows
 
@@ -10,21 +10,26 @@ A repository that stores workflows and things surrounding them (scripts, etc) fo
 
 ### Trigger
 
-A reusable workflow that should be called upon by caller workflows when the caller workflow's repository has a pull request (opened, synchronize, or reopened)that is a release branch being merged into the main/master branch. A release branch will have the word 'release' as a prefix. See more details in caller workflow repos like ttn-frontend.
+A reusable workflow that should be called upon by caller workflows when the caller workflow's repository has certain pull request activity (opened, synchronize, or reopened) that is a release branch being merged into the main branch. A release branch will have the word 'release' as a prefix. See more details in caller workflow repos like `ttn-frontend`.
 
 ### Business Logic
 
 The following section and subsections explain how the `changelog-quality-check.py` reusable workflow performs its work. 
 
-#### **Expected CHANGELOG Filename**
 
-TODO: LOTS of formatting
+#### **CHANGELOG File Quantity Check**
 
 This workflow will assess a pull request's files and ensure there is a singular, properly named CHANGELOG file. 
 
+When assessing the changed files in a pull request, the workflow will assess how many potential CHANGELOG files there are. A potential CHANGELOG file is any file that begins with the substring "CHANGELOG" in this case. In the event the amount of potential CHANGELOG files is NOT 1, the workflow will evaluate this as a failure (even in a scenario where a properly-named CHANGELOG file may be present amongst other potential CHANGELOG files)
+
+#### **Expected CHANGELOG Filename**
+
+When a singular potential CHANGELOG file has been identified, it will be assessed to ensure it has the expected filename. 
+
 A properly named CHANGELOG file meets the following criteria:<br>
 - Begins with the text "CHANGELOG"
-- Has the repository name in it (known in the script as release_verison) in the fashion of `org-mushroom-kingdom/ttn-*` where * is the desired text. This text (known in the script as `ttn_type`) should be after the CHANGELOG prefix and a dash separator (ex. if the repository is `org-mushroom-kingdom/ttn-frontend`, then the text 'frontend' should be present)
+- Has the repository name in it (known in the script as `release_verison`) in the fashion of `org-mushroom-kingdom/ttn-*` where * is the desired text. This text (known in the script as `ttn_type`) should be after the CHANGELOG prefix and a dash separator (ex. if the repository is `org-mushroom-kingdom/ttn-frontend`, then the text 'frontend' should be present)
 - Has the release version in it, after the above mentioned substring and a dash separator. The release version should match the name of the source branch that is being merged into the main/master branch (ex. if the source branch name is 'release/v1.1', the substring 'v1.1' should be present).
 - Ends with the extension ".txt"
 
@@ -36,19 +41,14 @@ For example, given the following scenario:
 The expected CHANGELOG filename would be `CHANGELOG-frontend-v1.1.txt`.
 
 Examples CHANGELOG filenames that would NOT be valid are:
-- `CHANGELOGfrontend-v1.1.txt` (lacks a dash between CHANGELOG and the ttn_type (frontend))
-- `CHANGELOG-ttn-frontend-v1.1.txt` (has 'ttn' in it, when the expected ttn_type should be 'frontend')
+- `CHANGELOGfrontend-v1.1.txt` (lacks a dash between CHANGELOG and the `ttn_type` (frontend))
+- `CHANGELOG-ttn-frontend-v1.1.txt` (has 'ttn' in it, when the expected `ttn_type` should be 'frontend')
 - `CHANGELOGfrontend-1.1.txt` (has '1.1' in it, when the release_version should be 'v1.1')
 
-#### **CHANGELOG File Quantity Check**
-
-When assessing the changed files in a pull request, the workflow will assess how many potential CHANGELOG files there are. A potential CHANGELOG file is any file that begins with the substring "CHANGELOG" in this case. In the event the amount of potential CHANGELOG files is NOT 1, the workflow will evaluate this as a failure (even in a scenario where a properly-named CHANGELOG file may be present amongst other potential CHANGELOG files)
 
 #### **Workflow and Script Logic**
 
-TODO: Text Formatting
-
-This workflow consists of 1 job 'changelog-check' (full name 'Changelog Check (Exists and Naming)'). This workflow relies on a Python script for much of its work. 
+This workflow consists of one job `changelog-check` (full name 'Changelog Check (Exists and Naming)'). This workflow relies on a Python script for much of its work. 
 
 When called upon, this workflow will perform the following logic <br>(Note: steps that are triggered by manual testing are not listed. Additionally, the Python script is explained all in one step.)
 
@@ -82,7 +82,7 @@ When called upon, this workflow will perform the following logic <br>(Note: step
                         &emsp;&emsp;&emsp;&emsp;&emsp;- Print this message. <br>
                         &emsp;&emsp;&emsp;&emsp;&emsp;- Exit with a passing status code. <br>
                     &emsp;&emsp;&emsp;&emsp;- If false: <br>
-                        &emsp;&emsp;&emsp;&emsp;&emsp;- Set an output message as the environmental variable CHANGELOG_MSG stating the name of the CHANGELOG file is incorrect, as well as what it should be. <br> 
+                        &emsp;&emsp;&emsp;&emsp;&emsp;- Set an output message as the environmental variable `CHANGELOG_MSG` stating the name of the CHANGELOG file is incorrect, as well as what it should be. <br> 
                         &emsp;&emsp;&emsp;&emsp;&emsp;- Print this message. <br>
                         &emsp;&emsp;&emsp;&emsp;&emsp;- Exit with a bad status code.<br>
 10. Use the `CHANGELOG_MSG` environmental variable that was set in step 9 in conjunction with the Github API to put a comment on the PR stating the status of the CHANGELOG file quality checks.
@@ -90,8 +90,7 @@ When called upon, this workflow will perform the following logic <br>(Note: step
 
 ### Manual Testing
 
-This workflow has the workflow_dispatch trigger, meaning it can be triggered manually. This workflow was manually tested using the Github Actions UI page.
-TODO AND ALSO FROM THE CALLER??? HOW TO MENTION
+This workflow has the `workflow_dispatch` trigger, meaning it can be triggered manually. This workflow was manually tested using the Github Actions UI page.
 
 #### **Inputs**
 
@@ -99,12 +98,12 @@ The following inputs are used for manual testing:
 
 | Name | Description | Type | Notes |
 |---|---|---|---|
-| exp_changelog_filename_man | Expected CHANGELOG filename | choice | Options: <br> - 'CHANGELOG_frontend_v1.1.txt' <br> - 'CHANGELOG_backend_v1.2.txt' |
-| pr_num_man | Manual PR number (changed files) | choice | Options: <br> - '2 - CHANGELOG_frontend_v1.1.txt' <br>- '3 - CHANGELOG_backend_v1.2.txt' <br> - '4 - CHANGELOG_backend_v1.1.txt,CHANGELOG_backend_v1.2.txt' |
+| `exp_changelog_filename_man` | Expected CHANGELOG filename | choice | Options: <br> - 'CHANGELOG_frontend_v1.1.txt' <br> - 'CHANGELOG_backend_v1.2.txt' |
+| `pr_num_man` | Manual PR number (changed files) | choice | Options: <br> - '2 - CHANGELOG_frontend_v1.1.txt' <br>- '3 - CHANGELOG_backend_v1.2.txt' <br> - '4 - CHANGELOG_backend_v1.1.txt,CHANGELOG_backend_v1.2.txt' |
 
-The first input is the name of the expected CHANGELOG filename. 
+The first input `exp_changelog_filename_man` is the name of the expected CHANGELOG filename. 
 
-The other input is what the changed files might be in hypothetical pull request (which we can refer to as "pull request"). There is a number before the lis of changed files. This is because that number points to a real pull request in the ttn-workflows repo; that number is used in the Github API call mentioned in the __**Workflow and Script Logic**__ section. Having it be set up this way allows us to test the workflow more organically (versus doing something like setting the CHANGED_FILES_STR to the value of some input). You may ask why didn't I be fancy and try to take pull requests from other repos and the reason I didn't is because this way is simpler and I also didn't even think about that until I wrote this sentence.
+The other input `pr_num_man` is what the changed files might be in hypothetical pull request (which we can refer to as "pull request"). There is a number before the list of changed files. This is because that number points to a real pull request in the `ttn-workflows` repo; that number is used in the Github API call mentioned in the __**Workflow and Script Logic**__ section. Having it be set up this way allows us to test the workflow more organically (versus doing something like setting the `CHANGED_FILES_STR` to the value of some input). You may ask why didn't I be fancy and try to take pull requests from other repos and the reason I didn't is because this way is simpler and I also didn't even think about that until I wrote this sentence.
 
 The mixing and matching of these inputs allow you to produce the following scenarios:
 
@@ -115,8 +114,8 @@ The mixing and matching of these inputs allow you to produce the following scena
 
 Scenario 1 is the most easily tested since the first option in each input match up with each other. To test Scenario 1, simply just hit the Run test button without changing any input. You could also test Scenario 1 by using the second option of each input.
 
-Scenario 2 is tested by having the inputs be misaligned with each other (the pr_num_man input having exactly 1 CHANGELOG file in it, so the first or second option). One CHANGELOG file exists in the changed file list, but does not match the expected CHANGELOG name.
+Scenario 2 is tested by having the inputs be misaligned with each other (the `pr_num_man` input having exactly 1 CHANGELOG file in it, so the first or second option). One CHANGELOG file exists in the changed file list, but does not match the expected CHANGELOG name.
 
-Scenario 3 is tested by using the pr_num_man option '4 - CHANGELOG_backend_v1.1.txt,CHANGELOG_backend_v1.2.txt' which corresponds to a pull request with more than one CHANGELOG file in it. 
+Scenario 3 is tested by using the `pr_num_man` option '4 - CHANGELOG_backend_v1.1.txt,CHANGELOG_backend_v1.2.txt' which corresponds to a pull request with more than one CHANGELOG file in it. 
 
-Scenario 4 is tested by using the pr_num_man option '5 - dummy-file.txt' which corresponds to a pull request that lacks a CHANGELOG file.
+Scenario 4 is tested by using the `pr_num_man` option '5 - dummy-file.txt' which corresponds to a pull request that lacks a CHANGELOG file.
