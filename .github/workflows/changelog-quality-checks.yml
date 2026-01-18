@@ -157,7 +157,7 @@ jobs:
           with:
             python-version: '3.13' 
 
-        - name: Checkout ttn-workflows repo
+        - name: Checkout ttn-workflows repo (if non-manually triggered)
           if: github.repository != 'org-mushroom-kingdom/ttn-workflows'
           uses: actions/checkout@v4
           with:
@@ -166,6 +166,7 @@ jobs:
             token: ${{ secrets.token }}
             
         - name: Set REPO_PATH (if non-manually triggered)
+          if: github.repository != 'org-mushroom-kingdom/ttn-workflows'
           run: |
             echo "REPO_PATH=ttn-workflows-repo" >> $GITHUB_ENV
 
