@@ -87,7 +87,7 @@ jobs:
         TARGET_BRANCH: ${{ github.base_ref }}
         # Need to replace this with secrets.SOMETHING_THAT_DOES_ORG_READ 
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        PATH: ""
+        REPO_PATH: ""
         CHANGED_FILES_STR: ""
         RED: "\e[31m"
         GREEN: "\e[32m"
@@ -165,15 +165,15 @@ jobs:
             path: ttn-workflows-repo
             token: ${{ secrets.token }}
             
-        - name: Set PATH (if non-manually triggered)
+        - name: Set REPO_PATH (if non-manually triggered)
           run: |
-            echo "PATH=ttn-workflows-repo" >> $GITHUB_ENV
+            echo "REPO_PATH=ttn-workflows-repo" >> $GITHUB_ENV
 
         - name: Grant Execute Permission to Python Script
-          run: chmod +x $PATH/scripts/changelog-quality-check.py
+          run: chmod +x $REPO_PATH/scripts/changelog-quality-check.py
 
         - name: Run Python Script
-          run: python $PATH/scripts/changelog-quality-check.py "$CHANGED_FILES_STR" "$EXPECTED_CHANGELOG_FILENAME"
+          run: python $REPO_PATH/scripts/changelog-quality-check.py "$CHANGED_FILES_STR" "$EXPECTED_CHANGELOG_FILENAME"
 
         - name: Echo CHANGELOG_MSG (set from Python Script)
           run: |
