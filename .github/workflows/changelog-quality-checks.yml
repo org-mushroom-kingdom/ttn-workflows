@@ -3,7 +3,7 @@
 # The frontend and backend are in their own repositories. Future repositiories are an inevitability.
 # There is also a separate repository solely for resuable workflows used for the development of Toad Town News. That repo is named org-mushroom-kingdom/ttn-actions   
 # In this organization, it is a standard across repositories to include a specific changelog file in their release branch  
-# This file should begin with CHANGELOG, followed by an underscore (-), followed by the piece of the project they're working on
+# This file should begin with CHANGELOG, followed by an underscore (_), followed by the piece of the project they're working on
 # Repositories and release branches are named in a standardized way. The changelog file name should be formed from a combination of these.
 # ex. The frontend repo is named org-mk/ttn-frontend. 
 #     A release branch in it is named release/v1.0. 
@@ -164,7 +164,7 @@ jobs:
             repository: org-mushroom-kingdom/ttn-workflows
             path: ttn-workflows-repo
             token: ${{ secrets.token }}
-            
+
         - name: Set REPO_PATH (if non-manually triggered)
           if: github.repository != 'org-mushroom-kingdom/ttn-workflows'
           run: |
