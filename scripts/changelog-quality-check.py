@@ -32,7 +32,6 @@ def main():
     if len(potential_changelog_files) >1:
         output = f"There are multiple files in the pull request that begin with CHANGELOG. {only_1_changelog_msg} {exp_name_msg}"
     elif len(potential_changelog_files) == 0:
-        # Note: Make sure synchronize is specified in pull_request event in caller workflows.
         # TODO: Make sure <br> and += work in Python as expected.
         output = f"No CHANGELOG file found. {only_1_changelog_msg}<br>"
         output+= f"{exp_name_msg}<br>"
