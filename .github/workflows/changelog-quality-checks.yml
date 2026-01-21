@@ -8,6 +8,11 @@
 # ex. The frontend repo is named org-mk/ttn-frontend. 
 #     A release branch in it is named release/v1.0. 
 #     The changelog file should be named ----------------> CHANGELOG-frontend-v1.0.txt
+# In the frontend and backend repo, there is a caller workflow that:
+#     Is fired off when a PR opened whose source branch begins with "release" and whose target branch is "main"
+#     Has a token with repo permissions that can be used to checkout the ttn-actions repo
+#     When it's fired off, calls a reusable workflow (see below) using a token
+
 # The ttn-workflows has a reusable workflow (this one) with these qualities:
 #     Uses env and github context to get the repo name, source branch (release branch) name, and other relevant crap
 #     ****Checks out the ttn-workflow repo****
@@ -25,11 +30,6 @@
 #          This comment should also show what the expected naming convention should be for the changelog file
 #          The workflow exits with a 1 (failure)
 
-#          
-# In the frontend and backend repo, there is a caller workflow that:
-#     Is fired off when a PR opened whose source branch begins with "release" and whose target branch is "main"
-#     Has a token with repo permissions that can be used to checkout the ttn-actions repo
-#     When it's fired off, calls the reusable workflow using the token
 
 name: Changelog Check (Exists and Naming)
 
