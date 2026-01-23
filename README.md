@@ -35,6 +35,8 @@ Add workflow_call to reusable workflow.
 Make caller workflow to call reusable workflow.
 See what happens
 
+CHECK THAT APP IS SECURE ENOUGH SO NEFARIOUS PEOPLE AREN'T GOING TO BE WADS
+
 # Workflows
 
 ## changelog-quality-check.py
