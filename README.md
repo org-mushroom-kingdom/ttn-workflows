@@ -20,6 +20,21 @@ Keeping all that in mind, this 1-22-26 scenario will be very similar to how we g
 
 Look at me type in such a way that I assume so many people are going to read this, ha ha!
 
+Okay made the app with certain permissions (contents: read, pull request: read, metadata: read)
+Made a private token after: A notification tells you to. Literally all I had to do with hit a button and it made it. 
+This prompts an download of a PEM file on your local machine.
+Then go to user profile --> Github Apps --> Select your app --> Edit --> Install (left sidebar) --> Allows me to pick my user or the org I own --> I pick the org--> I pick ttn-workflows as the repo (as opposed to All repositories)
+The repo you want to install the app on needs the private key for the app to function. Copy the value of the downloaded PEM and save it as a secret.
+You may also want to save the Github App ID as a organizational or repository variable for easy access. (Almost same process as setting a secret)
+Make the reusable workflow. Have workflow_dispatch on there in the beginning to fire off manually. 
+Go to the actions/create-github-app-token page to see how to make the steps to generate and then use the token (the token is an output of the step that calls actions/create-github-app-token, meaning you can reference that output in a future step)
+Frankenstein those steps for your specific use. Comment them out.
+Test the actual logic of the reusable workflow without generating the token at first to prevent headache
+Once confirmed basic logic work, comment token steps back in.
+Add workflow_call to reusable workflow.
+Make caller workflow to call reusable workflow.
+See what happens
+
 # Workflows
 
 ## changelog-quality-check.py
