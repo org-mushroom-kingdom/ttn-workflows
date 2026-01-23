@@ -3,7 +3,11 @@ name: Get Article Titles
 on:
   
   workflow_dispatch:
-
+    inputs: 
+        get-token:
+            description: 'Attempt to get the Github App installation token'
+            type: boolean
+            default: false
   workflow_call:
 
 jobs:
