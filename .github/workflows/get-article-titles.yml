@@ -29,7 +29,6 @@ jobs:
 
             - name: Generate GitHub App token
               id: app-token
-              if: inputs.get-token
               uses: actions/create-github-app-token@v1
               with:
                 app-id: ${{ vars.TTN_WORKFLOWS_GH_APP_ID }}
