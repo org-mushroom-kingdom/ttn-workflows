@@ -152,3 +152,17 @@ Scenario 2 is tested by having the inputs be misaligned with each other (the `pr
 Scenario 3 is tested by using the `pr_num_man` option '4 - CHANGELOG_backend_v1.1.txt,CHANGELOG_backend_v1.2.txt' which corresponds to a pull request with more than one CHANGELOG file in it. 
 
 Scenario 4 is tested by using the `pr_num_man` option '5 - dummy-file.txt' which corresponds to a pull request that lacks a CHANGELOG file.
+
+## get-article-titles.yml
+
+### Trigger
+
+A reusable workflow that should be called upon by caller workflows when the caller workflow's repository TODO activity. TODO See more details in caller workflow repos like `ttn-frontend`.
+
+### Business Logic
+
+The following section and subsections explain how the `get-article-titles.yml` reusable workflow performs its work. 
+
+TODO
+
+America explain!!!
