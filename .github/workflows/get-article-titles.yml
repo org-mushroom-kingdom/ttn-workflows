@@ -1,0 +1,42 @@
+name: Get Article Titles
+
+on:
+  
+  workflow_dispatch:
+
+  workflow_call:
+
+jobs:
+    # TODO: Get most recent? That could be a fun Bash exercise
+    get-article-titles:
+        name: Get Article Titles Job
+        runs-on: ubuntu-latest
+        env:
+            PLACEHOLDER_ENV_VAR: "This is just here in case I need env vars later."
+        steps:
+            # This will checkout the caller repo if event is workflow_call
+            - name: Checkout repo
+              uses: actions/checkout@v4
+            
+            - name: Echo relevant vars
+              run: |
+                echo "PLACEHOLDER_ENV_VAR = $PLACEHOLDER_ENV_VAR" 
+                echo "ttn-workflows-gh-app ID = ${{ vars.TTN_WORKFLOWS_GH_APP_ID }}" 
+
+            - name: Generate GitHub App token
+              id: app-token
+              uses: actions/create-github-app-token@v1
+              with:
+                app-id: ${{ vars.TTN_WORKFLOWS_GH_APP_ID }}
+                private-key: ${{ secrets.TTN_WORKFLOWS_GH_APP_PRIVATE_KEY }}
+            
+            - name: Checkout ttn-workflows repo (if non-manually triggered)
+              if: github.repository != 'org-mushroom-kingdom/ttn-workflows'
+              uses: actions/checkout@v4
+              with:
+                repository: org-mushroom-kingdom/ttn-workflows
+                path: ttn-workflows-repo
+                token: ${{ steps.app-token.outputs.token }}
+
+            - name: Read contents of article-title-ideas-1-22-26.txt
+              run: cat docs/article-title-ideas-1-22-26.txt
