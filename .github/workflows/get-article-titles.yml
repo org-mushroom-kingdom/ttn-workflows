@@ -43,5 +43,5 @@ jobs:
                 path: ttn-workflows-repo
                 token: ${{ steps.app-token.outputs.token }}
 
-            - name: Read contents of article-title-ideas-1-22-26.txt
-              run: cat ./docs/article-title-ideas-1-22-26.txt
+            - name: Read contents of article-titles-1-22-26.txt
+              run: cat ./docs/article-titles-1-22-26.txt
