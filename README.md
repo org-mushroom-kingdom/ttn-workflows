@@ -164,5 +164,5 @@ A reusable workflow that should be called upon by caller workflows when the call
 The following section and subsections explain how the `get-article-titles.yml` reusable workflow performs its work. 
 
 TODO
-
+Let's say in this scenario, the article titles are formulated by a person and then stored in ttn-workflows for whatever reason. The frontend also needs access to these article titles for a poll they are displaying on the home page where readers can vote for the article they want to hear most about in the next issue. Normally there'd be a database involved here, but that database hasn't been set up yet, so this is a temporary measure. (I mean, geez, this is the first thing that came in my head. In a real life scenario, there'd be several reasons why a frontend repository might have to access something in a reusable workflow repository. I wanted something like how the CHANGELOG file scenario worked, but couldn't think of anything realistic so here we are.)
 It will check out the reusable workflow's own repo (this repo, ttn-workflows) to get access to article-titles-1-22-26.txt
