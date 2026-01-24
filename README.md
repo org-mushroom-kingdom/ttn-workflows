@@ -165,4 +165,4 @@ The following section and subsections explain how the `get-article-titles.yml` r
 
 TODO
 
-America explain!!!
+It will check out the reusable workflow's own repo (this repo, ttn-workflows) to get access to article-titles-1-22-26.txt
