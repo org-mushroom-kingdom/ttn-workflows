@@ -55,4 +55,4 @@ jobs:
                 echo "REPO_PATH=ttn-workflows-repo" >> $GITHUB_ENV
 
             - name: Read contents of article-titles-1-22-26.txt
-              run: cat ./docs/article-titles-1-22-26.txt
+              run: cat $REPO_PATH/docs/article-titles-1-22-26.txt
