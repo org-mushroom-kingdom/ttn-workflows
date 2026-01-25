@@ -52,7 +52,7 @@ jobs:
             - name: Set REPO_PATH
               if: github.repository != 'org-mushroom-kingdom/ttn-workflows'
               run: |
-                "REPO_PATH=ttn-workflows-repo" >> $GITHUB_ENV
+                echo "REPO_PATH=ttn-workflows-repo" >> $GITHUB_ENV
 
             - name: Read contents of article-titles-1-22-26.txt
               run: cat ./docs/article-titles-1-22-26.txt
