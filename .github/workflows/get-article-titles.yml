@@ -16,8 +16,8 @@ jobs:
         name: Get Article Titles Job
         runs-on: ubuntu-latest
         env:
-            PLACEHOLDER_ENV_VAR: "This is just here in case I need env vars later."
             REPO_PATH: "."
+        
         steps:
             # This will checkout the caller repo if event is workflow_call
             - name: Checkout repo
