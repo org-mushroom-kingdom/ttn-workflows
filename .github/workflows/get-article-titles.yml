@@ -25,7 +25,6 @@ jobs:
             
             - name: Echo relevant vars
               run: |
-                echo "PLACEHOLDER_ENV_VAR = $PLACEHOLDER_ENV_VAR" 
                 echo "ttn-workflows-gh-app ID = ${{ vars.TTN_WORKFLOWS_GH_APP_ID }}" 
 
             - name: Generate GitHub App token
@@ -34,8 +33,12 @@ jobs:
               with:
                 # Note: If setting up this var at repository level, it must be in the caller repository since this is a reusable workflow. (Having it set up at organization-level is easier, provided you have an organization to work with) 
                 app-id: ${{ vars.TTN_WORKFLOWS_GH_APP_ID }}
+                # This comes from a secret on the caller repo
                 private-key: ${{ secrets.gh-app-key }}
+                #TODO: Try commenting these out and see if it still works
+                # Owner of the Github App installation
                 owner: org-mushroom-kingdom
+                # repositories to grant access to
                 repositories: ttn-workflows
             
             - name: Checkout ttn-workflows repo (if non-manually triggered)

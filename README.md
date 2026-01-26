@@ -168,7 +168,7 @@ Since a caller workflow in a different repository triggers the reusable workflow
 
 A Github App is a good way to approach this issue, due in no small part to `actions/create-github-app-token`. That action creates an installation access token, a short-lived non-personal token that inherits the permissions the Github App has been granted. The term "non-personal" in this sense means that the token is not tied to a user like a PAT or fine-grained access token; instead, it is tied to the Github App itself. The installation access token will have the same permissions that were granted to the Github App when it was created
 
-As an aside, you don't need to create a Github App for each caller workflow for this particular scenario. Instead, you install the Github App on the repository you intend to use it on, which would be ttn-workflows in our case. It's sort of the opposite of how the CHANGELOG quality check logic works--for that logic, we passed a token in from the caller workflow's repo. In this scenario, our token-related activity is on the reusable workflow's repo. 
+As an aside, you don't need to create a Github App for each caller workflow for this particular scenario. Instead, you install the Github App on the repository you intend to use it on, which would be ttn-workflows in our case. It's sort of the opposite of how the CHANGELOG quality check logic works--for that logic, we passed a token in from the caller workflow's repo. In this scenario, our token-related activity is on the reusable workflow's repo. Note that you still have to pass a secret (the Github App's private key) from the caller workflow to the reusable workflow.
 
 ### Trigger
 
