@@ -155,22 +155,24 @@ Scenario 4 is tested by using the `pr_num_man` option '5 - dummy-file.txt' which
 
 ## get-article-titles.yml
 
-Caller workflows: TODO, TODO 
+Caller workflows: org-mushroom-kingdom/ttn-frontend/.github/workflows/get-article-titles.yml 
 
 ### Scenario
 
 TODO
-Let's say in this scenario, the article titles are formulated by a person and then stored in ttn-workflows for whatever reason. The frontend also needs access to these article titles for a poll they are displaying on the home page where readers can vote for the article they want to hear most about in the next issue. Normally there'd be a database involved here, but that database hasn't been set up yet, so this is a temporary measure. (I mean, geez, this is the first thing that came in my head. In a real life scenario, there'd be several reasons why a frontend repository might have to access something in a reusable workflow repository. I wanted something similar but not exact to how the CHANGELOG file scenario worked, but couldn't think of anything realistic so here we are.)
+In this scenario, article titles are formulated by a person and then stored in `ttn-workflows` temporarily for whatever reason (maybe a database went down or there's some issue or an issue with the backend, whatever). The frontend also needs access to these article titles for a poll they are displaying on the home page where readers can vote for the article they want to hear most about in the next issue. (As an aside: I mean, geez, this is the first thing that came in my head. In a real life scenario, there'd be several reasons why a frontend repository might have to access something in a reusable workflow repository. I wanted something similar but not exact to how the CHANGELOG file scenario worked, but couldn't think of anything realistic so here we are.)
 
-It will check out the reusable workflow's own repo (this repo, ttn-workflows) to get access to article-titles-1-22-26.txt
+get-article-titles.yml will check out the reusable workflow's own repo (this repo, `ttn-workflows`) to get access to article-titles-1-22-26.txt
 
-Since a caller workflow in a different repository triggers the reusable workflow, and there is a file present in the reusable workflow's repository we want access to, we need to checkout the reusable workflow's repository. org-mushroom-kingdom might not have a database yet, but it's trying to get up to speed with token management. Devs have complained about having to make their own PATs and remembering their expiration dates, so a solution where tokens could be generated programmatically and not tied to a user would be an ideal situation.
+Since a caller workflow in a different repository triggers the reusable workflow, and there is a file present in the reusable workflow's repository we want access to, we need to checkout the reusable workflow's repository. `org-mushroom-kingdom` is trying to get up to speed with token management. Devs have complained about having to make their own PATs and having to remember to refresh them when they expire dates, so a solution where tokens could be generated programmatically and not tied to a user would be an ideal situation.
 
-A Github App is a good way to approach this issue, due in no small part to actions/XXXX. That action creates an installation access token, a short-lived non-personal token that inherits the permissions the Github App has been granted. The term "non-personal" means that the token is not tied to a user like a PAT or fine-grained access token; instead, it is tied to the Github App itself. As an aside, you don't need to create a Github App for each caller workflow for this particular case. Instead, you install the Github App on the repository you intend to use it on, which would be ttn-workflows in our case. jjji 
+A Github App is a good way to approach this issue, due in no small part to `actions/create-github-app-token`. That action creates an installation access token, a short-lived non-personal token that inherits the permissions the Github App has been granted. The term "non-personal" in this sense means that the token is not tied to a user like a PAT or fine-grained access token; instead, it is tied to the Github App itself. The installation access token will have the same permissions that were granted to the Github App when it was created
+
+As an aside, you don't need to create a Github App for each caller workflow for this particular scenario. Instead, you install the Github App on the repository you intend to use it on, which would be ttn-workflows in our case. It's sort of the opposite of how the CHANGELOG quality check logic works--for that logic, we passed a token in from the caller workflow's repo. In this scenario, our token-related activity is on the reusable workflow's repo. 
 
 ### Trigger
 
-A reusable workflow that should be called upon by caller workflows when the caller workflow's repository TODO activity. TODO See more details in caller workflow repos like `ttn-frontend`. 
+A reusable workflow that should be called upon by caller workflows when the caller workflow is manually triggered via the workflow_dispatch event. TODO See more details in caller workflow repos like `ttn-frontend`. 
 
 ### Business Logic
 
