@@ -36,10 +36,11 @@ jobs:
                 # This comes from a secret on the caller repo
                 private-key: ${{ secrets.gh-app-key }}
                 #TODO: Try commenting these out and see if it still works
+                # If both of these are commented out, get this error: Failed to create token for "ttn-frontend" (attempt 1): Not Found - https://docs.github.com/rest/apps/apps#get-a-repository-installation-for-the-authenticated-app
                 # Owner of the Github App installation, needs to be specified or it will default to TODO will it default though if both repos have same owner?
                 # owner: org-mushroom-kingdom
                 # repositories to grant access to (i.e. the token will allow access to the repositories listed)
-                # repositories: ttn-workflows
+                repositories: ttn-workflows
             
             - name: Checkout ttn-workflows repo (if non-manually triggered)
               if: github.repository != 'org-mushroom-kingdom/ttn-workflows'
