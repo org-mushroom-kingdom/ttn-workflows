@@ -156,15 +156,18 @@ Scenario 4 is tested by using the `pr_num_man` option '5 - dummy-file.txt' which
 ## get-article-titles.yml
 
 Caller workflows: org-mushroom-kingdom/ttn-frontend/.github/workflows/get-article-titles.yml 
+Trigger of the caller workflow: workflow_dispatch (Manually triggered)
 
 ### Scenario
 
 TODO
-In this scenario, article titles are formulated by a person and then stored in `ttn-workflows` temporarily for whatever reason (maybe a database went down or there's some issue or an issue with the backend, whatever). The frontend also needs access to these article titles for a poll they are displaying on the home page where readers can vote for the article they want to hear most about in the next issue. (As an aside: I mean, geez, this is the first thing that came in my head. In a real life scenario, there'd be several reasons why a frontend repository might have to access something in a reusable workflow repository. I wanted something similar but not exact to how the CHANGELOG file scenario worked, but couldn't think of anything realistic so here we are.)
+In this scenario, developers are working on integrating installation access tokens to move away from personal access token management. Devs have complained about having to make their own PATs and having to remember to refresh them when they expire, so a solution where tokens could be generated programmatically and not tied to a user would be an ideal situation. 
+
+The developers want to generate and use an installation access token to access a file on the reusable workflow's repository (`ttn-workflows`). One dev creates a sample .txt file with article titles they have to work with at some point and store this in the `ttn-workflows` repository. The goal is to just use Bash `cat` to print the contents of that file--seeing that means the installation access token was made successfully and able to be used to checkout the repository. 
 
 get-article-titles.yml will check out the reusable workflow's own repo (this repo, `ttn-workflows`) to get access to article-titles-1-22-26.txt
 
-Since a caller workflow in a different repository triggers the reusable workflow, and there is a file present in the reusable workflow's repository we want access to, we need to checkout the reusable workflow's repository. `org-mushroom-kingdom` is trying to get up to speed with token management. Devs have complained about having to make their own PATs and having to remember to refresh them when they expire dates, so a solution where tokens could be generated programmatically and not tied to a user would be an ideal situation.
+Since a caller workflow in a different repository triggers the reusable workflow, and there is a file present in the reusable workflow's repository we want access to, we need to checkout the reusable workflow's repository. `org-mushroom-kingdom` is trying to get up to speed with token management. 
 
 A Github App is a good way to approach this issue, due in no small part to `actions/create-github-app-token`. That action creates an installation access token, a short-lived non-personal token that inherits the permissions the Github App has been granted. The term "non-personal" in this sense means that the token is not tied to a user like a PAT or fine-grained access token; instead, it is tied to the Github App itself. The installation access token will have the same permissions that were granted to the Github App when it was created
 
