@@ -36,9 +36,9 @@ jobs:
                 # This comes from a secret on the caller repo
                 private-key: ${{ secrets.gh-app-key }}
                 #TODO: Try commenting these out and see if it still works
-                # Owner of the Github App installation
+                # Owner of the Github App installation, needs to be specified or it will default to TODO will it default though if both repos have same owner?
                 owner: org-mushroom-kingdom
-                # repositories to grant access to
+                # repositories to grant access to (i.e. the token will allow access to the repositories listed)
                 repositories: ttn-workflows
             
             - name: Checkout ttn-workflows repo (if non-manually triggered)
