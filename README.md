@@ -2,10 +2,15 @@
 
 A repository that stores workflows and things surrounding them (scripts, etc) for the fake app "Toad Town News." Most of the workflows here should be reusable.
 Refer to the Workflows section regarding information about each workflow present in this repository (keep in mind that this repository may evolve from time to time, and so documentation regarding workflows will evolve as well. Basically check in from time to time to make sure you're up to date with the workflow you're reading about)
+
+TODO MODIFY THESE TIMESTAMP NOTES OR DELETE THEM ENTIRELY
+
 1-3-26: At the time of writing, this only has one reusable workflow `changelog-quality-checks.yml` used as a supplement to the Medium article 'Github Actions: Checking Out And Utilizing a Reusable Workflow's Repository' TODO LINK. However, it may store more reusable workflows for testing purposes or as additional supplemental material for future articles.
 
 1-22-26: And guess what we're going to have another reusable workflow soon that will also checkout this repository and access a script because I need to see how all this Github App stuff works in regards to generating installation access tokens. I'm gonna restructure this part but basically:
 
+
+TODO MOVE THIS TO g-a-t.yml section AND MAKE IT PRETTY 
 ** TAKE THIS ALL WITH A HUGE GRAIN OF SALT SINCE I ASKED CHATGPT MOST OF THIS AND HAVEN'T HAD THE CHANCE TO CITE MOST SOURCES **
 - You can create a Github App on your personal account 
 - During setup, you can give the Github App granular permissions (Note these permissions aren't in the same structure as if you were generating a PAT)
