@@ -41,6 +41,10 @@ CHECK THAT APP IS SECURE ENOUGH SO NEFARIOUS PEOPLE AREN'T GOING TO BE WADS
 
 ## changelog-quality-check.py
 
+### Scenario
+
+TODO
+
 ### Trigger
 
 A reusable workflow that should be called upon by caller workflows when the caller workflow's repository has certain pull request activity (opened, synchronize, or reopened) that is a release branch being merged into the main branch. A release branch will have the word 'release' as a prefix. See more details in caller workflow repos like `ttn-frontend`.
@@ -125,7 +129,7 @@ When called upon, this workflow will perform the following logic <br>(Note: step
 
 This workflow has the `workflow_dispatch` trigger, meaning it can be triggered manually. This workflow was manually tested using the Github Actions UI page.
 
-#### **Inputs**
+#### **Manual Testing Inputs**
 
 The following inputs are used for manual testing:
 
@@ -160,8 +164,7 @@ Trigger of the caller workflow: workflow_dispatch (Manually triggered)
 
 ### Scenario
 
-TODO
-In this scenario, developers are working on integrating installation access tokens to move away from personal access token management. Devs have complained about having to make their own PATs and having to remember to refresh them when they expire, so a solution where tokens could be generated programmatically and not tied to a user would be an ideal situation. 
+In this scenario, developers are working on integrating installation access tokens to move away from personal access token management. Devs have complained about having to make their own PATs and having to remember to refresh them when they expire (among other reasons), so a solution where tokens could be generated programmatically and not tied to a user would be an ideal situation. 
 
 The developers want to generate and use an installation access token to access a file on the reusable workflow's repository (`ttn-workflows`). One dev creates a sample .txt file with article titles they have to work with at some point and store this in the `ttn-workflows` repository. The goal is to just use Bash `cat` to print the contents of that file--seeing that means the installation access token was made successfully and able to be used to checkout the repository. 
 
@@ -175,6 +178,8 @@ As an aside, you don't need to create a Github App for each caller workflow for 
 
 A reusable workflow that should be called upon by caller workflows when the caller workflow is manually triggered via the workflow_dispatch event. TODO See more details in caller workflow repos like `ttn-frontend`. 
 
-### Business Logic
+### **Workflow and Script Logic**
 
 The following section and subsections explain how the `get-article-titles.yml` reusable workflow performs its work. 
+
+1. 
