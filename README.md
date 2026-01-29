@@ -5,8 +5,6 @@ Refer to the Workflows section regarding information about each workflow present
 
 TODO MODIFY THESE TIMESTAMP NOTES OR DELETE THEM ENTIRELY
 
-1-3-26: At the time of writing, this only has one reusable workflow `changelog-quality-checks.yml` used as a supplement to the Medium article 'Github Actions: Checking Out And Utilizing a Reusable Workflow's Repository' TODO LINK. However, it may store more reusable workflows for testing purposes or as additional supplemental material for future articles.
-
 1-22-26: And guess what we're going to have another reusable workflow soon that will also checkout this repository and access a script because I need to see how all this Github App stuff works in regards to generating installation access tokens. I'm gonna restructure this part but basically:
 
 
@@ -48,7 +46,7 @@ CHECK THAT APP IS SECURE ENOUGH SO NEFARIOUS PEOPLE AREN'T GOING TO BE WADS
 
 ### Scenario
 
-TODO
+In this scenario TODO `changelog-quality-checks.yml` used as a supplement to the Medium article 'Github Actions: Checking Out And Utilizing a Reusable Workflow's Repository' TODO LINK.
 
 ### Trigger
 
