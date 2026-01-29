@@ -167,7 +167,7 @@ Trigger of the caller workflow: workflow_dispatch (Manually triggered)
 
 ### Scenario
 
-In this scenario, developers are working on integrating installation access tokens to move away from personal access token management. Devs have complained about having to make their own PATs and having to remember to refresh them when they expire (among other reasons), so a solution where tokens could be generated programmatically and not tied to a user would be an ideal situation. 
+TODO ARTICLE LINK!!! In this scenario, developers are working on integrating installation access tokens to move away from personal access token management. Devs have complained about having to make their own PATs and having to remember to refresh them when they expire (among other reasons), so a solution where tokens could be generated programmatically and not tied to a user would be an ideal situation. 
 
 The developers want to generate and use an installation access token to access a file on the reusable workflow's repository (`ttn-workflows`). One dev creates a sample .txt file with article titles they have to work with at some point and store this in the `ttn-workflows` repository. The goal is to just use Bash `cat` to print the contents of that file--seeing that means the installation access token was made successfully and able to be used to checkout the repository. 
 
