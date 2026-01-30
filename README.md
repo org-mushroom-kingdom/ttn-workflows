@@ -46,7 +46,13 @@ CHECK THAT APP IS SECURE ENOUGH SO NEFARIOUS PEOPLE AREN'T GOING TO BE WADS
 
 ### Scenario
 
-In this scenario TODO `changelog-quality-checks.yml` used as a supplement to the Medium article 'Github Actions: Checking Out And Utilizing a Reusable Workflow's Repository' TODO LINK.
+Note: The code written here is used as a supplement to the Medium article ['Github Actions: Checking Out And Utilizing a Reusable Workflow's Repository'](https://medium.com/devops-dev/github-actions-checking-out-and-utilizing-a-reusable-workflows-repository-992adbe7b3ae).
+ 
+TODO syntax 
+
+In this scenario, ttn-frontend and ttn-backend rely on the reusable workflow `changelog-quality-checks.yml` which checks for a changelog file (referred to hereon as a CHANGELOG file) when a pull request is made from a release branch to the main branch (See **__Trigger** for more details). The logic surrounding the CHANGELOG file is strict and the file must meet certain criteria before merging into the main branch is allowed (see **__Business Logic__** for details). 
+
+The reusable workflow relies on a script for the brunt of its work. This script is also located in `ttn-workflows`. Since the reusable workflow is in a different repository than the caller workflow's location (either ttn-frontend or ttn-backend), the script can't be referenced simply by pointing to its path. We must explicitly checkout ttn-workflows so the reusable workflow can access the script and perform its logic properly.
 
 ### Trigger
 
@@ -167,7 +173,9 @@ Trigger of the caller workflow: workflow_dispatch (Manually triggered)
 
 ### Scenario
 
-TODO ARTICLE LINK!!! In this scenario, developers are working on integrating installation access tokens to move away from personal access token management. Devs have complained about having to make their own PATs and having to remember to refresh them when they expire (among other reasons), so a solution where tokens could be generated programmatically and not tied to a user would be an ideal situation. 
+TODO ARTICLE LINK ONCE DONE!!! The code here is used as a supplement to the Medium article 'Creating and Using a Basic Github App for Token Management in Workflows: A Guide'. Refer to that article for additional context and details.
+
+In this scenario, developers are working on integrating installation access tokens to move away from personal access token management. Devs have complained about having to make their own PATs and having to remember to refresh them when they expire (among other reasons), so a solution where tokens could be generated programmatically and not tied to a user would be an ideal situation. 
 
 The developers want to generate and use an installation access token to access a file on the reusable workflow's repository (`ttn-workflows`). One dev creates a sample .txt file with article titles they have to work with at some point and store this in the `ttn-workflows` repository. The goal is to just use Bash `cat` to print the contents of that file--seeing that means the installation access token was made successfully and able to be used to checkout the repository. 
 
