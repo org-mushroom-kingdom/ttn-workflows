@@ -20,8 +20,6 @@ TODO MOVE THIS TO g-a-t.yml section AND MAKE IT PRETTY
 
 Keeping all that in mind, this 1-22-26 scenario will be very similar to how we got changelog-quality-checks.yml to work in terms of our desired behavior. It's the vector of delivery of that desired behavior that is changing. 
 
-Look at me type in such a way that I assume so many people are going to read this, ha ha!
-
 Okay made the app with certain permissions (contents: read, pull request: read, metadata: read)
 Made a private token after: A notification tells you to. Literally all I had to do with hit a button and it made it. 
 This prompts an download of a PEM file on your local machine.
@@ -44,8 +42,8 @@ CHECK THAT APP IS SECURE ENOUGH SO NEFARIOUS PEOPLE AREN'T GOING TO BE WADS
 ## changelog-quality-check.py
 
 Caller workflows: 
-- org-mushroom-kingdom/ttn-frontend/.github/workflows/sc-changelog-check-exists-and-naming-caller.yml
-- org-mushroom-kingdom/ttn-backend/.github/workflows/sc-changelog-check-exists-and-naming-caller.yml
+- [org-mushroom-kingdom/ttn-frontend/.github/workflows/sc-changelog-check-exists-and-naming-caller.yml](https://github.com/org-mushroom-kingdom/ttn-frontend/blob/main/.github/workflows/sc-changelog-check-exists-and-naming-caller.yml)
+- [org-mushroom-kingdom/ttn-backend/.github/workflows/sc-changelog-check-exists-and-naming-caller.yml]https://github.com/org-mushroom-kingdom/ttn-backend/blob/main/.github/workflows/sc-changelog-check-exists-and-naming-caller.yml
 
 Trigger of the caller workflows: pull_request [open, synchronize]
 
@@ -55,9 +53,9 @@ Note: The code written here is used as a supplement to the Medium article ['Gith
  
 TODO syntax 
 
-In this scenario, ttn-frontend and ttn-backend rely on the reusable workflow `changelog-quality-checks.yml` which checks for a changelog file (referred to hereon as a CHANGELOG file) when a pull request is made from a release branch to the main branch (See **__Trigger** for more details). The logic surrounding the CHANGELOG file is strict and the file must meet certain criteria before merging into the preprod or main branch is allowed (see **__Business Logic__** for details). 
+In this scenario, `ttn-frontend` and `ttn-backend` rely on the reusable workflow `changelog-quality-checks.yml` which checks for a changelog file (referred to hereon as a CHANGELOG file) when a pull request is made from a release branch to the main branch (See **__Trigger** for more details). The logic surrounding the CHANGELOG file is strict and the file must meet certain criteria before merging into the preprod or main branch is allowed (see **__Business Logic__** for details). 
 
-The reusable workflow relies on a script for the brunt of its work. This script is also located in `ttn-workflows`. Since the reusable workflow is in a different repository than the caller workflow's location (either ttn-frontend or ttn-backend), the script can't be referenced simply by pointing to its path. We must explicitly checkout ttn-workflows so the reusable workflow can access the script and perform its logic properly.
+The reusable workflow relies on a script for the brunt of its work. This script is also located in `ttn-workflows`. Since the reusable workflow is in a different repository than the caller workflow's location (either `ttn-frontend` or `ttn-backend`), the script can't be referenced simply by pointing to its path. We must explicitly checkout `ttn-workflows` so the reusable workflow can access the script and perform its logic properly.
 
 ### Trigger
 
@@ -66,7 +64,6 @@ A reusable workflow that should be called upon by caller workflows when the call
 ### Business Logic
 
 The following section and subsections explain how the `changelog-quality-check.py` reusable workflow performs its work. 
-
 
 #### **CHANGELOG File Quantity Check**
 
@@ -82,7 +79,7 @@ A properly named CHANGELOG file meets the following criteria:<br>
 - Begins with the text "CHANGELOG"
 - Has the repository name in it (known in the script as `release_verison`) in the fashion of `org-mushroom-kingdom/ttn-*` where * is the desired text. This text (known in the script as `ttn_type`) should be after the CHANGELOG prefix and a dash separator (ex. if the repository is `org-mushroom-kingdom/ttn-frontend`, then the text 'frontend' should be present)
 - Has the release version in it, after the above mentioned substring and a dash separator. The release version should match the name of the source branch that is being merged into the main/master branch (ex. if the source branch name is 'release/v1.1', the substring 'v1.1' should be present).
-- Ends with the extension ".txt"
+- Ends with the extension '.txt'
 
 For example, given the following scenario: 
 
@@ -154,7 +151,7 @@ The following inputs are used for manual testing:
 
 The first input `exp_changelog_filename_man` is the name of the expected CHANGELOG filename. 
 
-The other input `pr_num_man` is what the changed files might be in hypothetical pull request (which we can refer to as "pull request"). There is a number before the list of changed files. This is because that number points to a real pull request in the `ttn-workflows` repo; that number is used in the Github API call mentioned in the __**Workflow and Script Logic**__ section. Having it be set up this way allows us to test the workflow more organically (versus doing something like setting the `CHANGED_FILES_STR` to the value of some input). You may ask why didn't I be fancy and try to take pull requests from other repos and the reason I didn't is because this way is simpler and I also didn't even think about that until I wrote this sentence.
+The other input `pr_num_man` is number points to a real pull request in the `ttn-workflows` repo, followed by the changed in that pull request. This number is used in the Github API call mentioned in the __**Workflow and Script Logic**__ section. Having it be set up this way allows us to test the workflow more organically (versus doing something like setting the `CHANGED_FILES_STR` to the value of some input). You may ask why didn't I be fancy and try to take pull requests from other repos and the reason I didn't is because this way is simpler and I also didn't even think about that until I wrote this sentence.
 
 The mixing and matching of these inputs allow you to produce the following scenarios:
 
@@ -163,7 +160,7 @@ The mixing and matching of these inputs allow you to produce the following scena
 3. There are too many potential CHANGELOG files.
 4. There are no CHANGELOG files. 
 
-Scenario 1 is the most easily tested since the first option in each input match up with each other. To test Scenario 1, simply just hit the Run test button without changing any input. You could also test Scenario 1 by using the second option of each input.
+Scenario 1 is the most easily tested since the first option in each input match up with each other. To test Scenario 1, simply just hit the __Run test__ button without changing any input. You could also test Scenario 1 by using the second option of each input.
 
 Scenario 2 is tested by having the inputs be misaligned with each other (the `pr_num_man` input having exactly 1 CHANGELOG file in it, so the first or second option). One CHANGELOG file exists in the changed file list, but does not match the expected CHANGELOG name.
 
@@ -172,6 +169,8 @@ Scenario 3 is tested by using the `pr_num_man` option '4 - CHANGELOG_backend_v1.
 Scenario 4 is tested by using the `pr_num_man` option '5 - dummy-file.txt' which corresponds to a pull request that lacks a CHANGELOG file.
 
 ## get-article-titles.yml
+
+TODO LINKS
 
 Caller workflows: `org-mushroom-kingdom/ttn-frontend/.github/workflows/get-article-titles.yml` 
 Trigger of the caller workflow: `workflow_dispatch` (Manually triggered)
