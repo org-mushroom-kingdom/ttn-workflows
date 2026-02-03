@@ -54,13 +54,15 @@ In this scenario, `ttn-frontend` and `ttn-backend` rely on the reusable workflow
 
 The reusable workflow relies on a script for the brunt of its work. This script is also located in `ttn-workflows`. Since the reusable workflow is in a different repository than the caller workflow's location (either `ttn-frontend` or `ttn-backend`), the script can't be referenced simply by pointing to its path. We must explicitly checkout `ttn-workflows` so the reusable workflow can access the script and perform its logic properly.
 
-### Trigger
+### Triggers
+
+workflow_dispatch: This workflow can be triggered manually. TODO SEE MANUAL TESTING?
 
 A reusable workflow that should be called upon by caller workflows when the caller workflow's repository has certain pull request activity (opened, synchronize, or reopened) that is a release branch being merged into the main branch. A release branch will have the word 'release' as a prefix. See more details in caller workflow repos like `ttn-frontend`.
 
 ### Business Logic
 
-The following section and subsections explain how the `changelog-quality-check.py` reusable workflow performs its work. 
+The following section and subsections explain how the `changelog-quality-check.yml` reusable workflow performs its work. 
 
 #### **CHANGELOG File Quantity Check**
 
@@ -93,7 +95,7 @@ Examples CHANGELOG filenames that would NOT be valid are:
 
 #### **Workflow and Script Logic**
 
-This workflow consists of one job `changelog-check` (full name 'Changelog Check (Exists and Naming)'). This workflow relies on a Python script for much of its work. 
+This workflow consists of one job `changelog-check` (full name 'Changelog Check (Exists and Naming)'). This workflow relies on a Python script `changelog-quality-check.py` for much of its work. 
 
 When called upon, this workflow will perform the following logic <br>(Note: steps that are triggered by manual testing are not listed. Additionally, the Python script is explained all in one step.)
 
@@ -105,7 +107,7 @@ When called upon, this workflow will perform the following logic <br>(Note: step
 6. Uses `actions/setup-python` to setup Python in the Github-hosted runner, since a Python script will be called to do some of the work.
 7. Checks out the `org-mushroom-kingdom/ttn-workflows` repo. This is needed because the aforemetioned Python script is in the `ttn-workflows` repo. When this workflow is called, it is done within the context of the caller workflow's repository. Thus, we checkout the `ttn-workflows` repository to the `ttn-workflows-repo/` directory in our runner. We can then utilize the Python script via accessing this directory
 8. Grant execute permissions to the Python script (via the `ttn-workflows-repo/` directory)
-9. Run the Python script: <br>
+9. Run the Python script (`changelog-quality-check.py`): <br>
       &emsp; We provide the expected CHANGELOG filename and changed file list as arguments. <br>
       &emsp;a. For each changed file (LOOP): <br>
             &emsp;&emsp;- IF it begins with 'CHANGELOG': <br>
