@@ -17,12 +17,18 @@ jobs:
         runs-on: ubuntu-latest
         env:
             REPO_PATH: "."
+            APP_ID: ${{ vars.TTN_WORKFLOWS_GH_APP_ID }}
         
         steps:
             # This will checkout the caller repo if event is workflow_call
             - name: Checkout repo
               uses: actions/checkout@v4
             
+            # This is only here to see what happens when the caller workflow references a var vs. the reusable workflow
+            - name: 'Manual run: Set APP_ID via custom var' 
+              if: github.repository == 'org-mushroom-kingdom/ttn-workflows'
+              run: echo "APP_ID=${{vars.TTN_WORKFLOWS_MAN_GH_APP_ID}}" >> $GITHUB_ENV
+
             - name: Echo relevant vars
               run: |
                 echo "ttn-workflows-gh-app ID = ${{ vars.TTN_WORKFLOWS_GH_APP_ID }}" 
@@ -32,7 +38,7 @@ jobs:
               uses: actions/create-github-app-token@v1
               with:
                 # Note: If setting up this var at repository level, it must be in the caller repository since this is a reusable workflow. (Having it set up at organization-level is easier, provided you have an organization to work with) 
-                app-id: ${{ vars.TTN_WORKFLOWS_GH_APP_ID }}
+                app-id: $APP_ID
                 # This comes from a secret on the caller repo
                 private-key: ${{ secrets.gh-app-key }}
                 # If both of these are commented out, get this error: Failed to create token for "ttn-frontend" (attempt 1): Not Found - https://docs.github.com/rest/apps/apps#get-a-repository-installation-for-the-authenticated-app
