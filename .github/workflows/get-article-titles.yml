@@ -43,7 +43,8 @@ jobs:
               uses: actions/create-github-app-token@v1
               with:
                 # Note: If setting up this var at repository level, it must be in the caller repository since this is a reusable workflow. (Having it set up at organization-level is easier, provided you have an organization to work with) 
-                app-id: $APP_ID
+                # app-id: $APP_ID
+                app-id: ${{ vars.TTN_WORKFLOWS_GH_APP_ID }}
                 # This comes from a secret on the caller repo
                 private-key: ${{ secrets.gh-app-key }}
                 # If both of these are commented out, get this error: Failed to create token for "ttn-frontend" (attempt 1): Not Found - https://docs.github.com/rest/apps/apps#get-a-repository-installation-for-the-authenticated-app
