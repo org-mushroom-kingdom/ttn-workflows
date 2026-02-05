@@ -36,7 +36,7 @@ jobs:
                 echo "ttn-workflows-gh-app ID = ${{ vars.TTN_WORKFLOWS_GH_APP_ID }}" 
 
             - name: Generate GitHub App token
-              if: github.repository != 'org-mushroom-kingdom/ttn-workflows'
+              # if github.repository != 'org-mushroom-kingdom/ttn-workflows'
               id: app-token
               uses: actions/create-github-app-token@v1
               with:
