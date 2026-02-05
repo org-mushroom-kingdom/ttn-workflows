@@ -176,7 +176,7 @@ TODO LINKS
 
 ### Scenario
 
-TODO ARTICLE LINK ONCE DONE!!! The code here is used as a supplement to the Medium article 'Creating and Using a Basic Github App for Token Management in Workflows: A Guide'. Refer to that article for additional context and details.
+TODO ARTICLE LINK ONCE DONE!!! The code here is used as a supplement to the Medium article TODO CONFIRM TITLE 'Creating and Using a Basic Github App for Token Management in Workflows: A Guide'. Refer to that article for additional context and details.
 
 In this scenario, developers are working on integrating installation access tokens to move away from personal access token management. Devs have complained about having to make their own PATs and having to remember to refresh them when they expire (among other reasons), so a solution where tokens could be generated programmatically and not tied to a user would be an ideal situation. 
 
@@ -190,7 +190,9 @@ This scenario utilizes a Github App that was created on a personal account (vs. 
 
 As an aside, you don't need to create a Github App for each caller workflow for this particular scenario. Instead, you install the Github App on the repository you intend to use it on, which would be `ttn-workflows` in our case. It's sort of the opposite of how the CHANGELOG quality check logic works--for that logic, we passed a token in from the caller workflow's repo. In this scenario, our token-related activity is on the reusable workflow's repo. Note that you still have to pass a secret (the Github App's private key) from the caller workflow to the reusable workflow. Generally, it is acceptable for the same private key to be used for multiple repositories within the same organization. 
 
-### Trigger
+### Triggers
+
+TODO REWORK
 
 A reusable workflow that should be called upon by caller workflows when the caller workflow is manually triggered via the workflow_dispatch event. TODO See more details in caller workflow repos like `ttn-frontend`. 
 
@@ -198,4 +200,25 @@ A reusable workflow that should be called upon by caller workflows when the call
 
 The following section and subsections explain how the `get-article-titles.yml` reusable workflow performs its work. 
 
-1. 
+1. Instantiates the environmental variable `REPO_PATH` to "." (the current working directory). 
+2. Checks out the repository that triggered/called upon this workflow (will be `ttn-workflows` if manually tested, `ttn-frontend` if called)
+3. For manual runs ONLY, sets the APP_ID environmental variable to a `ttn-workflows` repository variable
+   - Note: See the code for details. This step essentially does nothing unless you do some future code edits.
+4. Generate the installation access token via the Github App:
+   - The app-id is from a variable set in the caller workflow's repository. 
+     Note: It is more traditional to pass this variable as an input in the call to the reusable workflow, but I wanted to see if the `vars` context of the caller repository could be properly accessed in this matter.
+   - The private-key is passed in from the caller workflow
+   - The owner is the repository's owner
+   - The repositories lists the repository to grant access to (`ttn-workflows`)
+   
+   The App has __Contents:Read-only__ and __Pull requests:Read-only__ permissions. These are granted to the installation access token, meaning it can read files within the ttn-workflows repository.
+5. Checkout the `ttn-workflows` repository under the directory specified by `path` (`ttn-workflows-repo`) using the installation access token generated from Step 4. (This step is skipped if manually testing)
+6. Set the environmental variable `REPO_PATH` to  `ttn-workflows-repo` (This step is skipped if manually testing)
+7. Use `cat` to print the contents of the `article-titles-1–22–26.txt` file. 
+
+### Manual Testing
+
+To properly test this scenario, trigger the caller workflow `sc-changelog-check-exists-and-naming-caller.yml` in `ttn-frontend`.
+
+Testing the reusable workflow on its own is a more complex task due to the way this code was written. For simplicity in the corresponding article that goes along with this code, I didn't want to have to add and then subsequently explain the intracacies of the logic that would be present when it comes to assessing the repository that triggers the reusable workflow in the 'Generate GitHub App token' step. The article is more focused on caller/reusable workflow relationships and how they relate to a use case for installation access tokens rather than testing flexibility. However, there are steps one can take independently to be able to test the reusable workflow via a `workflow_dispatch` event in its own repository: see the comments at the top of the code for details.
+
