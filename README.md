@@ -171,8 +171,8 @@ Scenario 4 is tested by using the `pr_num_man` option '5 - dummy-file.txt' which
 
 TODO LINKS
 
-Caller workflows: `org-mushroom-kingdom/ttn-frontend/.github/workflows/get-article-titles.yml` 
-Trigger of the caller workflow: `workflow_dispatch` (Manually triggered)
+<ins>Caller workflows</ins>: `org-mushroom-kingdom/ttn-frontend/.github/workflows/get-article-titles.yml` 
+<ins>Trigger of the caller workflow</ins>: `workflow_dispatch` (Manually triggered)
 
 ### Scenario
 
