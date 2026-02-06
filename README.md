@@ -56,9 +56,13 @@ The reusable workflow relies on a script for the brunt of its work. This script 
 
 ### Triggers
 
-workflow_dispatch: This workflow can be triggered manually. TODO SEE MANUAL TESTING?
+`workflow_dispatch`: This workflow can be triggered manually. TODO SEE MANUAL TESTING?
 
-A reusable workflow that should be called upon by caller workflows when the caller workflow's repository has certain pull request activity (opened, synchronize, or reopened) that is a release branch being merged into the main branch. A release branch will have the word 'release' as a prefix. See more details in caller workflow repos like `ttn-frontend`.
+`workflow_call`: A reusable workflow that should be called upon by caller workflows. See **__Caller Workflow Triggers__** for details on the caller workflow trigger. 
+
+**Caller Workflow Triggers**
+
+`pull_request`: When the caller workflow's repository has certain pull request activity (opened, synchronize, or reopened) that is a release branch being merged into the main branch. A release branch will have the word 'release' as a prefix. See more details in the caller workflow repositories' README files.
 
 ### Business Logic
 
