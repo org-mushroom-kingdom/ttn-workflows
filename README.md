@@ -44,7 +44,7 @@ Caller workflows:
 - [org-mushroom-kingdom/ttn-frontend/.github/workflows/sc-changelog-check-exists-and-naming-caller.yml](https://github.com/org-mushroom-kingdom/ttn-frontend/blob/main/.github/workflows/sc-changelog-check-exists-and-naming-caller.yml)
 - [org-mushroom-kingdom/ttn-backend/.github/workflows/sc-changelog-check-exists-and-naming-caller.yml]https://github.com/org-mushroom-kingdom/ttn-backend/blob/main/.github/workflows/sc-changelog-check-exists-and-naming-caller.yml
 
-Trigger of the caller workflows: pull_request [open, synchronize]
+Trigger of the caller workflows: `pull_request (types: [open, synchronize])` See **__Caller Workflow Triggers__** for details
 
 ### Scenario
 
@@ -62,7 +62,7 @@ The reusable workflow relies on a script for the brunt of its work. This script 
 
 **Caller Workflow Triggers**
 
-`pull_request`: When the caller workflow's repository has certain pull request activity (opened, synchronize, or reopened) that is a release branch being merged into the main branch. A release branch will have the word 'release' as a prefix. See more details in the caller workflow repositories' README files.
+`pull_request`: When the caller workflow's repository has certain pull request activity (`types: [opened, synchronize]`) that is a release branch being merged into the main branch. A release branch will have the word 'release' as a prefix. See more details in the caller workflow repositories' README files.
 
 ### Business Logic
 
