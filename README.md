@@ -196,7 +196,9 @@ As an aside, you don't need to create a Github App for each caller workflow for 
 
 ### Triggers
 
-TODO REWORK
+`workflow_dispatch`: This workflow can be triggered manually. But it won't work TODO EXPLAIN TODO SEE MANUAL TESTING?
+
+`workflow_call`: A reusable workflow that should be called upon by caller workflows. See **__Caller Workflow Triggers__** for details on the caller workflow trigger.
 
 A reusable workflow that should be called upon by caller workflows when the caller workflow is manually triggered via the workflow_dispatch event. TODO See more details in caller workflow repos like `ttn-frontend`. 
 
