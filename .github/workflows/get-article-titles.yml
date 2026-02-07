@@ -45,6 +45,7 @@ jobs:
               uses: actions/create-github-app-token@v1
               with:
                 # Note: If setting up this var at repository level, it must be in the caller repository since this is a reusable workflow. (Having it set up at organization-level is easier, provided you have an organization to work with) 
+                # In reality you'd pass the app ID as an input from the caller workflow, but I wanted to see if accessing the vars context of the caller workflow would work
                 # app-id: $APP_ID
                 app-id: ${{ vars.TTN_WORKFLOWS_GH_APP_ID }}
                 # This comes from a secret on the caller repo
