@@ -50,7 +50,7 @@ CHECK THAT APP IS SECURE ENOUGH SO NEFARIOUS PEOPLE AREN'T GOING TO BE WADS
 
 Note: The code written here is used as a supplement to the Medium article ['Github Actions: Checking Out And Utilizing a Reusable Workflow's Repository'](https://medium.com/devops-dev/github-actions-checking-out-and-utilizing-a-reusable-workflows-repository-992adbe7b3ae).
 
-In this scenario, `ttn-frontend` and `ttn-backend` rely on the reusable workflow `changelog-quality-checks.yml` which checks for a changelog file (referred to hereon as a CHANGELOG file) when a pull request is made from a release branch to the main branch (See **__Trigger** for more details). The logic surrounding the CHANGELOG file is strict and the file must meet certain criteria before merging into the preprod or main branch is allowed (see **__Business Logic__** for details). 
+In this scenario, `ttn-frontend` and `ttn-backend` rely on the reusable workflow `changelog-quality-checks.yml` which checks for a changelog file (referred to hereon as a CHANGELOG file) when a pull request is made from a release branch to the main branch (See **__Triggers__** for more details). The logic surrounding the CHANGELOG file is strict and the file must meet certain criteria before merging into the preprod or main branch is allowed (see **__Business Logic__** for details). 
 
 The reusable workflow relies on a script for the brunt of its work. This script is also located in `ttn-workflows`. Since the reusable workflow is in a different repository than the caller workflow's location (either `ttn-frontend` or `ttn-backend`), the script can't be referenced simply by pointing to its path. We must explicitly checkout `ttn-workflows` so the reusable workflow can access the script and perform its logic properly.
 
