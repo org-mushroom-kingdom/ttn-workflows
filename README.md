@@ -86,8 +86,8 @@ A properly named CHANGELOG file meets the following criteria:<br>
 
 For example, given the following scenario: 
 
-- <u>Repository</u>: `org-mushroom-kingdom/ttn-frontend` 
-- <u>Source Branch (release branch)</u>: `release/v1.1`
+- <ins>Repository</ins>: `org-mushroom-kingdom/ttn-frontend` 
+- <ins>Source Branch (release branch)</ins>: `release/v1.1`
 
 The expected CHANGELOG filename would be `CHANGELOG-frontend-v1.1.txt`.
 
