@@ -94,7 +94,7 @@ The expected CHANGELOG filename would be `CHANGELOG-frontend-v1.1.txt`.
 Examples CHANGELOG filenames that would NOT be valid are:
 - `CHANGELOGfrontend-v1.1.txt` (lacks a dash between CHANGELOG and the `ttn_type` (frontend))
 - `CHANGELOG-ttn-frontend-v1.1.txt` (has 'ttn' in it, when the expected `ttn_type` should be 'frontend')
-- `CHANGELOGfrontend-1.1.txt` (has '1.1' in it, when the release_version should be 'v1.1')
+- `CHANGELOG-frontend-1.1.txt` (has '1.1' in it, when the release_version should be 'v1.1')
 
 
 #### **Workflow and Script Logic**
