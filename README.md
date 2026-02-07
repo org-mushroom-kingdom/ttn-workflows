@@ -40,11 +40,11 @@ CHECK THAT APP IS SECURE ENOUGH SO NEFARIOUS PEOPLE AREN'T GOING TO BE WADS
 
 ## changelog-quality-check.py
 
-Caller workflows: 
+<ins>Caller workflows:</ins>
 - [org-mushroom-kingdom/ttn-frontend/.github/workflows/sc-changelog-check-exists-and-naming-caller.yml](https://github.com/org-mushroom-kingdom/ttn-frontend/blob/main/.github/workflows/sc-changelog-check-exists-and-naming-caller.yml)
 - [org-mushroom-kingdom/ttn-backend/.github/workflows/sc-changelog-check-exists-and-naming-caller.yml]https://github.com/org-mushroom-kingdom/ttn-backend/blob/main/.github/workflows/sc-changelog-check-exists-and-naming-caller.yml
 
-Trigger of the caller workflows: `pull_request (types: [open, synchronize])` See **__Caller Workflow Triggers__** for details
+<ins>Trigger of the caller workflows:</ins> `pull_request (types: [open, synchronize])` See **__Caller Workflow Triggers__** for details
 
 ### Scenario
 
