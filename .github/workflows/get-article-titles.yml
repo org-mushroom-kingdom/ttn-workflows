@@ -1,5 +1,5 @@
 #Note: To properly test this, trigger the caller workflow sc-changelog-check-exists-and-naming-caller.yml in ttn-frontend.
-# Manual testing on the reusable workflow's repository will error out d/t no private key to make the installation access token. This is by design.
+# Manual testing on the reusable workflow's repository will error out d/t no app ID nor private key to make the installation access token. This is by design because in the corresponding article I didn't want to have extra bloat--that article is like a 12 minute read
 # If you want to test on the reusable workflow's repository, you can comment in the "if:" line in step 'Generate Github Action Token' which will skip the token generation
 # If you want to test on the reusable workflow's repository AND generate an installation access token:
 #  - Generate a new private key from the App and save it as a secret named gh-app-key on the reusable workflow's repository.
