@@ -200,7 +200,9 @@ As an aside, you don't need to create a Github App for each caller workflow for 
 
 `workflow_call`: A reusable workflow that should be called upon by caller workflows. See **__Caller Workflow Triggers__** for details on the caller workflow trigger.
 
-A reusable workflow that should be called upon by caller workflows when the caller workflow is manually triggered via the workflow_dispatch event. TODO See more details in caller workflow repos like `ttn-frontend`. 
+**Caller Workflow Triggers**
+
+`workflow_dispatch`: The caller workflow is only triggered manually.  
 
 ### **Workflow Logic**
 
@@ -216,7 +218,7 @@ The following section and subsections explain how the `get-article-titles.yml` r
    - The private-key is passed in from the caller workflow
    - The owner is the repository's owner
    - The repositories lists the repository to grant access to (`ttn-workflows`)
-   
+   <br>
    The App has __Contents:Read-only__ and __Pull requests:Read-only__ permissions. These are granted to the installation access token, meaning it can read files within the ttn-workflows repository.
 5. Checkout the `ttn-workflows` repository under the directory specified by `path` (`ttn-workflows-repo`) using the installation access token generated from Step 4. (This step is skipped if manually testing)
 6. Set the environmental variable `REPO_PATH` to  `ttn-workflows-repo` (This step is skipped if manually testing)
