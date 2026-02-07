@@ -58,6 +58,7 @@ jobs:
                 repositories: ttn-workflows
             
             - name: Checkout ttn-workflows repo (if non-manually triggered)
+              # No need to checkout ttn-workflows if manually running (this would be accounted for in the first step)
               if: github.repository != 'org-mushroom-kingdom/ttn-workflows'
               uses: actions/checkout@v4
               with:
