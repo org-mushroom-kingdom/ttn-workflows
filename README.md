@@ -27,12 +27,7 @@ The repo you want to install the app on needs the private key for the app to fun
 You may also want to save the Github App ID as a organizational or repository variable for easy access. (Almost same process as setting a secret)
 Make the reusable workflow. Have workflow_dispatch on there in the beginning to fire off manually. 
 Go to the actions/create-github-app-token page to see how to make the steps to generate and then use the token (the token is an output of the step that calls actions/create-github-app-token, meaning you can reference that output in a future step)
-Frankenstein those steps for your specific use. Comment them out.
-Test the actual logic of the reusable workflow without generating the token at first to prevent headache
-Once confirmed basic logic work, comment token steps back in.
-Add workflow_call to reusable workflow.
-Make caller workflow to call reusable workflow.
-See what happens
+
 
 CHECK THAT APP IS SECURE ENOUGH SO NEFARIOUS PEOPLE AREN'T GOING TO BE WADS
 
@@ -172,8 +167,6 @@ Scenario 3 is tested by using the `pr_num_man` option '4 - CHANGELOG_backend_v1.
 Scenario 4 is tested by using the `pr_num_man` option '5 - dummy-file.txt' which corresponds to a pull request that lacks a CHANGELOG file.
 
 ## get-article-titles.yml
-
-TODO LINKS
 
 <ins>Caller workflows</ins>: [`org-mushroom-kingdom/ttn-frontend/.github/workflows/get-article-titles.yml`](https://github.com/org-mushroom-kingdom/ttn-frontend/blob/main/.github/workflows/get-article-titles.yml)
 <ins>Trigger of the caller workflow</ins>: `workflow_dispatch` (Manually triggered)
