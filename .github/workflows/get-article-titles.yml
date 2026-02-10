@@ -65,7 +65,7 @@ jobs:
                 repository: org-mushroom-kingdom/ttn-workflows
                 path: ttn-workflows-repo
                 token: ${{ steps.app-token.outputs.token }}
-                # Keeps the token from persisting by preventing it from being saved to .git/config.
+                # Keeps the token from persisting by preventing it from being saved to $RUNNER_TEMP
                 persist-credentials: false
 
             - name: Set REPO_PATH
