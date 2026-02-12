@@ -25,4 +25,4 @@ jobs:
             echo "http_status_code = $http_status_code"
 
         - name: Perform server checks
-          run: ./server-checks.sh
+          run: ./scripts/server-checks.sh
