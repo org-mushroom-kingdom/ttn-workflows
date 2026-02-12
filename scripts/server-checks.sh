@@ -12,7 +12,7 @@ RED='\033[0;31m'
 GREEN='\033[0;32m'
 ENDCOLOR='\033[0m' 
 
-cat $SERVER_LIST
+cat -A $SERVER_LIST
 # while IFS="," read -r server description
 # do
 #     http_status_code=$(curl -s -o /dev/null -w "%{http_code}" "${server}")
