@@ -1,2 +1,3 @@
 server,description
 https://bored-api.appbrewery.com/random,'Should be 200. Gives a random activity.'
+https://example.com,'Should be 200. Standard example URL.'

@@ -14,11 +14,10 @@ ENDCOLOR='\033[0m'
 
 while IFS="," read -r server description
 do
-    echo "Server = $server"
     http_status_code=$(curl -s -o /dev/null -w "%{http_code}" https://example.com)
-    if [[ $http_status_code = "200" ]]
-    then
-        echo -e "${GREEN}HOORAY${ENDCOLOR}"
-    fi
-    echo "http_status_code = $http_status_code"
+    [[ $http_status_code = "200" ]] && color=$GREEN || color=$RED
+    echo -e "${color}${server}:${http_status_code}${ENDCOLOR}"
+    
+
+    # echo "http_status_code = $http_status_code"
 done < "$SERVER_LIST"
