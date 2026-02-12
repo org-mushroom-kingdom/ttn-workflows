@@ -7,7 +7,7 @@ ls
 
 SERVER_LIST="./docs/server-list.csv"
 
-while IFS =, read -r server
+while IFS ="," read -r server
 do
     echo "Server = $server"
 done < "$SERVER_LIST"
