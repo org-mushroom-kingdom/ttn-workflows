@@ -1,5 +1,8 @@
 name: Non-main workflow
 
+# Scenario: Say we want to do a basic server connectivity test before deploying to them. Toad Town News is strict with merges to main during certain time periods; this is one of those times.
+# Print out the server and HTTP status code for each server in a .csv list 
+# If a GET request to a server doesn't return 200, ??? 
 on:
   
   workflow_dispatch:
@@ -12,5 +15,11 @@ jobs:
     name: "Non-main job"
     runs-on: ubuntu-latest
     steps:
+        
+        - name: Setup Python 3.13 
+          uses: actions/setup-python@v6
+          with:
+            python-version: '3.13' 
+        
         - name: Ping target destination
-          run: curl -o - -i https://bored-api.appbrewery.com/randomaaaaaaaaaaaaaaaaaaaa
+          run: curl -I https://bored-api.appbrewery.com/randomaaaaaaaaaaaaaaaaaaaa
