@@ -1,23 +1,35 @@
 #!/bin/bash
 
 # Note: You may get an HTTP 429 (too many requests) if you test this too much within a certain time period
+
+# Uncomment these to get context of where the runner is pointed (/home/runner/work/ttn-workflows/ttn-workflows). 
+# Note: For PWD, you'll see your repo name twice at the end. This is because the workspace folder is /home/runner/work/<repo-name>
+# We then checkout the repo in a subfolder that is named after the repo being checked out (ttn-workflows). We cd to that subfolder so pwd is /home/runner/work/ttn-workflows/ttn-workflows
 # echo "pwd = $PWD"
+
 # echo "doing ls"
 # ls
 
 # Get the server-list.csv file
 
 SERVER_LIST="./docs/server-list.csv"
+# Workflow logs supports ANSI color escape sequences like the ones below.  
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 ENDCOLOR='\033[0m' 
 
+# TODO: COMMENT ABOUT $ NEWLINE THING
 # cat -A $SERVER_LIST
 
 while IFS="," read -r server description
 do
-    http_status_code=$(curl -s -o /dev/null -w "%{http_code}" "${server}")
+    # Skip the header (continue to next iteration)
     [[ $server = "server" ]] && continue
+    # TODO: break this down
+    http_status_code=$(curl -s -o /dev/null -w "%{http_code}" "${server}")
+    # if-else shorthand: [[Conditional]] && if-true-do-this || if-false-do-this
+    # For this we set the var 'color' to $GREEN if we get a 200. If not 200, set color to $RED
     [[ $http_status_code = "200" ]] && color=$GREEN || color=$RED
-    echo -e "${color}${server} : ${http_status_code}${ENDCOLOR}"
+    
+    echo -e "${server} : ${color}${http_status_code}${ENDCOLOR}"
 done < "$SERVER_LIST"
