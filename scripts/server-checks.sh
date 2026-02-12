@@ -18,7 +18,7 @@ do
     http_status_code=$(curl -s -o /dev/null -w "%{http_code}" https://example.com)
     if [[ $http_status_code = "200" ]]
     then
-        echo "${GREEN}HOORAY${ENDCOLOR}"
+        echo -e "${GREEN}HOORAY${ENDCOLOR}"
     fi
     echo "http_status_code = $http_status_code"
 done < "$SERVER_LIST"
