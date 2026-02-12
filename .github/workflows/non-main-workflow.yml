@@ -24,5 +24,8 @@ jobs:
             http_status_code=$(curl -s -o /dev/null -w "%{http_code}" https://bored-api.appbrewery.com/randomaaaaaaaaaaaaaaaaaaaa)
             echo "http_status_code = $http_status_code"
 
+        - name: Grant 'runner' user exec permissions
+          run: chmod u+x ./scripts/server-checks.sh
+
         - name: Perform server checks
           run: ./scripts/server-checks.sh
