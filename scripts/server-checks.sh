@@ -1,2 +1,4 @@
-http_status_code=$(curl -s -o /dev/null -w "%{http_code}" https://bored-api.appbrewery.com/random)
+# Note: You may get an HTTP 429 (too many requests) if you test this too much within a certain time period
+
+http_status_code=$(curl -s -o /dev/null -w "%{http_code}" https://example.com)
 echo "http_status_code = $http_status_code"
