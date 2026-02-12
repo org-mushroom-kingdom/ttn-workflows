@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Note: You may get an HTTP 429 (too many requests) if you test this too much within a certain time period
 echo "pwd = $PWD"
 echo "doing ls"
