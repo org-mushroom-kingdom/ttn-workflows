@@ -22,4 +22,4 @@ jobs:
             python-version: '3.13' 
         
         - name: Ping target destination
-          run: curl -s -I -w"%http_code" https://bored-api.appbrewery.com/randomaaaaaaaaaaaaaaaaaaaa
+          run: curl -s -I -w "%{http_code}" https://bored-api.appbrewery.com/randomaaaaaaaaaaaaaaaaaaaa
