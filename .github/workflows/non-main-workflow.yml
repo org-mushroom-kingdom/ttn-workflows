@@ -12,5 +12,5 @@ jobs:
     name: "Non-main job"
     runs-on: ubuntu-latest
     steps:
-        - name: Print something
-          run: echo "Something"
+        - name: Ping target destination
+          run: curl -o - -I http://localhost
