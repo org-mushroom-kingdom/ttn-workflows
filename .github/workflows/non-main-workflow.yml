@@ -13,4 +13,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
         - name: Ping target destination
-          run: curl -o - -I http://localhost
+          run: curl -o - -I http://example.com
