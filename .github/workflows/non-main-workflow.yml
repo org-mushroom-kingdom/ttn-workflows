@@ -13,4 +13,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
         - name: Ping target destination
-          run: curl -o - -i https://bored-api.appbrewery.com/random
+          run: curl -o - -i https://httpstat.us/503
