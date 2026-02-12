@@ -16,12 +16,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
         
-        - name: Setup Python 3.13 
-          uses: actions/setup-python@v6
-          with:
-            python-version: '3.13' 
-        
+        - name: Checkout repo
+          uses: actions/checkout@v4
+
         - name: Ping target destination
           run: |
             http_status_code=$(curl -s -o /dev/null -w "%{http_code}" https://bored-api.appbrewery.com/randomaaaaaaaaaaaaaaaaaaaa)
             echo "http_status_code = $http_status_code"
+
+        - name: Perform server checks
+          run: ./server-checks.sh
