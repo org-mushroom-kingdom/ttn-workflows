@@ -17,8 +17,5 @@ do
     http_status_code=$(curl -s -o /dev/null -w "%{http_code}" https://example.com)
     [[ $server = "server" ]] && continue
     [[ $http_status_code = "200" ]] && color=$GREEN || color=$RED
-    echo -e "${color}${server}:${http_status_code}${ENDCOLOR}"
-    
-
-    # echo "http_status_code = $http_status_code"
+    echo -e "${color}${server} : ${http_status_code}${ENDCOLOR}"
 done < "$SERVER_LIST"
