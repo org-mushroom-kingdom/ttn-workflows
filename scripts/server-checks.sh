@@ -10,7 +10,7 @@ SERVER_LIST="./docs/server-list.csv"
 while IFS =, read -r server
 do
     echo "Server = $server"
-done < "$INPUT_FILE"
+done < "$SERVER_LIST"
 
 # http_status_code=$(curl -s -o /dev/null -w "%{http_code}" https://example.com)
 # echo "http_status_code = $http_status_code"
