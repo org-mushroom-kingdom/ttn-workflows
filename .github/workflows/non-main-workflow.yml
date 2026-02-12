@@ -13,4 +13,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
         - name: Print something
-          run: "Something"
+          run: echo "Something"
