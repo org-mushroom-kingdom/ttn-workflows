@@ -23,5 +23,5 @@ jobs:
         
         - name: Ping target destination
           run: |
-            curl -s -I -w "%{http_code}" https://bored-api.appbrewery.com/randomaaaaaaaaaaaaaaaaaaaa
-            echo "http_code = $http_code"
+            http_status_code=$(curl -s -I -w "%{http_code}" https://bored-api.appbrewery.com/randomaaaaaaaaaaaaaaaaaaaa)
+            echo "http_status_cde = $http_status_code"
