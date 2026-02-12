@@ -1,15 +1,15 @@
 #!/bin/bash
 
 # Note: You may get an HTTP 429 (too many requests) if you test this too much within a certain time period
-echo "pwd = $PWD"
-echo "doing ls"
-ls
+# echo "pwd = $PWD"
+# echo "doing ls"
+# ls
 
 # Get the server-list.csv file
 
 SERVER_LIST="./docs/server-list.csv"
 
-while IFS ="," read -r server
+while IFS="," read -r server
 do
     echo "Server = $server"
 done < "$SERVER_LIST"
