@@ -15,6 +15,7 @@ ENDCOLOR='\033[0m'
 while IFS="," read -r server description
 do
     http_status_code=$(curl -s -o /dev/null -w "%{http_code}" https://example.com)
+    [[ $server = "server" ]] && continue
     [[ $http_status_code = "200" ]] && color=$GREEN || color=$RED
     echo -e "${color}${server}:${http_status_code}${ENDCOLOR}"
     
