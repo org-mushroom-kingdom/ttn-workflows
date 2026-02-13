@@ -1,0 +1,20 @@
+name: SUPER-TEMP workflow
+
+# Scenario: Say we want to do a basic server connectivity test before deploying to them. Toad Town News is strict with merges to main during certain time periods; this is one of those times.
+# Print out the server and HTTP status code for each server in a .csv list 
+# If a GET request to a server doesn't return 200, ??? 
+on:
+  
+  workflow_dispatch:
+
+  push:
+    branches: [feature/matt-test-workflow-without-main-merge]
+    
+
+jobs:
+  non-main-job:
+    name: "Non-main job"
+    runs-on: ubuntu-latest
+    steps:
+        - name: Echo purpose
+          run: "This workflow should only exist in the UI page for a second. 1 run will be triggered due to the push: trigger. If that run gets deleted, then this workflow yml gets deleted, the whole thing should get removed from the left sidebar."

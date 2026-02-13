@@ -1,0 +1,32 @@
+name: Non-main workflow
+
+# Scenario: Say we want to do a basic server connectivity test before deploying to them. Toad Town News is strict with merges to main during certain time periods; this is one of those times.
+# Print out the server and HTTP status code for each server in a .csv list 
+# If a GET request to a server doesn't return 200, ??? 
+on:
+  
+  workflow_dispatch:
+
+  push:
+    branches: [feature/matt-test-workflow-without-main-merge]
+    
+
+jobs:
+  non-main-job:
+    name: "Non-main job"
+    runs-on: ubuntu-latest
+    steps:
+        
+        - name: Checkout repo
+          uses: actions/checkout@v4
+
+        - name: Ping target destination
+          run: |
+            http_status_code=$(curl -s -o /dev/null -w "%{http_code}" https://bored-api.appbrewery.com/randomaaaaaaaaaaaaaaaaaaaa)
+            echo "http_status_code = $http_status_code"
+
+        - name: Grant 'runner' user exec permissions
+          run: chmod u+x ./scripts/server-checks.sh
+
+        - name: Perform server checks
+          run: ./scripts/server-checks.sh
