@@ -6,8 +6,6 @@ name: Non-main workflow
 on:
   
   workflow_dispatch:
-
-  push:
     
 
 jobs:
