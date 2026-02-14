@@ -2,7 +2,10 @@ name: Non-main workflow
 
 # Scenario: Say we want to do a basic server connectivity test before deploying to them. Toad Town News is strict with merges to main during certain time periods; this is one of those times.
 # In other words, the workflow needs to be tested without being merged to the default branch (main)
+# There are multiple ways to do this, thus the variety of triggers.
+
 # WITH THAT IN MIND, treat this file as if it was NOT merged to main (I'm merging it to main to keep things tidy). 
+# Treat the comments in the same way.
 # TODO ELABORATE?
 
 # The business logic of this workflow is thus:
@@ -14,9 +17,13 @@ on:
   workflow_dispatch:
 
   push:
-    # When this isn't merged to main, you don't have to specify the feature branch the workflow is on.
+    # When the workflow isn't merged to main, you don't have to specify the feature branch the workflow is on.
     # This is because the push trigger only evalutes workflow files that exist in the branch receiving the push. (See dev.solve)
     branches: [feature/matt-test-workflow-without-main-merge]
+    # When the workflow isn't merged to main, if you want to fire it whenever a push occurs, DON'T use the below line
+    # The paths: key is for fine-tuning. For this file, we limit the workflow to fire under a push ONLY when that push includes a change to './github/workflows/non-main-workflow.yml'
+    paths: 
+      - './github/workflows/non-main-workflow.yml'
     
 
 jobs:

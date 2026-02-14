@@ -22,6 +22,7 @@ msg=""
 # TODO: COMMENT ABOUT $ NEWLINE THING
 # cat -A $SERVER_LIST
 
+# TODO: Break this down. IFS,read -r,>SERVER_LIST
 while IFS="," read -r server description
 do
     # Skip the header (continue to next iteration)
@@ -31,6 +32,7 @@ do
     # if-else shorthand: [[Conditional]] && if-true-do-this || if-false-do-this
     # For this we set the var 'msg_color' to $GREEN if we get a 200. If not 200, set msg_colorcolor to $RED
     [[ $http_status_code = "200" ]] && msg_color=$GREEN || msg_color=$RED
+    # Just like above, but for the content of 'msg'
     [[ $http_status_code = "200" ]] && msg="(SUCCESS)" || msg="(FAILURE)"
     
     echo -e "${server} : ${msg_color}${http_status_code} ${msg}${ENDCOLOR}"
