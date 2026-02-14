@@ -17,7 +17,7 @@ on:
   
   push:
     # When the workflow isn't merged to main, you don't have to specify the feature branch the workflow is on.
-    # This is because the push trigger only evalutes workflow files that exist in the branch receiving the push. (See dev.solve)
+    # This is because Github evaluates only evalutes workflow files that exist in the branch receiving the push. (See dev.solve)
     # You can still include branches: though if you want to make it more explicit or serve as a reminder.
     branches: [feature/matt-test-workflow-without-main-merge]
     # When the workflow isn't merged to main, if you want to fire it whenever a push occurs, DON'T use the below line
@@ -26,7 +26,7 @@ on:
       - './github/workflows/non-main-workflow.yml'
 
   # The default types for pull_request are open, synchronize, and reopen
-  # When the workflow isn't merged to main, to get the workflow to fire using this trigger you have to first open a PR with the target branch being the feature branch you have the workflow on   
+  # When the workflow isn't merged to main, to get the workflow to fire using this trigger you have to first open a PR with the target (base) branch being the feature branch you have the workflow on   
   # The initial creation of the PR is the "open" trigger and thus fires off the workflow
   # To perform further firings of the workflow with a vanilla pull_request trigger, you can:
   # Open another PR with the target branch being the feature branch you have the workflow on ("open" trigger)
@@ -34,11 +34,22 @@ on:
   # Close and reopen the PR ("reopen" trigger)
   pull_request:
     # When the workflow isn't merged to main, you don't have to specify the feature branch the workflow is on.
-    # TODO CONFIRM FOR PULL REQUEST: This is because the push trigger only evalutes workflow files that exist in the branch receiving the push. (See dev.solve)
+    # TODO CONFIRM: This is because the pull_request trigger only evalutes workflow files that exist in the target (base) branch of the PR
     # You can still include branches: though if you want to make it more explicit or serve as a reminder.
+    # TODO: paths: test with and without
     # TODO paths: CHANGED FILES BLABLABLA
 
+
+  # TODO API call
+  # TODO Github CLI call
+  # TODO mention inputs can be used
   workflow_dispatch:
+    inputs:
+      example-string-input:
+        description: "If using this input, value put here will be printed if event is workflow_dispatch."
+        required: false
+        type: string
+        default: "You didn't put anything :("
 
   # TODO God, why would you do this to yourself
   workflow_call:
