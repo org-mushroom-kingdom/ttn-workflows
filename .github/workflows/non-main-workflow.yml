@@ -79,10 +79,8 @@ jobs:
         - name: Checkout repo
           uses: actions/checkout@v4
 
-        - name: Ping target destination
-          run: |
-            http_status_code=$(curl -s -o /dev/null -w "%{http_code}" https://bored-api.appbrewery.com/randomaaaaaaaaaaaaaaaaaaaa)
-            echo "http_status_code = $http_status_code"
+        - name: Echo workflow trigger
+          run: echo "This workflow was triggered by ${{ github.event_name }}"
 
         - name: "workflow_dispatch: Read inputs"
           if: github.event_name == 'workflow_dispatch'
