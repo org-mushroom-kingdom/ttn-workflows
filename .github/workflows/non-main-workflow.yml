@@ -5,14 +5,17 @@ name: Non-main workflow
 # WITH THAT IN MIND, treat this file as if it was NOT merged to main (I'm merging it to main to keep things tidy). 
 # TODO ELABORATE?
 
-# Print out the server and HTTP status code for each server in a .csv list 
-# If a GET request to a server doesn't return 200, ??? 
+# The business logic of this workflow is thus:
+# For each server in /deploys/server-list.csv: Print out the server and HTTP status code for each server in a .csv list 
+# If a GET request to a server doesn't return 200, print that out in red.
+# Such logic can later be elaborated upon to make programmatic deploy decisions (ex. if server X is down, continue with deploy. If server Y is down, don't) 
 on:
   
   workflow_dispatch:
 
   push:
-    # When this isn't merged to main, you don't have to specify the feature branch the workflow is on, because this workflow is on present on this branch currently.
+    # When this isn't merged to main, you don't have to specify the feature branch the workflow is on.
+    # This is because the push trigger only evalutes workflow files that exist in the branch receiving the push. (See dev.solve)
     branches: [feature/matt-test-workflow-without-main-merge]
     
 

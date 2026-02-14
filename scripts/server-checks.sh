@@ -12,7 +12,7 @@
 
 # Get the server-list.csv file
 
-SERVER_LIST="./docs/server-list.csv"
+SERVER_LIST="./deploys/server-list.csv"
 # Workflow logs supports ANSI color escape sequences like the ones below.  
 RED='\033[0;31m'
 GREEN='\033[0;32m'
