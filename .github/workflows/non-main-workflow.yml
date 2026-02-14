@@ -5,7 +5,8 @@ name: Non-main workflow
 # There are multiple ways to do this, thus the variety of triggers.
 
 # WITH THAT IN MIND, treat this file as if it was NOT merged to main (I'm merging it to main to keep things tidy). 
-# Treat the comments in the same way.
+# Treat the comments in the same way. (I've tried to use the phrase "When the workflow isn't merged to main" diligently)
+# The branch this workflow was originally tested on was feature/matt-test-workflow-without-main-merge
 # TODO ELABORATE?
 
 # The business logic of this workflow is thus:
@@ -14,17 +15,33 @@ name: Non-main workflow
 # Such logic can later be elaborated upon to make programmatic deploy decisions (ex. if server X is down, continue with deploy. If server Y is down, don't) 
 on:
   
-  workflow_dispatch:
-
   push:
     # When the workflow isn't merged to main, you don't have to specify the feature branch the workflow is on.
     # This is because the push trigger only evalutes workflow files that exist in the branch receiving the push. (See dev.solve)
+    # You can still include branches: though if you want to make it more explicit or serve as a reminder.
     branches: [feature/matt-test-workflow-without-main-merge]
     # When the workflow isn't merged to main, if you want to fire it whenever a push occurs, DON'T use the below line
     # The paths: key is for fine-tuning. For this file, we limit the workflow to fire under a push ONLY when that push includes a change to './github/workflows/non-main-workflow.yml'
     paths: 
       - './github/workflows/non-main-workflow.yml'
-    
+
+  # The default types for pull_request are open, synchronize, and reopen
+  # When the workflow isn't merged to main, to get the workflow to fire using this trigger you have to first open a PR with the target branch being the feature branch you have the workflow on   
+  # The initial creation of the PR is the "open" trigger and thus fires off the workflow
+  # To perform further firings of the workflow with a vanilla pull_request trigger, you can:
+  # Open another PR with the target branch being the feature branch you have the workflow on ("open" trigger)
+  # While the PR is open, make a commit to the source branch of the PR ("synchronize" trigger)
+  # Close and reopen the PR ("reopen" trigger)
+  pull_request:
+    # When the workflow isn't merged to main, you don't have to specify the feature branch the workflow is on.
+    # TODO CONFIRM FOR PULL REQUEST: This is because the push trigger only evalutes workflow files that exist in the branch receiving the push. (See dev.solve)
+    # You can still include branches: though if you want to make it more explicit or serve as a reminder.
+    # TODO paths: CHANGED FILES BLABLABLA
+
+  workflow_dispatch:
+
+  # TODO God, why would you do this to yourself
+  workflow_call:
 
 jobs:
   non-main-job:
