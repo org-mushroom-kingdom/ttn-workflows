@@ -41,8 +41,8 @@ on:
     # TODO paths: CHANGED FILES BLABLABLA
 
 
-  # TODO API call
-  # TODO Github CLI call
+  # TODO API call --> TODO MAKE CALL EXAMPLE IN .TXT , .JSON OR SOMETHING
+  # TODO Github CLI call --> TODO put it somewhere
   # TODO mention inputs can be used
   # TODO mention if::::: github_event == 'workflow_dispatch' to avoid runtime errors for non-w_d triggers 
   workflow_dispatch:
@@ -52,6 +52,14 @@ on:
         required: false
         type: string
         default: "You didn't put anything :("
+      # Use this in API calls to determine how workflow_dispatch was triggered. 
+      # (This isn't strictly required, but if the workflow gets merged in to the default branch and you want to use the UI to run it AND API calls, 
+      # this helps determine the nature of the workflow_dispatch trigger.)  
+      triggered-by-api:
+        description: "Helps determine if called by API"
+        required: true
+        type: boolean
+        default: false
 
   # TODO God, why would you do this to yourself
   # TODO Need caller workflow somewhere
@@ -75,6 +83,12 @@ jobs:
           run: |
             http_status_code=$(curl -s -o /dev/null -w "%{http_code}" https://bored-api.appbrewery.com/randomaaaaaaaaaaaaaaaaaaaa)
             echo "http_status_code = $http_status_code"
+
+        - name: "workflow_dispatch: Read inputs"
+          if: github.event_name == 'workflow_dispatch'
+          run: |
+            echo "inputs.example-string-input: ${{ inputs.example-string-input }}"
+            echo "inputs.triggered-by-api: ${{ inputs.triggered-by-api }}"
 
         - name: Grant 'runner' user exec permissions
           run: chmod u+x ./scripts/server-checks.sh
