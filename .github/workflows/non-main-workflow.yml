@@ -26,11 +26,12 @@ on:
       - './github/workflows/non-main-workflow.yml'
 
   # The default types for pull_request are open, synchronize, and reopen
-  # When the workflow isn't merged to main, to get the workflow to fire using this trigger you have to first open a PR with the target (base) branch being the feature branch you have the workflow on   
+  # When the workflow isn't merged to main, to get the workflow to fire using this trigger you have to first open a pull request (PR) 
+  # with the target (base) branch being the feature branch you have the workflow on   
   # The initial creation of the PR is the "open" trigger and thus fires off the workflow
   # To perform further firings of the workflow with a vanilla pull_request trigger, you can:
   # Open another PR with the target branch being the feature branch you have the workflow on ("open" trigger)
-  # While the PR is open, make a commit to the source branch of the PR ("synchronize" trigger)
+  # While the PR is open, make a commit to the source branch of the PR ("synchronize" trigger) *This is the easiest way.
   # Close and reopen the PR ("reopen" trigger)
   pull_request:
     # When the workflow isn't merged to main, you don't have to specify the feature branch the workflow is on.
@@ -43,6 +44,7 @@ on:
   # TODO API call
   # TODO Github CLI call
   # TODO mention inputs can be used
+  # TODO mention if::::: github_event == 'workflow_dispatch' to avoid runtime errors for non-w_d triggers 
   workflow_dispatch:
     inputs:
       example-string-input:
@@ -52,7 +54,13 @@ on:
         default: "You didn't put anything :("
 
   # TODO God, why would you do this to yourself
+  # TODO Need caller workflow somewhere
   workflow_call:
+
+  # TODO SEE IF THIS EVEN WORKS
+  # TODO MAKE PAT w workflow OR public_repo? permission to use in Postman
+  # TODO define event type
+  repository_dispatch:
 
 jobs:
   non-main-job:
