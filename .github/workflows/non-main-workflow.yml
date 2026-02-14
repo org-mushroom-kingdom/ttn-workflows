@@ -1,6 +1,10 @@
 name: Non-main workflow
 
 # Scenario: Say we want to do a basic server connectivity test before deploying to them. Toad Town News is strict with merges to main during certain time periods; this is one of those times.
+# In other words, the workflow needs to be tested without being merged to the default branch (main)
+# WITH THAT IN MIND, treat this file as if it was NOT merged to main (I'm merging it to main to keep things tidy). 
+# TODO ELABORATE?
+
 # Print out the server and HTTP status code for each server in a .csv list 
 # If a GET request to a server doesn't return 200, ??? 
 on:
@@ -8,6 +12,7 @@ on:
   workflow_dispatch:
 
   push:
+    # When this isn't merged to main, you don't have to specify the feature branch the workflow is on, because this workflow is on present on this branch currently.
     branches: [feature/matt-test-workflow-without-main-merge]
     
 
