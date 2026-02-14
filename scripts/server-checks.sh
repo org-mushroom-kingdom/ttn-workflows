@@ -17,7 +17,8 @@ SERVER_LIST="./deploys/server-list.csv"
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 ENDCOLOR='\033[0m' 
-
+msg_color=""
+msg=""
 # TODO: COMMENT ABOUT $ NEWLINE THING
 # cat -A $SERVER_LIST
 
@@ -28,8 +29,9 @@ do
     # TODO: break this down
     http_status_code=$(curl -s -o /dev/null -w "%{http_code}" "${server}")
     # if-else shorthand: [[Conditional]] && if-true-do-this || if-false-do-this
-    # For this we set the var 'color' to $GREEN if we get a 200. If not 200, set color to $RED
-    [[ $http_status_code = "200" ]] && color=$GREEN || color=$RED
+    # For this we set the var 'msg_color' to $GREEN if we get a 200. If not 200, set msg_colorcolor to $RED
+    [[ $http_status_code = "200" ]] && msg_color=$GREEN || msg_color=$RED
+    [[ $http_status_code = "200" ]] && msg="(SUCCESS)" || msg="(FAILURE)"
     
-    echo -e "${server} : ${color}${http_status_code}${ENDCOLOR}"
+    echo -e "${server} : ${msg_color}${http_status_code} ${msg}${ENDCOLOR}"
 done < "$SERVER_LIST"

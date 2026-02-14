@@ -6,8 +6,8 @@ name: Non-main workflow
 # TODO ELABORATE?
 
 # The business logic of this workflow is thus:
-# For each server in /deploys/server-list.csv: Print out the server and HTTP status code for each server in a .csv list 
-# If a GET request to a server doesn't return 200, print that out in red.
+# For each server in /deploys/server-list.csv: Make GET request to server, print out the server and HTTP status code for each server in a .csv list 
+# If HTTP code is 200, print out in green. If HTTP code is NOT 200, print that out in red.
 # Such logic can later be elaborated upon to make programmatic deploy decisions (ex. if server X is down, continue with deploy. If server Y is down, don't) 
 on:
   
