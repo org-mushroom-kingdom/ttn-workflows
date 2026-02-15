@@ -49,11 +49,11 @@ on:
   workflow_dispatch:
     inputs:
     # Just an example input  TODO DELETE?
-      example-string-input:
-        description: "If using this input, value put here will be printed if event is workflow_dispatch."
+      notes:
+        description: "Gives additional context about the workflow_dispatch call."
         required: false
         type: string
-        default: "You didn't put anything :("
+        default: "No notes. It's possible this was triggered via the Github Actions UI IF this workflow has been merged into the default branch"
       # Use this in API calls to determine how workflow_dispatch was triggered. 
       # (This isn't strictly required, but if the workflow gets merged in to the default branch and you want to use the UI to run it AND API calls, 
       # this helps determine the nature of the workflow_dispatch trigger.)  
@@ -98,7 +98,7 @@ jobs:
         - name: "workflow_dispatch: Read inputs"
           if: github.event_name == 'workflow_dispatch'
           run: |
-            echo "inputs.example-string-input: ${{env.YELLOW}}${{ inputs.example-string-input }}${{env.ENDCOLOR}}"
+            echo "inputs.notes: ${{env.YELLOW}}${{ inputs.notes }}${{env.ENDCOLOR}}"
             echo "inputs.triggered-by-api: ${{env.YELLOW}}${{ inputs.triggered-by-api }}${{env.ENDCOLOR}}"
             echo "inputs.perform-server-check: ${{env.YELLOW}}${{ inputs.perform-server-check }}${{env.ENDCOLOR}}"
 
