@@ -1,0 +1,16 @@
+name: Non-main workflow CALLER
+
+on:
+  workflow_dispatch:
+    inputs:
+      feature-branch:
+        # The feature branch that contains the workflow that has not been merged into the default branch.
+        description: "Branch the workflow resides in"
+        required: false
+        type: string
+
+jobs:
+    non-main-workflow-caller:
+        name: 'Non-main workflow caller Job'
+        # If you're forking this, replace the ref (text after '@') with your feature branch
+        uses: org-mushroom-kingdom/ttn-workflows/.github/workflows/non-main-workflow.yml@feature/matt-test-workflow-without-main-merge
