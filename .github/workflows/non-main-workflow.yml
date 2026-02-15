@@ -99,6 +99,7 @@ jobs:
           run: |
             echo "inputs.example-string-input: ${{ inputs.example-string-input }}"
             echo "inputs.triggered-by-api: ${{ inputs.triggered-by-api }}"
+            echo "inputs.perform-server-check: ${{ inputs.perform-server-check }}"
 
         - name: Grant 'runner' user exec permissions
           run: chmod u+x ./scripts/server-checks.sh
