@@ -119,7 +119,7 @@ jobs:
         - name: Grant 'runner' user exec permissions
           run: chmod u+x ./scripts/server-checks.sh
 
-        - name: "inputs: Set PERFORM_SERVER_CHECK"
+        - name: "inputs: Set PERFORM_SERVER_CHECK to false if specified"
           # This can refer to the input provided from EITHER workflow_dispatch or workflow_call
           if: ${{ inputs.perform-server-check == false && inputs.perform-server-check != ''}}
           run: echo "PERFORM_SERVER_CHECK=false" >> $GITHUB_ENV
