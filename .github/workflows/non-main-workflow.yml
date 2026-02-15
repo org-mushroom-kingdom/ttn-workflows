@@ -90,11 +90,6 @@ on:
         type: boolean
         default: true
 
-  # TODO SEE IF THIS EVEN WORKS
-  # TODO Remember to use token in Postman
-  # TODO define event type
-  repository_dispatch:
-
 jobs:
   non-main-job:
     name: "Non-main job"
