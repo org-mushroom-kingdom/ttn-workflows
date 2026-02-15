@@ -120,9 +120,9 @@ jobs:
           run: chmod u+x ./scripts/server-checks.sh
 
         - name: "inputs: Set PERFORM_SERVER_CHECK to false if specified"
-          # This can refer to the input provided from EITHER workflow_dispatch or workflow_call
           if: github.event_name == 'workflow_dispatch' || github.event_name == 'workflow_call' 
           run: |
+            # This can refer to the input provided from EITHER workflow_dispatch or workflow_call since they share the same name
             if [[ "${{ inputs.perform-server-check }}" == "false" || "${{ inputs.perform-server-check }}" == "" ]]
             then
               echo "PERFORM_SERVER_CHECK=false" >> $GITHUB_ENV
