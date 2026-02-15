@@ -83,13 +83,16 @@ jobs:
   non-main-job:
     name: "Non-main job"
     runs-on: ubuntu-latest
+    env:
+      YELLOW: "\e[0;34m"
+      ENDCOLOR: '\033[0m'
     steps:
         
         - name: Checkout repo
           uses: actions/checkout@v4
 
         - name: Echo workflow trigger
-          run: echo "This workflow was triggered by ${{ github.event_name }}"
+          run: echo-e "This workflow was triggered by $YELLOW ${{ github.event_name }} $ENDCOLOR"
 
         - name: "workflow_dispatch: Read inputs"
           if: github.event_name == 'workflow_dispatch'
