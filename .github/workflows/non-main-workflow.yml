@@ -84,8 +84,8 @@ jobs:
     name: "Non-main job"
     runs-on: ubuntu-latest
     env:
-      YELLOW: "\033[0;34m"
-      ENDCOLOR: "\033[0m"
+      YELLOW: "\e[33m"
+      ENDCOLOR: "\e[0m"
     steps:
         
         - name: Checkout repo
