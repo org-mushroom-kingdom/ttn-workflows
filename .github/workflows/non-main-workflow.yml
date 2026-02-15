@@ -23,8 +23,8 @@ on:
     branches: [feature/matt-test-workflow-without-main-merge]
     # When the workflow isn't merged to main, if you want to fire it whenever a push occurs, DON'T use the below line
     # The paths: key is for fine-tuning. For this file, we limit the workflow to fire under a push ONLY when that push includes a change to './github/workflows/non-main-workflow.yml'
-    # paths: 
-    #   - '.github/workflows/non-main-workflow.yml'
+    paths: 
+      - '.github/workflows/non-main-workflow.yml'
 
   # The default types for pull_request are open, synchronize, and reopen
   # When the workflow isn't merged to main, to get the workflow to fire using this trigger you have to first open a pull request (PR) 
@@ -88,7 +88,7 @@ jobs:
       # ANSI colors
       YELLOW: "\e[33m"
       ENDCOLOR: "\e[0m"
-      REPO_PATH: "."
+
     steps:
         
         - name: Checkout repo
@@ -105,10 +105,9 @@ jobs:
             echo "inputs.notes: ${{env.YELLOW}}${{ inputs.notes }}${{env.ENDCOLOR}}"
             echo "inputs.triggered-by-api: ${{env.YELLOW}}${{ inputs.triggered-by-api }}${{env.ENDCOLOR}}"
             echo "inputs.perform-server-check: ${{env.YELLOW}}${{ inputs.perform-server-check }}${{env.ENDCOLOR}}"
-
         
         - name: Grant 'runner' user exec permissions
-          run: chmod u+x $REPO_PATH/scripts/server-checks.sh
+          run: chmod u+x ./scripts/server-checks.sh
 
         - name: Perform server checks
           if: inputs.perform-server-check
