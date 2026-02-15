@@ -10,6 +10,7 @@ name: Non-main workflow
 # TODO ELABORATE?
 
 # The business logic of this workflow is thus:
+# Via calling a script (TODO NAME):
 # For each server in /deploys/server-list.csv: Make GET request to server, print out the server and HTTP status code for each server in a .csv list 
 # If HTTP code is 200, print out in green. If HTTP code is NOT 200, print that out in red.
 # Such logic can later be elaborated upon to make programmatic deploy decisions (ex. if server X is down, continue with deploy. If server Y is down, don't) 
@@ -47,6 +48,7 @@ on:
   # TODO mention if::::: github_event == 'workflow_dispatch' to avoid runtime errors for non-w_d triggers 
   workflow_dispatch:
     inputs:
+    # Just an example input  TODO DELETE?
       example-string-input:
         description: "If using this input, value put here will be printed if event is workflow_dispatch."
         required: false
@@ -60,6 +62,13 @@ on:
         required: true
         type: boolean
         default: false
+      # For this particular scenario, we're testing several different ways to trigger a workflow that hasnt't been merged into main
+      # Thus, we often may care more about the method used to call and not always desire to execute the script.
+      perform-server-check:
+        description: "Do the server check"
+        required: true
+        type: boolean
+        default: true
 
   # TODO God, why would you do this to yourself
   # TODO Need caller workflow somewhere
@@ -92,4 +101,5 @@ jobs:
           run: chmod u+x ./scripts/server-checks.sh
 
         - name: Perform server checks
+          if: inputs.perform-server-check
           run: ./scripts/server-checks.sh
