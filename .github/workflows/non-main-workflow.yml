@@ -51,9 +51,9 @@ on:
   #     See /docs/payload-for-non-main-workflow.json for details on body to send.
   # - via Github CLI call:
   #     For this scenario, make the CLI call with inputs (-f tag). 
-  #     gh workflow run non-main-workflow.yml --ref <branch-name> -f notes="Triggered by Github CLI call" -f triggered-by-api=true perform-server-check=<true or false>
+  #     gh workflow run non-main-workflow.yml --ref <branch-name> -f notes="Triggered by Github CLI call" -f triggered-by-api=true -f perform-server-check=<true or false>
   #     See example call below 
-  #     gh workflow run non-main-workflow.yml --ref feature/matt-test-workflow-without-main-merge -f notes="Triggered by Github CLI call" -f triggered-by-api=true perform-server-check=false
+  #     gh workflow run non-main-workflow.yml --ref feature/matt-test-workflow-without-main-merge -f notes="Triggered by Github CLI call" -f triggered-by-api=true -f perform-server-check=false
 
   # TODO mention if::::: github_event == 'workflow_dispatch' to avoid runtime errors for non-w_d triggers 
   workflow_dispatch:
