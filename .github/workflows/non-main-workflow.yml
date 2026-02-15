@@ -113,7 +113,7 @@ jobs:
           run: chmod u+x ./scripts/server-checks.sh
 
         - name: "inputs: Set PERFORM_SERVER_CHECK"
-          if: ${{ inputs.perform-server-check == false}}
+          if: ${{ inputs.perform-server-check == false && inputs.perform-server-check != ''}}
           run: echo "PERFORM_SERVER_CHECK=false" >> $GITHUB_ENV
 
         - name: Perform server checks
