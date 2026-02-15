@@ -39,7 +39,7 @@ on:
     # When the workflow isn't merged to main, you don't have to specify the feature branch the workflow is on.
     # TODO CONFIRM: This is because the pull_request trigger only evalutes workflow files that exist in the target (base) branch of the PR
     # You can still include branches: though if you want to make it more explicit or serve as a reminder.
-    # TODO: paths: test with and without
+    # TODO: paths: test with x2 (workflow path, some other BS path) and without
     # TODO paths: CHANGED FILES BLABLABLA
 
 
