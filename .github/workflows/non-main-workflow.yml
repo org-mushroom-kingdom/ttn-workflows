@@ -98,9 +98,9 @@ jobs:
         - name: "workflow_dispatch: Read inputs"
           if: github.event_name == 'workflow_dispatch'
           run: |
-            echo "inputs.example-string-input: ${{ inputs.example-string-input }}"
-            echo "inputs.triggered-by-api: ${{ inputs.triggered-by-api }}"
-            echo "inputs.perform-server-check: ${{ inputs.perform-server-check }}"
+            echo "inputs.example-string-input: ${{env.YELLOW}}${{ inputs.example-string-input }}${{env.ENDCOLOR}}"
+            echo "inputs.triggered-by-api: ${{env.YELLOW}}${{ inputs.triggered-by-api }}${{env.ENDCOLOR}}"
+            echo "inputs.perform-server-check: ${{env.YELLOW}}${{ inputs.perform-server-check }}${{env.ENDCOLOR}}"
 
         - name: Grant 'runner' user exec permissions
           run: chmod u+x ./scripts/server-checks.sh
