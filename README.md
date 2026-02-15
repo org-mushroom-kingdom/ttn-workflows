@@ -1,5 +1,7 @@
 # ttn-workflows
 
+Note: This really should be organized into a wiki. One day! TODO WIKI
+
 A repository that stores workflows and things surrounding them (scripts, etc) for the fake app "Toad Town News." Most of the workflows here should be reusable.
 Refer to the Workflows section regarding information about each workflow present in this repository (keep in mind that this repository may evolve from time to time, and so documentation regarding workflows may evolve as well. Basically check in from time to time to make sure you're up to date with the workflow you're reading about)
 
@@ -248,9 +250,11 @@ To experiment triggering a workflow that has not been merged to main, try the fo
 - Update the ref: in actions/checkout to reference your feature branch. <br>
 - Update branches: references to your feature branch. (Things should still work if you don't but it's good to do so anyways.) 
 8. Save the file, and make a commit. This should trigger the workflow (due to the push: trigger).
-9. Proceed to test out various triggers.
+9. Proceed to test out other various triggers.
 
 Note: For triggers that involve API calls, refer to ./docs/payload-for-non-main-workflow.json. Update the ref in that file to reflect your feature branch.
+
+#### **push**
 
 #### **workflow_dispatch**
 
