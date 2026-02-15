@@ -111,7 +111,7 @@ jobs:
         - name: Echo workflow trigger, perform-server-check (input and env var)
           run: |
             echo -e "This workflow was triggered by the ${{ env.YELLOW }}${{ github.event_name }}${{ env.ENDCOLOR }} event"
-            [[ ${{ github.event.action }} != '' ]] && echo -e "This workflow was triggered by the activity type ${{ env.YELLOW }}${{ github.event.action }}${{ env.ENDCOLOR }}"
+            [[ "${{ github.event.action }}" != "" ]] && echo -e "This workflow was triggered by the activity type ${{ env.YELLOW }}${{ github.event.action }}${{ env.ENDCOLOR }}"
             echo "inputs.perform-server-check: ${{ env.YELLOW }}${{ inputs.perform-server-check }}${{ env.ENDCOLOR }}"
             echo "PERFORM_SERVER_CHECK = ${{ env.YELLOW }}$PERFORM_SERVER_CHECK${{ env.ENDCOLOR }}"
         
