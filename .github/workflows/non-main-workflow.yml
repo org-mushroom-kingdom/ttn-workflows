@@ -92,7 +92,7 @@ jobs:
           uses: actions/checkout@v4
 
         - name: Echo workflow trigger
-          run: echo-e "This workflow was triggered by $YELLOW ${{ github.event_name }} $ENDCOLOR"
+          run: echo -e "This workflow was triggered by $YELLOW ${{ github.event_name }} $ENDCOLOR"
 
         - name: "workflow_dispatch: Read inputs"
           if: github.event_name == 'workflow_dispatch'
