@@ -54,11 +54,12 @@ on:
         required: false
         type: string
         default: "No notes. It's possible this was triggered via the Github Actions UI IF this workflow has been merged into the default branch"
-      # Use this in API calls to determine how workflow_dispatch was triggered. 
+      # Set this to true in API calls to help determine how workflow_dispatch was triggered. (Serves as a supplement to the 'notes' input above.)
       # (This isn't strictly required, but if the workflow gets merged in to the default branch and you want to use the UI to run it AND API calls, 
-      # this helps determine the nature of the workflow_dispatch trigger.)  
+      # this helps determine the nature of the workflow_dispatch trigger.)
+      # Set this to true in Github CLI calls as well, since Github CLI is essentially a wrapper for the Github API.
       triggered-by-api:
-        description: "Helps determine if called by API"
+        description: "Is true if called by API"
         required: true
         type: boolean
         default: false
