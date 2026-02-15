@@ -42,8 +42,16 @@ on:
     # TODO paths: CHANGED FILES BLABLABLA
 
 
+  # workflow_dispatch can be triggered in one of the following ways:
+  # - via Github Actions UI (IF the workflow has been merged into the default branch)
+  # - via an API call:
   # TODO API call DETAILS
+  # - via Github CLI call:
+  #   For this scenario, make the CLI call with inputs (-f tag). See example call below 
+  #   gh workflow run non-main-workflow.yml --ref feature/matt-test-workflow-without-main-merge -f notes="Triggered by Github CLI call" -f triggered-by-api=true) 
   # TODO Github CLI call --> TODO put it somewhere
+  # gh workflow run non-main-workflow.yml --ref feature/matt-test-workflow-without-main-merge -f notes="Triggered by Github CLI call" -f triggered-by-api=true
+
   # TODO mention inputs can be used
   # TODO mention if::::: github_event == 'workflow_dispatch' to avoid runtime errors for non-w_d triggers 
   workflow_dispatch:
@@ -71,8 +79,6 @@ on:
         type: boolean
         default: true
 
-  # TODO God, why would you do this to yourself
-  # TODO Need caller workflow somewhere
   workflow_call:
     inputs:
       # This functions and is named exactly the same as the workflow_dispatch version. 
@@ -81,8 +87,9 @@ on:
         required: true
         type: boolean
         default: true
+
   # TODO SEE IF THIS EVEN WORKS
-  # TODO MAKE PAT w workflow OR public_repo? permission to use in Postman
+  # TODO Remember to use token in Postman
   # TODO define event type
   repository_dispatch:
 
