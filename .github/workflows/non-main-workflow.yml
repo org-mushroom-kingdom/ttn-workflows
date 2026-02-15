@@ -24,7 +24,7 @@ on:
     # When the workflow isn't merged to main, if you want to fire it whenever a push occurs, DON'T use the below line
     # The paths: key is for fine-tuning. For this file, we limit the workflow to fire under a push ONLY when that push includes a change to './github/workflows/non-main-workflow.yml'
     paths: 
-      - './.github/workflows/non-main-workflow.yml'
+      - '.github/workflows/non-main-workflow.yml'
 
   # The default types for pull_request are open, synchronize, and reopen
   # When the workflow isn't merged to main, to get the workflow to fire using this trigger you have to first open a pull request (PR) 
