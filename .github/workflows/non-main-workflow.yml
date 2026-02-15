@@ -48,11 +48,8 @@ on:
   # TODO API call DETAILS
   # - via Github CLI call:
   #   For this scenario, make the CLI call with inputs (-f tag). See example call below 
-  #   gh workflow run non-main-workflow.yml --ref feature/matt-test-workflow-without-main-merge -f notes="Triggered by Github CLI call" -f triggered-by-api=true) 
-  # TODO Github CLI call --> TODO put it somewhere
-  # gh workflow run non-main-workflow.yml --ref feature/matt-test-workflow-without-main-merge -f notes="Triggered by Github CLI call" -f triggered-by-api=true
+  #   gh workflow run non-main-workflow.yml --ref feature/matt-test-workflow-without-main-merge -f notes="Triggered by Github CLI call" -f triggered-by-api=true
 
-  # TODO mention inputs can be used
   # TODO mention if::::: github_event == 'workflow_dispatch' to avoid runtime errors for non-w_d triggers 
   workflow_dispatch:
     inputs:

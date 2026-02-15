@@ -255,3 +255,6 @@ Note: For triggers that involve API calls, refer to ./docs/payload-for-non-main-
 #### **workflow_dispatch**
 
 <ins>Via API Call</ins>
+
+<ins>Via Github CLI Call</ins>
+TODO gh workflow run non-main-workflow.yml --ref feature/matt-test-workflow-without-main-merge -f notes="Triggered by Github CLI call" -f triggered-by-api=true 
