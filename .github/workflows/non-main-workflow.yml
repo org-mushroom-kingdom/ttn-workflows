@@ -74,7 +74,13 @@ on:
   # TODO God, why would you do this to yourself
   # TODO Need caller workflow somewhere
   workflow_call:
-
+    inputs:
+      # This functions and is named exactly the same as the workflow_dispatch version. 
+      perform-server-check:
+        description: "Do the server check"
+        required: true
+        type: boolean
+        default: true
   # TODO SEE IF THIS EVEN WORKS
   # TODO MAKE PAT w workflow OR public_repo? permission to use in Postman
   # TODO define event type
@@ -114,6 +120,7 @@ jobs:
           run: chmod u+x ./scripts/server-checks.sh
 
         - name: "inputs: Set PERFORM_SERVER_CHECK"
+          # This can refer to the input provided from EITHER workflow_dispatch or workflow_call
           if: ${{ inputs.perform-server-check == false && inputs.perform-server-check != ''}}
           run: echo "PERFORM_SERVER_CHECK=false" >> $GITHUB_ENV
 
