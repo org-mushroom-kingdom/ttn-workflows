@@ -112,6 +112,10 @@ jobs:
         - name: Grant 'runner' user exec permissions
           run: chmod u+x ./scripts/server-checks.sh
 
+        - name: "inputs: Set PERFORM_SERVER_CHECK"
+          if: ${{ inputs.perform-server-check == false}}
+          run: echo "PERFORM_SERVER_CHECK=false" >> $GITHUB_ENV
+
         - name: Perform server checks
           if: ${{env.PERFORM_SERVER_CHECK}}
           run: ./scripts/server-checks.sh
