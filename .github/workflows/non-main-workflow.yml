@@ -97,10 +97,11 @@ jobs:
           with:
             ref: feature/matt-test-workflow-without-main-merge
 
-        - name: Echo workflow trigger
+        - name: Echo workflow trigger, PERFORM_SERVER_CHECK
           run: |
             echo -e "This workflow was triggered by the ${{ env.YELLOW }}${{ github.event_name }}${{ env.ENDCOLOR }} event"
             echo "inputs.perform-server-check: ${{ env.YELLOW }}${{ inputs.perform-server-check }}${{ env.ENDCOLOR }}"
+            echo "PERFORM_SERVER_CHECK = $PERFORM_SERVER_CHECK"
         
         - name: "workflow_dispatch: Read inputs"
           if: github.event_name == 'workflow_dispatch'
