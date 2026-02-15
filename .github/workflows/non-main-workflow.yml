@@ -26,14 +26,15 @@ on:
     paths: 
       - '.github/workflows/non-main-workflow.yml'
 
+  # TODO: TEST THIS
   # The default types for pull_request are open, synchronize, and reopen
   # When the workflow isn't merged to main, to get the workflow to fire using this trigger you have to first open a pull request (PR) 
   # with the target (base) branch being the feature branch you have the workflow on   
   # The initial creation of the PR is the "open" trigger and thus fires off the workflow
   # To perform further firings of the workflow with a vanilla pull_request trigger, you can:
-  # Open another PR with the target branch being the feature branch you have the workflow on ("open" trigger)
-  # While the PR is open, make a commit to the source branch of the PR ("synchronize" trigger) *This is the easiest way.
-  # Close and reopen the PR ("reopen" trigger)
+  # - Open another PR with the target branch being the feature branch you have the workflow on ("open" trigger)
+  # - While the PR is open, make a commit to the source branch of the PR ("synchronize" trigger) *This is the easiest way.
+  # - Close and reopen the PR ("reopen" trigger)
   pull_request:
     # When the workflow isn't merged to main, you don't have to specify the feature branch the workflow is on.
     # TODO CONFIRM: This is because the pull_request trigger only evalutes workflow files that exist in the target (base) branch of the PR
@@ -45,10 +46,12 @@ on:
   # workflow_dispatch can be triggered in one of the following ways:
   # - via Github Actions UI (IF the workflow has been merged into the default branch)
   # - via an API call:
-  # TODO API call DETAILS
+  #     Make an API call to the path https://api.github.com/repos/<OWNER>/<REPO>/actions/workflows/<workflow-filename.yml>/dispatches
+  #     See /README.md for auth and header info.
+  #     See /docs/payload-for-non-main-workflow.json for details on body to send.
   # - via Github CLI call:
-  #   For this scenario, make the CLI call with inputs (-f tag). See example call below 
-  #   gh workflow run non-main-workflow.yml --ref feature/matt-test-workflow-without-main-merge -f notes="Triggered by Github CLI call" -f triggered-by-api=true
+  #     For this scenario, make the CLI call with inputs (-f tag). See example call below 
+  #     gh workflow run non-main-workflow.yml --ref feature/matt-test-workflow-without-main-merge -f notes="Triggered by Github CLI call" -f triggered-by-api=true
 
   # TODO mention if::::: github_event == 'workflow_dispatch' to avoid runtime errors for non-w_d triggers 
   workflow_dispatch:
