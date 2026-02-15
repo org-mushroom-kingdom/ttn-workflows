@@ -118,5 +118,6 @@ jobs:
           run: echo "PERFORM_SERVER_CHECK=false" >> $GITHUB_ENV
 
         - name: Perform server checks
+          # You need quotes here because environmental variables are treated as strings 
           if: ${{env.PERFORM_SERVER_CHECK == 'true'}}
           run: ./scripts/server-checks.sh
