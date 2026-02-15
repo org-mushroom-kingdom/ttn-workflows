@@ -223,3 +223,32 @@ To properly test this scenario, trigger the caller workflow `sc-changelog-check-
 
 Testing the reusable workflow on its own is a more complex task due to the way this code was written. For simplicity in the corresponding article that goes along with this code, I didn't want to have to add and then subsequently explain the intracacies of the logic that would be present when it comes to assessing the repository that triggers the reusable workflow in the 'Generate GitHub App token' step. The article is more focused on caller/reusable workflow relationships and how they relate to a use case for installation access tokens rather than testing flexibility. However, there are steps one can take independently to be able to test the reusable workflow via a `workflow_dispatch` event in its own repository: see the comments at the top of the code for details.
 
+## non-main-workflow.yml (Non-main workflow)
+
+### Scenario
+
+The code here is used as a supplement to the Medium article TODO LINK!! 'Triggering a Github Actions Workflow Without Merging Into Main'. Refer to that article for additional context and details.
+
+This scenario is somewhat unique: The goal here is to show how a workflow can be triggered when it is not merged into the repository default branch (the default branch is main for ttn-workflows). 
+
+At this point, readers might wonder why then, is the workflow merged in the default branch? The purpose is simple: to archive those ways such a workflow could be triggered. Readers are encouraged to copy this workflow file and test it out on their own repo. 
+
+### Manual Testing
+
+TODO THE NAME OF THE GAME
+
+To experiment triggering a workflow that has not been merged to main, try the following:
+1. Fork the ttn-workflows repo
+2. Copy the non-main-workflow.yml code somewhere or save it to a file.  
+3. In a commit, delete the non-main-workflow.yml from the main branch.
+4. Push the commit
+5. Make a new feature branch (Ctrl+Shift+N if using Github Desktop)
+6. Make a new file called non-main-workflow.yml. 
+7. Paste in the code you copied from Step 2 into this file. Update branches: references to your feature branch. (Things should still work if you don't but it's good to do so anyways)
+8. Save the file, and make a commit. This should trigger the workflow (due to the push: trigger).
+9. Proceed to test out various triggers.
+
+#### **workflow_dispatch**
+
+<ins>Via API Call</ins>
+Note: For triggers that involve API calls, refer to ./docs/payload-for-non-main-workflow.json. Update the ref in that file to reflect your feature branch.

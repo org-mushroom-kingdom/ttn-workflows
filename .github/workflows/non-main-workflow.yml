@@ -42,7 +42,7 @@ on:
     # TODO paths: CHANGED FILES BLABLABLA
 
 
-  # TODO API call --> TODO MAKE CALL EXAMPLE IN .TXT , .JSON OR SOMETHING
+  # TODO API call DETAILS
   # TODO Github CLI call --> TODO put it somewhere
   # TODO mention inputs can be used
   # TODO mention if::::: github_event == 'workflow_dispatch' to avoid runtime errors for non-w_d triggers 
