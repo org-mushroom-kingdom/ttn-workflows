@@ -244,7 +244,9 @@ To experiment triggering a workflow that has not been merged to main, try the fo
 4. Push the commit
 5. Make a new feature branch (Ctrl+Shift+N if using Github Desktop)
 6. Make a new file called non-main-workflow.yml. 
-7. Paste in the code you copied from Step 2 into this file. Update branches: references to your feature branch. (Things should still work if you don't but it's good to do so anyways)
+7. Paste in the code you copied from Step 2 into this file. <br>
+- Update the ref: in actions/checkout to reference your feature branch. <br>
+- Update branches: references to your feature branch. (Things should still work if you don't but it's good to do so anyways) 
 8. Save the file, and make a commit. This should trigger the workflow (due to the push: trigger).
 9. Proceed to test out various triggers.
 
