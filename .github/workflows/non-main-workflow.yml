@@ -85,7 +85,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       YELLOW: "\e[0;34m"
-      ENDCOLOR: '\033[0m'
+      ENDCOLOR: "\033[0m"
     steps:
         
         - name: Checkout repo
