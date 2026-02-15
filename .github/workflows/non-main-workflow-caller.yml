@@ -16,9 +16,17 @@ on:
             type: string
 
 jobs:
+    echo-per-input:
+        name: "Echo inputs"
+        runs-on: ubuntu-latest
+        steps:
+            - name: 'Echo relevant vars'
+              run: echo "inputs.perform-server-check-caller = ${{ inputs.perform-server-check-caller }}"
+
     non-main-workflow-caller:
         name: 'Non-main workflow caller Job'
         # If you're forking this, replace the ref (text after '@') with your feature branch
         uses: org-mushroom-kingdom/ttn-workflows/.github/workflows/non-main-workflow.yml@feature/matt-test-workflow-without-main-merge
         with: 
             perform-server-check: ${{ inputs.perform-server-check-caller }}
+
