@@ -118,5 +118,5 @@ jobs:
           run: echo "PERFORM_SERVER_CHECK=false" >> $GITHUB_ENV
 
         - name: Perform server checks
-          if: ${{env.PERFORM_SERVER_CHECK == true}}
+          if: ${{env.PERFORM_SERVER_CHECK == 'true'}}
           run: ./scripts/server-checks.sh
