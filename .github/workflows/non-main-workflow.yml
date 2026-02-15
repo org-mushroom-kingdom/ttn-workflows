@@ -63,8 +63,8 @@ on:
         required: true
         type: boolean
         default: false
-      # For this particular scenario, we're testing several different ways to trigger a workflow that hasnt't been merged into main
-      # Thus, we often may care more about the method used to call and not always desire to execute the script.
+      # For this particular scenario, we're testing several different ways to trigger a workflow that hasn't been merged into main
+      # Thus, we often may care more about the call itself and not always desire to execute the script.
       perform-server-check:
         description: "Do the server check"
         required: true
