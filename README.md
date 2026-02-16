@@ -231,9 +231,9 @@ Testing the reusable workflow on its own is a more complex task due to the way t
 
 The code here is used as a supplement to the Medium article TODO LINK!! 'Triggering a Github Actions Workflow Without Merging Into Main'. Refer to that article for additional context and details.
 
-This scenario is somewhat unique: The goal here is to show how a workflow can be triggered when it is not merged into the repository default branch (the default branch is main for ttn-workflows). 
+This scenario is somewhat unique: The goal here is to show how a workflow (TODO NAME) can be triggered when it is not merged into the repository default branch (the default branch is main for ttn-workflows). 
 
-At this point, readers might wonder why then, is the workflow merged in the default branch? The purpose is simple: to archive those ways such a workflow could be triggered. Readers are encouraged to copy this workflow file and test it out on their own repo. 
+At this point, readers might wonder why then, is the TODO NAME workflow merged in the default branch? The purpose is simple: to archive those ways such a workflow could be triggered. Readers are encouraged to copy this workflow file and test it out on their own repo. 
 
 ### Manual Testing
 
@@ -252,14 +252,25 @@ To experiment triggering a workflow that has not been merged to main, try the fo
 8. Save the file, and make a commit. This should trigger the workflow (due to the push: trigger).
 9. Proceed to test out other various triggers.
 
-Note: For triggers that involve API calls, refer to ./docs/payload-for-non-main-workflow.json. Update the ref in that file to reflect your feature branch.
 
 #### **push**
-
+TODO
+#### **pull_request**
+TODO
 #### **workflow_dispatch**
 
-<ins>Via API Call</ins>
+Note: For triggers that involve API calls, refer to ./docs/payload-for-non-main-workflow.json. Update the ref in that file to reflect your feature branch.
 
+TODO can't use Github API
+
+<ins>Via API Call</ins>
+TODO POSTMAN 
 <ins>Via Github CLI Call</ins>
 TODO #     gh workflow run non-main-workflow.yml --ref <branch-name> -f notes="Triggered by Github CLI call" -f triggered-by-api=true -f perform-server-check=<true or false>
 TODO gh workflow run non-main-workflow.yml --ref feature/matt-test-workflow-without-main-merge -f notes="Triggered by Github CLI call" -f triggered-by-api=true 
+TODO say this is basically a wrapper of an API call
+
+#### **workflow_call**
+
+TODO caller workflow for this in same repo so no need to pass/use token in actions/checkout
+inputs for perform same exact as workflow dispatch

@@ -24,8 +24,10 @@ on:
     # You can still include branches: though if you want to make it more explicit or serve as a reminder. 
     # Try testing with the line below commented in or out--the results should be identical
     # branches: [feature/matt-test-workflow-without-main-merge]
+    
     # When the workflow isn't merged to main, if you want to fire it whenever a push occurs, DON'T use the below paths: key and its child
-    # The paths: key is for fine-tuning. For this file, we limit the workflow to fire under a push ONLY when that push includes a change to './github/workflows/non-main-workflow.yml'
+    # The paths: key is for fine-tuning. It will see if the changed files in a commit match a certain glob pattern, and fire the workflow ONLY when one of those files matches the glob pattern
+    # For example, in the two lines below we limit the workflow to fire under a push ONLY when that push includes a change to './github/workflows/non-main-workflow.yml'
     # paths: 
       # - '.github/workflows/non-main-workflow.yml'
 
@@ -41,13 +43,13 @@ on:
     # When the workflow isn't merged to main, you don't have to specify the feature branch the workflow is on.
     # This is because the pull_request trigger only evalutes workflow files that exist in the target (base) branch of the PR
     # You can still include branches: though if you want to make it more explicit or serve as a reminder.
+    
     # When the workflow isn't merged to main, if you want to fire it whenever a push occurs, DON'T use the below paths: key and its child (docs/**)
     # The paths: key will see if the changed files in a pull request match a certain glob pattern. You can thus fine-tune pull_request activity by
     # ensuring the workflow only fires when certain files have been changed.
     # For example, if the below lines are commented IN and you make a commit on the source branch in a PR that does NOT fall under the glob 'docs/**', the workflow will NOT be triggered.
     # paths: 
     #   - 'docs/**'
-    # TODO: paths: test with x2 (workflow path, some other BS path) and without
 
 
   # workflow_dispatch can be triggered in one of the following ways:
@@ -62,7 +64,6 @@ on:
   #     See example call below 
   #     gh workflow run non-main-workflow.yml --ref feature/matt-test-workflow-without-main-merge -f notes="Triggered by Github CLI call" -f triggered-by-api=true -f perform-server-check=false
 
-  # TODO mention if::::: github_event == 'workflow_dispatch' to avoid runtime errors for non-w_d triggers 
   workflow_dispatch:
     inputs:
     # Just an example input  TODO DELETE?
@@ -111,6 +112,8 @@ jobs:
     steps:
         
         - name: Checkout repo
+          # Note: regarding workflow_call, for this scenario our only caller workflow is in the same repository as non-main-workflow.yml
+          # If there was a caller workflow in a different repo, a token would have to be passed in and used as part of actions/checkout 
           uses: actions/checkout@v4
           with:
             ref: feature/matt-test-workflow-without-main-merge
