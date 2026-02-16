@@ -4,29 +4,31 @@ name: Non-main workflow
 # In other words, the workflow needs to be tested without being merged to the default branch (main)
 # There are multiple ways to do this, thus the variety of triggers.
 
-# WITH THAT IN MIND, treat this file as if it was NOT merged to main (I'm merging it to main to keep things tidy). 
+# WITH THAT IN MIND, treat this file as if it was NOT merged to main (I'm merging it to main to keep things tidy and for archival purposes). 
 # Treat the comments in the same way. (I've tried to use the phrase "When the workflow isn't merged to main" diligently)
-# The branch this workflow was originally tested on was feature/matt-test-workflow-without-main-merge
+# The branch this workflow was originally tested on was feature/matt-test-workflow-without-main-merge. If you're using this file to test, make sure to do a find and replace.
 # TODO ELABORATE?
 
 # The business logic of this workflow is thus:
-# Via calling a script (TODO NAME):
-# For each server in /deploys/server-list.csv: Make GET request to server, print out the server and HTTP status code for each server in a .csv list 
-# If HTTP code is 200, print out in green. If HTTP code is NOT 200, print that out in red.
+# Checkout the repo.
+# IF env.PERFORM_SERVER_CHECK is true
+# Call a script (server-checks.sh):
+#     For each server in /deploys/server-list.csv: Make GET request to server, print out the server and HTTP status code for each server in a .csv list 
+#     If HTTP code is 200, print out in green. If HTTP code is NOT 200, print that out in red.
 # Such logic can later be elaborated upon to make programmatic deploy decisions (ex. if server X is down, continue with deploy. If server Y is down, don't) 
 on:
   
-  # push:
+  push:
     # When the workflow isn't merged to main, you don't have to specify the feature branch the workflow is on.
     # This is because Github evaluates only evalutes workflow files that exist in the branch receiving the push. (See dev.solve)
-    # You can still include branches: though if you want to make it more explicit or serve as a reminder.
+    # You can still include branches: though if you want to make it more explicit or serve as a reminder. 
+    # Try testing with the line below commented in or out--the results should be identical
     # branches: [feature/matt-test-workflow-without-main-merge]
-    # When the workflow isn't merged to main, if you want to fire it whenever a push occurs, DON'T use the below line
+    # When the workflow isn't merged to main, if you want to fire it whenever a push occurs, DON'T use the below paths: key and its child
     # The paths: key is for fine-tuning. For this file, we limit the workflow to fire under a push ONLY when that push includes a change to './github/workflows/non-main-workflow.yml'
     # paths: 
       # - '.github/workflows/non-main-workflow.yml'
 
-  # TODO: TEST THIS
   # The default types for pull_request are open, synchronize, and reopen
   # When the workflow isn't merged to main, to get the workflow to fire using this trigger you have to first open a pull request (PR) 
   # with the target (base) branch being the feature branch you have the workflow on   
@@ -37,12 +39,15 @@ on:
   # - Close and reopen the PR ("reopen" trigger)
   pull_request:
     # When the workflow isn't merged to main, you don't have to specify the feature branch the workflow is on.
-    # TODO CONFIRM: This is because the pull_request trigger only evalutes workflow files that exist in the target (base) branch of the PR
+    # This is because the pull_request trigger only evalutes workflow files that exist in the target (base) branch of the PR
     # You can still include branches: though if you want to make it more explicit or serve as a reminder.
-    # TODO: paths: test with x2 (workflow path, some other BS path) and without
-    # TODO paths: CHANGED FILES BLABLABLA
+    # When the workflow isn't merged to main, if you want to fire it whenever a push occurs, DON'T use the below paths: key and its child (docs/**)
+    # The paths: key will see if the changed files in a pull request match a certain glob pattern. You can thus fine-tune pull_request activity by
+    # ensuring the workflow only fires when certain files have been changed.
+    # For example, if the below lines are commented IN and you make a commit on the source branch in a PR that does NOT fall under the glob 'docs/**', the workflow will NOT be triggered.
     # paths: 
-    #   - '.github/workflows/**'
+    #   - 'docs/**'
+    # TODO: paths: test with x2 (workflow path, some other BS path) and without
 
 
   # workflow_dispatch can be triggered in one of the following ways:
