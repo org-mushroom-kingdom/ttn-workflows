@@ -42,7 +42,7 @@ on:
     # TODO: paths: test with x2 (workflow path, some other BS path) and without
     # TODO paths: CHANGED FILES BLABLABLA
     paths: 
-      - 'docs/**'
+      - '.github/workflows/**'
 
 
   # workflow_dispatch can be triggered in one of the following ways:
