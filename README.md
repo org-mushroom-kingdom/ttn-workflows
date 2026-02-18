@@ -231,20 +231,21 @@ Testing the reusable workflow on its own is a more complex task due to the way t
 
 The code here is used as a supplement to the Medium article TODO LINK!! 'Triggering a Github Actions Workflow Without Merging Into Main'. Refer to that article for additional context and details.
 
-This scenario is somewhat unique: The goal here is to show how a workflow (TODO NAME) can be triggered when it is not merged into the repository default branch (the default branch is main for ttn-workflows). 
+This scenario is somewhat unique: The goal here is to show how a workflow (`non-main-workflow.yml`) can be triggered when it is not merged into the repository default branch (Note: the default branch is main for the ttn-workflows repository). Therefore, the workflow should be treated as if it weren't merged to main.     
 
-At this point, readers might wonder why then, is the TODO NAME workflow merged in the default branch? The purpose is simple: to archive those ways such a workflow could be triggered. Readers are encouraged to copy this workflow file and test it out on their own repo. 
+At this point, readers might wonder why IS the `non-main-workflow.yml` workflow merged in the default branch? The purpose is simple: to archive those ways such a workflow could be triggered. Readers are encouraged to copy this workflow file and test it out on their own repo. 
 
 ### Manual Testing
 
 TODO THE NAME OF THE GAME
 
 To experiment triggering a workflow that has not been merged to main, try the following:
+
 1. Fork the ttn-workflows repo
 2. Copy the non-main-workflow.yml code somewhere or save it to a file.  
 3. In a commit, delete the non-main-workflow.yml from the main branch.
 4. Push the commit
-5. Make a new feature branch (Ctrl+Shift+N if using Github Desktop)
+5. Make a new feature branch, which will be referred to in this documentation as your-feature-branch. (Note: Use Ctrl+Shift+N if using Github Desktop)
 6. Make a new file called non-main-workflow.yml. 
 7. Paste in the code you copied from Step 2 into this file. <br>
 - Update the ref: in actions/checkout to reference your feature branch. <br>
@@ -255,6 +256,7 @@ To experiment triggering a workflow that has not been merged to main, try the fo
 
 #### **push**
 TODO
+
 #### **pull_request**
 TODO
 #### **workflow_dispatch**
