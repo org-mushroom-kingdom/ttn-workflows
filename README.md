@@ -255,13 +255,15 @@ To experiment triggering a workflow that has not been merged to main, try the fo
 8. Save the file, and make a commit. This should trigger the workflow (due to the push: trigger).
 9. Proceed to test out other various triggers.
 
+The following sections detail how to activate each trigger. You may want to comment out other triggers if trying to test a specific one.
 
 #### **push**
 
-This is the easiest one to trigger. Literally all you need to do is make a commit on `your-feature-branch` and push it. You can experiment with the branches: and paths: keys, but they shouldn't make a difference.
+This is the easiest one to trigger. Literally all you need to do is make a commit on `your-feature-branch` and push it. You can experiment with the branches: and paths: keys, but they shouldn't make a difference. 
 
 #### **pull_request**
 TODO
+
 #### **workflow_dispatch**
 
 Note: For triggers that involve API calls, refer to ./docs/payload-for-non-main-workflow.json. Update the ref in that file to reflect your feature branch.
