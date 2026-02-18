@@ -4,7 +4,7 @@ name: Non-main workflow
 # In other words, the workflow needs to be tested without being merged to the default branch (main)
 # There are multiple ways to do this, thus the variety of triggers.
 
-# WITH THAT IN MIND, treat this file as if it was NOT merged to main (I'm merging it to main to keep things tidy and for archival purposes). 
+# WITH THAT IN MIND, treat this file as if it was NOT merged to main/the default branch (I'm merging it to main to keep things tidy and for archival purposes). 
 # Treat the comments in the same way. (I've tried to use the phrase "When the workflow isn't merged to main" diligently)
 # The branch this workflow was originally tested on was feature/matt-test-workflow-without-main-merge. If you're using this file to test, make sure to do a find and replace.
 # TODO ELABORATE?
@@ -54,6 +54,7 @@ on:
 
   # workflow_dispatch can be triggered in one of the following ways:
   # - via Github Actions UI (IF the workflow has been merged into the default branch)
+  # When the workflow isn't merged to main, you can't use the UI. However, you can use the two options below regardless of whether the workflow has been merged to main or not.
   # - via an API call:
   #     Make an API call to the path https://api.github.com/repos/<OWNER>/<REPO>/actions/workflows/<workflow-filename.yml>/dispatches
   #     See /README.md for auth and header info.
