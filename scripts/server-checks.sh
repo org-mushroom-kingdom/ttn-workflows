@@ -17,6 +17,7 @@ SERVER_LIST="./deploys/server-list.csv"
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 ENDCOLOR='\033[0m' 
+# These two vars are used to determine the color and content of the message reflecting the result of the cURL
 msg_color=""
 msg=""
 # TODO: COMMENT ABOUT $ NEWLINE THING
