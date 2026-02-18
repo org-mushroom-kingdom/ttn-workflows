@@ -259,7 +259,7 @@ The following sections detail how to activate each trigger. You may want to comm
 
 #### **push**
 
-This is the easiest one to trigger. Literally all you need to do is make a commit on `your-feature-branch` and push it. You can experiment with the branches: and paths: keys, but they shouldn't make a difference. 
+This push trigger is the easiest one to activate. Literally all you need to do is make a commit on `your-feature-branch` and push it. You can experiment with the branches: and paths: keys. Note that using paths: will limit the scope of the push trigger. See the code comments for further details. 
 
 #### **pull_request**
 TODO
