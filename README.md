@@ -231,6 +231,8 @@ Testing the reusable workflow on its own is a more complex task due to the way t
 
 The code here is used as a supplement to the Medium article TODO LINK!! 'Triggering a Github Actions Workflow Without Merging Into Main'. Refer to that article for additional context and details.
 
+TODO HOW IT RELATES TO ORG-MUSHROOM-KINGDOM
+
 This scenario is somewhat unique: The goal here is to show how a workflow (`non-main-workflow.yml`) can be triggered when it is not merged into the repository default branch (Note: the default branch is main for the ttn-workflows repository). Therefore, the workflow should be treated as if it weren't merged to main.     
 
 At this point, readers might wonder why IS the `non-main-workflow.yml` workflow merged in the default branch? The purpose is simple: to archive those ways such a workflow could be triggered. Readers are encouraged to copy this workflow file and test it out on their own repo. 
@@ -238,15 +240,15 @@ At this point, readers might wonder why IS the `non-main-workflow.yml` workflow 
 ### Manual Testing
 
 TODO THE NAME OF THE GAME
-
+TODO MENTION your-feature-branch
 To experiment triggering a workflow that has not been merged to main, try the following:
 
 1. Fork the ttn-workflows repo
-2. Copy the non-main-workflow.yml code somewhere or save it to a file.  
-3. In a commit, delete the non-main-workflow.yml from the main branch.
+2. Copy the `non-main-workflow.yml` code somewhere or save it to a file.  
+3. In a commit, delete the `non-main-workflow.yml` from the main branch.
 4. Push the commit
-5. Make a new feature branch, which will be referred to in this documentation as your-feature-branch. (Note: Use Ctrl+Shift+N if using Github Desktop)
-6. Make a new file called non-main-workflow.yml. 
+5. Make a new feature branch, which will be referred to in this documentation as `your-feature-branch`. (Note: Use Ctrl+Shift+N if using Github Desktop)
+6. Make a new file called `non-main-workflow.yml`. 
 7. Paste in the code you copied from Step 2 into this file. <br>
 - Update the ref: in actions/checkout to reference your feature branch. <br>
 - Update branches: references to your feature branch. (Things should still work if you don't but it's good to do so anyways.) 
@@ -255,7 +257,8 @@ To experiment triggering a workflow that has not been merged to main, try the fo
 
 
 #### **push**
-TODO
+
+This is the easiest one to trigger. Literally all you need to do is make a commit on `your-feature-branch` and push it. You can experiment with the branches: and paths: keys, but they shouldn't make a difference.
 
 #### **pull_request**
 TODO
@@ -263,7 +266,7 @@ TODO
 
 Note: For triggers that involve API calls, refer to ./docs/payload-for-non-main-workflow.json. Update the ref in that file to reflect your feature branch.
 
-TODO can't use Github API
+Note: Technically, since this workflow is merged in the default (main) branch, you could test it via the Github Actions UI. However, as explained above, we are treating this workflow as if it weren't merged into the default branch, meaning you wouldn't be able to use Github API to trigger it. Thus, we're going to explore the other ways workflow_dispatch can be triggered with additional context provided for this particular workflow.
 
 <ins>Via API Call</ins>
 TODO POSTMAN 
