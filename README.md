@@ -263,9 +263,9 @@ The `push` trigger is the easiest one to activate. Literally all you need to do 
 
 #### **pull_request**
 
-To activate the pull_request trigger takes slightly more effort to activate. Note that for this workflow, the default activity types of pull_request are used: opened, synchronize, and reopened. 
+To activate the `pull_request` trigger takes slightly more effort to activate. Note that for this workflow, the default activity types of `pull_request` are used: opened, synchronize, and reopened. 
 
-To activate the pull_request trigger initially for this workflow, follow these instructions:
+To activate the `pull_request` trigger initially for this workflow, follow these instructions:
 1. Create a new feature branch based off of `your-feature-branch`. This new branch will be referred to as `your-feature-branch-2`
 2. Make a dummy commit on `your-feature-branch-2`
 3. Either through Github Desktop or the Github webpage UI, open a pull request in the following manner:
@@ -273,17 +273,19 @@ base: `your-feature-branch` compare: `your-feature-branch-2`
 In other words, the source branch should be `your-feature-branch-2` and the target branch should be `your-feature-branch`
 4. Once the pull request has been created, this should trigger the workflow.
 
-You can activate the pull_request trigger again by doing one of the following:
+You can activate the `pull_request` trigger again by doing one of the following:
  - Open another PR with the target branch being `your-feature-branch` ("opened" activity type) __Note: This is listed for the sake of completeness. Don't actually do this, you'd just be repeating the above instructions and have to make a new source branch/dummy commit to that branch__
  - While the PR is open, make a commit to the `your-feature-branch-2`, the source branch of the PR ("synchronize" activity type) *This is the easiest way.
  - Close and reopen the PR ("reopened" activity type)
 
 #### **workflow_dispatch**
 
-Note: For triggers that involve API calls, refer to ./docs/payload-for-non-main-workflow.json. Update the ref in that file to reflect your feature branch.
+Note: For triggers that involve API calls, refer to `./docs/payload-for-non-main-workflow.json`. Update the ref in that file to reflect your feature branch.
 
-Note: Technically, since this workflow is merged in the default (main) branch, you could test it via the Github Actions UI. However, as explained above, we are treating this workflow as if it weren't merged into the default branch, meaning you wouldn't be able to use Github API to trigger it. Thus, we're going to explore the other ways workflow_dispatch can be triggered with additional context provided for this particular workflow.
-TODO INPUTS WHERE
+Note: Technically, since this workflow is merged in the default (`main`) branch, you could test it via the Github Actions UI. However, as explained above, we are treating this workflow as if it weren't merged into the default branch, meaning you wouldn't be able to use Github API to trigger it. Thus, we're going to explore the other ways workflow_dispatch can be triggered with additional context provided for this particular workflow.
+
+TODO INPUTS 
+
 <ins>Via API Call</ins>
 Note: This will require the use of a personal access token since the workflow uses actions/checkout. Be sure to create a token with repo permissions before you try this!
 
@@ -296,7 +298,7 @@ The criteria for this call is listed below:
     Authorization: Bearer <personal-access-token>
     Accept: application/vnd.github.v3+json
     Content-Type: application/json
-<ins>Body</ins>: __Copy this from ./docs/payload-for-non-main-workflow.json__
+<ins>Body</ins>: __Copy this from `./docs/payload-for-non-main-workflow.json`__
 
 You can make the call via tools like cURL or Postman. Postman was used to make this call during testing.
 
