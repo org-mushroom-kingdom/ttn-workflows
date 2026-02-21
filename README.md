@@ -241,6 +241,8 @@ At this point, readers might wonder why IS the `non-main-workflow.yml` workflow 
 
 TODO THE NAME OF THE GAME
 TODO MENTION your-feature-branch
+The most straightforward way to test triggering a workflow when it is not merged into the default branch is to make a feature branch that contains that workflow. In the context of this scenario, we shall refer to this feature branch as `your-feature-branch`
+
 To experiment triggering a workflow that has not been merged to main, try the following:
 
 1. Fork the ttn-workflows repo
