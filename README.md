@@ -259,7 +259,7 @@ The following sections detail how to activate each trigger. You may want to comm
 
 #### **push**
 
-The `push` trigger is the easiest one to activate. Literally all you need to do is make a commit on `your-feature-branch` and push it. You can experiment with the `branches:` and `paths:` keys. Note that using `paths:` will limit the scope of the `push` trigger. See the code comments for further details. 
+The `push` trigger is the easiest one to activate. Literally all you need to do is make a commit on `your-feature-branch` and push it. You can experiment with the `branches:` and `paths:` keys. Note that using `paths:` will limit the scope of the `push` trigger based upon the paths (glob patterns) of the changed files in the commit. See the code comments for further details. 
 
 #### **pull_request**
 
