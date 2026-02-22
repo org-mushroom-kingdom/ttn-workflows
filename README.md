@@ -227,9 +227,18 @@ To properly test this scenario, trigger the caller workflow `sc-changelog-check-
 
 Testing the reusable workflow on its own is a more complex task due to the way this code was written. For simplicity in the corresponding article that goes along with this code, I didn't want to have to add and then subsequently explain the intracacies of the logic that would be present when it comes to assessing the repository that triggers the reusable workflow in the 'Generate GitHub App token' step. The article is more focused on caller/reusable workflow relationships and how they relate to a use case for installation access tokens rather than testing flexibility. However, there are steps one can take independently to be able to test the reusable workflow via a `workflow_dispatch` event in its own repository: see the comments at the top of the code for details.
 
-## non-main-workflow.yml (Non-main workflow)
+# non-main-workflow.yml (Non-main workflow)
 
-### Scenario
+<ins>Caller workflows:</ins>
+
+TODO NOTE ABOUT BLABLABLA 
+
+- [TODO CALLER.yml](TODO LINK.yml)
+
+<ins>Trigger of the caller workflows:</ins> `workflow_dispatch (specifically, via API call or Github CLI)` See **__Caller Workflow Triggers__** for details
+
+
+## Scenario
 
 The code here is used as a supplement to the Medium article TODO LINK!! 'Triggering a Github Actions Workflow Without Merging Into Main'. Refer to that article for additional context and details.
 
@@ -239,10 +248,22 @@ This scenario is somewhat unique: The goal here is to show how a workflow (`non-
 
 At this point, readers might wonder why IS the `non-main-workflow.yml` workflow merged in the default branch? The purpose is simple: to archive those ways such a workflow could be triggered. Readers are encouraged to copy this workflow file and test it out on their own repo. 
 
+## Triggers
+
+Note: These triggers still apply, but be aware that this workflow is to be treated as if it were not in the default branch.
+
+`workflow_dispatch`: This workflow can be triggered manually. Specifically for this scenario, triggering via an API call or using Github CLI is recommended. 
+
+`workflow_call`: A reusable workflow that should be called upon by caller workflows. See **__Caller Workflow Triggers__** for details on the caller workflow trigger. TODO NOTE
+
+**Caller Workflow Triggers**
+
+`workflow_dispatch`: When the caller workflow's repository has certain pull request activity (`types: [opened, synchronize]`) that is a release branch being merged into the main branch. A release branch will have the word 'release' as a prefix. See more details in the caller workflow repositories' README files.
+
+
 ### Manual Testing
 
 TODO THE NAME OF THE GAME
-TODO MENTION your-feature-branch
 
 #### **Setting Up**
 
