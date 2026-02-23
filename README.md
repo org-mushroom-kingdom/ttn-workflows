@@ -310,16 +310,16 @@ You can activate the `pull_request` trigger again by doing one of the following:
 
 ### **workflow_dispatch**
 
-Note: For triggers that involve API calls, refer to `./docs/payload-for-non-main-workflow.json`. Update the ref in that file to reflect your feature branch.
+Note: For triggers that involve API calls, refer to `./docs/payload-for-non-main-workflow.json`. Update the `ref` in that file to reflect your feature branch.
 
-Note: Technically, since this workflow is merged in the default (`main`) branch, you could test it via the Github Actions UI. However, as explained above, we are treating this workflow as if it weren't merged into the default branch, meaning you wouldn't be able to use Github API to trigger it. Thus, we're going to explore the other ways workflow_dispatch can be triggered with additional context provided for this particular workflow.
+Note: Technically, since this workflow is merged in the default (`main`) branch, you could test it via the Github Actions UI. However, as explained above, we are treating this workflow as if it weren't merged into the default branch, meaning you wouldn't be able to use Github API to trigger it. Thus, we're going to explore the other ways `workflow_dispatch` can be triggered with additional context provided for this particular workflow.
 
 TODO INPUTS 
 
 <ins>Via API Call</ins>
 Note: This will require the use of a personal access token since the workflow uses actions/checkout. Be sure to create a token with repo permissions before you try this!
 
-The Github API endpoint "TODO NAME" TODO explain what it does and link doc
+The Github API endpoint "Create a workflow dispatch event" TODO explain what it does and link doc
 
 The criteria for this call is listed below:
 <ins>HTTP Method</ins>: POST
