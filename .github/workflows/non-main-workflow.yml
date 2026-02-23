@@ -32,7 +32,7 @@ on:
       # - '.github/workflows/non-main-workflow.yml'
       # - 'docs/**'
 
-  # The default types for pull_request are open, synchronize, and reopen
+  # The default types for pull_request are open, synchronize, and reopen. Thus those are the types we are using since none are specified.
   # When the workflow isn't merged to main, to get the workflow to fire using this trigger you have to first open a pull request (PR) 
   # with the target (base) branch being the feature branch you have the workflow on   
   # The initial creation of the PR is the "open" trigger and thus fires off the workflow
