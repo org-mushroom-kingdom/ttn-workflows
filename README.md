@@ -142,7 +142,7 @@ When called upon, this workflow will perform the following logic <br>(Note: step
 
 This workflow has the `workflow_dispatch` trigger, meaning it can be triggered manually. This workflow was manually tested using the Github Actions UI page.
 
-### **Manual Testing Inputs**
+### **Inputs**
 
 The following inputs are used for manual testing:
 
@@ -265,7 +265,7 @@ Note: These triggers still apply, but be aware that this workflow is to be treat
 
 TODO THE NAME OF THE GAME
 
-#### **Setting Up**
+### **Setting Up**
 
 The most straightforward way to test triggering a workflow when it is not merged into the default branch is to make a feature branch that contains that workflow. In the context of this scenario, we shall refer to this feature branch as `your-feature-branch`
 
@@ -287,13 +287,13 @@ Note: You could also just rename `.github/workflows/non-main-workflow.yml` inste
 
 The following sections detail how to activate each trigger. You may want to comment out other triggers if trying to test a specific one.
 
-#### **push**
+### **push**
 
 The `push` trigger is the easiest one to activate. Literally all you need to do is make a commit on `your-feature-branch` and push it. You can experiment with the `branches:` and `paths:` keys. Note that using `paths:` will limit the scope of the `push` trigger based upon the paths (glob patterns) of the changed files in the commit. See the code comments for further details. 
 
-#### **pull_request**
+### **pull_request**
 
-To activate the `pull_request` trigger takes slightly more effort to activate. Note that for this workflow, the default activity types of `pull_request` are used: opened, synchronize, and reopened. 
+The `pull_request` trigger takes slightly more effort to activate. Note that for this workflow, the default activity types of `pull_request` are used: `opened`, `synchronize`, and `reopened`. 
 
 To activate the `pull_request` trigger initially for this workflow, follow these instructions:
 1. Create a new feature branch based off of `your-feature-branch`. This new branch will be referred to as `your-feature-branch-2`
@@ -304,11 +304,11 @@ In other words, the source branch should be `your-feature-branch-2` and the targ
 4. Once the pull request has been created, this should trigger the workflow.
 
 You can activate the `pull_request` trigger again by doing one of the following:
- - Open another PR with the target branch being `your-feature-branch` ("opened" activity type) __Note: This is listed for the sake of completeness. Don't actually do this, you'd just be repeating the above instructions and have to make a new source branch/dummy commit to that branch__
- - While the PR is open, make a commit to the `your-feature-branch-2`, the source branch of the PR ("synchronize" activity type) *This is the easiest way.
- - Close and reopen the PR ("reopened" activity type)
+ - Open another PR with the target branch being `your-feature-branch` ("`opened`" activity type) __Note: This is listed for the sake of completeness. Don't actually do this, you'd just be repeating the above instructions and have to make a new source branch/dummy commit to that branch__
+ - While the PR is open, make a commit to the `your-feature-branch-2`, the source branch of the PR ("`synchronize`" activity type) *This is the easiest way.
+ - Close and reopen the PR ("`reopened`" activity type)
 
-#### **workflow_dispatch**
+### **workflow_dispatch**
 
 Note: For triggers that involve API calls, refer to `./docs/payload-for-non-main-workflow.json`. Update the ref in that file to reflect your feature branch.
 
