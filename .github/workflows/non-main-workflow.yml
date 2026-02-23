@@ -68,6 +68,7 @@ on:
 
   workflow_dispatch:
     inputs:
+    # Just an example input  TODO DELETE?
       notes:
         description: "Gives additional context about the workflow_dispatch call."
         required: false
