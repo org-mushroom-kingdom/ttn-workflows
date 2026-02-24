@@ -333,7 +333,8 @@ The criteria for this call is listed below:
 You can make the call via tools like cURL or Postman. Postman was used to make this call during testing.
 
 <ins>Via Github CLI Call</ins>
-Note: This will require the use of a personal access token since the workflow uses actions/checkout. Be sure to create a token with repo permissions before you try this!
+
+The Github CLI can be seen as a wrapper to the Github API. It offers a simpler, command-line format to trigger the workflow.
 
 TODO #     gh workflow run non-main-workflow.yml --ref <branch-name> -f notes="Triggered by Github CLI call" -f triggered-by-api=true -f perform-server-check=<true or false>
 TODO gh workflow run non-main-workflow.yml --ref feature/matt-test-workflow-without-main-merge -f notes="Triggered by Github CLI call" -f triggered-by-api=true 
