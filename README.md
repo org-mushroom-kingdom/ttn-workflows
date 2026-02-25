@@ -322,6 +322,8 @@ Note: Technically, since this workflow is merged in the default (`main`) branch,
 | triggered-by-api | Is true if called by API | Boolean | true | false |  Should be set to true if using Github API or Github CLI | 
 | perform-server-check | Do the server check | Boolean | N/A | true |  Set this to false if you don't want to do the server check logic. | 
 
+These are primarily of use/value when the workflow isn't in the default branch. However, if you did merge the workflow into the default branch and then run it via the Github UI, the default value of `notes` and `triggered-by-api` make it obvious that this is the case.
+
 #### Different ways to activate workflow_dispatch
 <ins>Via API Call</ins>
 Note: This will require the use of a personal access token since the workflow uses actions/checkout. Be sure to create a token with repo permissions before you try this!
