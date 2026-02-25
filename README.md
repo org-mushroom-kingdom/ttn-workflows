@@ -317,19 +317,10 @@ Note: Technically, since this workflow is merged in the default (`main`) branch,
 #### **Inputs** 
 
 | Name | Description | Type | Required | Default | Notes |
-|---|---|---|---|---|
+|---|---|---|---|---|---|
 | notes | Gives additional context about the workflow_dispatch call. | String | false | "No notes. It's possible this was triggered via the Github Actions UI IF this workflow has been merged into the default branch" | Mostly used for Github CLI call | 
 | triggered-by-api | Is true if called by API | Boolean | true | false |  Should be set to true if using Github API or Github CLI | 
-
-triggered-by-api:
-
-description: "Is true if called by API"
-
-required: true
-
-type: boolean
-
-default: false
+| perform-server-check | Do the server check | Boolean | N/A | true |  Set this to false if you don't want to do the server check logic. | 
 
 #### Different ways to activate workflow_dispatch
 <ins>Via API Call</ins>
