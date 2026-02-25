@@ -343,7 +343,12 @@ You can make the call via tools like cURL or Postman. Postman was used to make t
 
 The Github CLI can be seen as a wrapper to the Github API. It offers a simpler, command-line format to trigger the workflow.
 
-TODO #     gh workflow run non-main-workflow.yml --ref <branch-name> -f notes="Triggered by Github CLI call" -f triggered-by-api=true -f perform-server-check=<true or false>
+The basic skeleton of the command can be seen below
+
+`gh workflow run non-main-workflow.yml --ref <branch-name> -f notes="Triggered by Github CLI call" -f triggered-by-api=true -f perform-server-check=<true or false>`
+
+TODO ref
+TODO -f 
 TODO gh workflow run non-main-workflow.yml --ref feature/matt-test-workflow-without-main-merge -f notes="Triggered by Github CLI call" -f triggered-by-api=true 
 TODO say this is basically a wrapper of an API call
 
