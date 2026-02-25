@@ -142,7 +142,7 @@ When called upon, this workflow will perform the following logic <br>(Note: step
 
 This workflow has the `workflow_dispatch` trigger, meaning it can be triggered manually. This workflow was manually tested using the Github Actions UI page.
 
-### **Inputs**
+### Inputs
 
 The following inputs are used for manual testing:
 
@@ -314,8 +314,24 @@ Note: For triggers that involve API calls, refer to `./docs/payload-for-non-main
 
 Note: Technically, since this workflow is merged in the default (`main`) branch, you could test it via the Github Actions UI. However, as explained above, we are treating this workflow as if it weren't merged into the default branch, meaning you wouldn't be able to use Github API to trigger it. Thus, we're going to explore the other ways `workflow_dispatch` can be triggered with additional context provided for this particular workflow.
 
-TODO INPUTS 
+#### **Inputs** 
 
+| Name | Description | Type | Required | Default | Notes |
+|---|---|---|---|---|
+| notes | Gives additional context about the workflow_dispatch call. | String | false | "No notes. It's possible this was triggered via the Github Actions UI IF this workflow has been merged into the default branch" | Mostly used for Github CLI call | 
+| triggered-by-api | Is true if called by API | Boolean | true | false |  Should be set to true if using Github API or Github CLI | 
+
+triggered-by-api:
+
+description: "Is true if called by API"
+
+required: true
+
+type: boolean
+
+default: false
+
+#### Different ways to activate workflow_dispatch
 <ins>Via API Call</ins>
 Note: This will require the use of a personal access token since the workflow uses actions/checkout. Be sure to create a token with repo permissions before you try this!
 
