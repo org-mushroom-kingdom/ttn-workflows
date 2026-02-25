@@ -6,21 +6,24 @@ name: Non-main workflow
 # In other words, the workflow needs to be tested without being merged to the default branch (main)
 # There are multiple ways to do this, thus the variety of triggers.
 
-# WITH THAT IN MIND, treat this file as if it was NOT merged to main (I'm merging it to main to keep things tidy). 
+# WITH THAT IN MIND, treat this file as if it was NOT merged to main/the default branch (I'm merging it to main to keep things tidy and for archival purposes). 
 # Treat the comments in the same way. (I've tried to use the phrase "When the workflow isn't merged to main" diligently)
-# The branch this workflow was originally tested on was feature/matt-test-workflow-without-main-merge
+# The branch this workflow was originally tested on was feature/matt-test-workflow-without-main-merge. If you're using this file to test, make sure to do a find and replace.
 # TODO ELABORATE?
 
 # The business logic of this workflow is thus:
-# Via calling a script (TODO NAME):
-# For each server in /deploys/server-list.csv: Make GET request to server, print out the server and HTTP status code for each server in a .csv list 
-# If HTTP code is 200, print out in green. If HTTP code is NOT 200, print that out in red.
+# Checkout the repo.
+# IF env.PERFORM_SERVER_CHECK is true
+# Call a script (server-checks.sh):
+#     For each server in /deploys/server-list.csv: Make GET request to server, print out the server and HTTP status code for each server in a .csv list 
+#     If HTTP code is 200, print out in green. If HTTP code is NOT 200, print that out in red.
 # Such logic can later be elaborated upon to make programmatic deploy decisions (ex. if server X is down, continue with deploy. If server Y is down, don't) 
 on:
   
   # push:
     # When the workflow isn't merged to main, you don't have to specify the feature branch the workflow is on.
     # This is because Github evaluates only evalutes workflow files that exist in the branch receiving the push. (See dev.solve)
+
     # You can still include branches: though if you want to make it more explicit or serve as a reminder.
     # branches: [feature/matt-test-workflow-without-main-merge]
     # When the workflow isn't merged to main, if you want to fire it whenever a push occurs, DON'T use the below line
@@ -28,8 +31,8 @@ on:
     # paths: 
       # - '.github/workflows/non-main-workflow.yml'
 
-  # TODO: TEST THIS
-  # The default types for pull_request are open, synchronize, and reopen
+
+  # The default types for pull_request are open, synchronize, and reopen. Thus those are the types we are using since none are specified.
   # When the workflow isn't merged to main, to get the workflow to fire using this trigger you have to first open a pull request (PR) 
   # with the target (base) branch being the feature branch you have the workflow on   
   # The initial creation of the PR is the "open" trigger and thus fires off the workflow
@@ -39,14 +42,20 @@ on:
   # - Close and reopen the PR ("reopen" trigger)
   pull_request:
     # When the workflow isn't merged to main, you don't have to specify the feature branch the workflow is on.
-    # TODO CONFIRM: This is because the pull_request trigger only evalutes workflow files that exist in the target (base) branch of the PR
+    # This is because the pull_request trigger only evalutes workflow files that exist in the target (base) branch of the PR
     # You can still include branches: though if you want to make it more explicit or serve as a reminder.
-    # TODO: paths: test with x2 (workflow path, some other BS path) and without
-    # TODO paths: CHANGED FILES BLABLABLA
+    
+    # When the workflow isn't merged to main, if you want to fire it whenever a push occurs, DON'T use the below paths: key and its child (docs/**)
+    # The paths: key will see if the changed files in a pull request match a certain glob pattern. You can thus fine-tune pull_request activity by
+    # ensuring the workflow only fires when certain files have been changed.
+    # For example, if the below lines are commented IN and you make a commit on the source branch in a PR that does NOT fall under the glob 'docs/**', the workflow will NOT be triggered.
+    # paths: 
+    #   - 'docs/**'
 
 
   # workflow_dispatch can be triggered in one of the following ways:
   # - via Github Actions UI (IF the workflow has been merged into the default branch)
+  # When the workflow isn't merged to main, you can't use the UI. However, you can use the two options below regardless of whether the workflow has been merged to main or not.
   # - via an API call:
   #     Make an API call to the path https://api.github.com/repos/<OWNER>/<REPO>/actions/workflows/<workflow-filename.yml>/dispatches
   #     See /README.md for auth and header info.
@@ -57,10 +66,8 @@ on:
   #     See example call below 
   #     gh workflow run non-main-workflow.yml --ref feature/matt-test-workflow-without-main-merge -f notes="Triggered by Github CLI call" -f triggered-by-api=true -f perform-server-check=false
 
-  # TODO mention if::::: github_event == 'workflow_dispatch' to avoid runtime errors for non-w_d triggers 
   workflow_dispatch:
     inputs:
-    # Just an example input  TODO DELETE?
       notes:
         description: "Gives additional context about the workflow_dispatch call."
         required: false
@@ -106,6 +113,8 @@ jobs:
     steps:
         
         - name: Checkout repo
+          # Note: regarding workflow_call, for this scenario our only caller workflow is in the same repository as non-main-workflow.yml
+          # If there was a caller workflow in a different repo, a token would have to be passed in and used as part of actions/checkout 
           uses: actions/checkout@v4
           with:
             ref: feature/matt-test-workflow-without-main-merge
@@ -113,6 +122,7 @@ jobs:
         - name: Echo workflow trigger, perform-server-check (input and env var)
           run: |
             echo -e "This workflow was triggered by the ${{ env.YELLOW }}${{ github.event_name }}${{ env.ENDCOLOR }} event"
+            [[ "${{ github.event.action }}" != "" ]] && echo -e "This workflow was triggered by the event's activity type ${{ env.YELLOW }}${{ github.event.action }}${{ env.ENDCOLOR }}"
             echo "inputs.perform-server-check: ${{ env.YELLOW }}${{ inputs.perform-server-check }}${{ env.ENDCOLOR }}"
             echo "PERFORM_SERVER_CHECK = ${{ env.YELLOW }}$PERFORM_SERVER_CHECK${{ env.ENDCOLOR }}"
         
