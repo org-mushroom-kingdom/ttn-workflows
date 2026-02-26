@@ -109,6 +109,7 @@ jobs:
       ENDCOLOR: "\e[0m"
       # This can be set to false if calling this workflow with workflow_dispatch or workflow_call (see step 'inputs: Set PERFORM_SERVER_CHECK to false if specified')
       PERFORM_SERVER_CHECK: true
+      
 
     steps:
         
@@ -123,7 +124,8 @@ jobs:
           run: |
             echo -e "This workflow was triggered by the ${{ env.YELLOW }}${{ github.event_name }}${{ env.ENDCOLOR }} event"
             [[ "${{ github.event.action }}" != "" ]] && echo -e "This workflow was triggered by the event's activity type ${{ env.YELLOW }}${{ github.event.action }}${{ env.ENDCOLOR }}"
-            echo "hi"
+            echo "hello"
+
         - name: "workflow_dispatch: Read inputs"
           if: github.event_name == 'workflow_dispatch'
           run: |
