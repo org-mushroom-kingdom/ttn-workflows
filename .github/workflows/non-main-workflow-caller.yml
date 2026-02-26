@@ -5,7 +5,7 @@ on:
     inputs:
         perform-server-check-caller:
             # 
-            description: "Reusbale workflow: Do the server check"
+            description: "Reusable workflow: Do the server check"
             required: true
             type: boolean
             default: true  
