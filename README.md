@@ -349,7 +349,7 @@ The basic skeleton of the command can be seen below
 
 `gh workflow run non-main-workflow.yml --ref <branch-name> -f notes="Triggered by Github CLI call" -f triggered-by-api=true -f perform-server-check=<true or false>`
 
-TODO ref
+ref is the branch
 TODO -f 
 TODO gh workflow run non-main-workflow.yml --ref feature/matt-test-workflow-without-main-merge -f notes="Triggered by Github CLI call" -f triggered-by-api=true 
 TODO say this is basically a wrapper of an API call
