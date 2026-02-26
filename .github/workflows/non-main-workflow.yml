@@ -120,7 +120,7 @@ jobs:
           with:
             ref: feature/matt-test-workflow-without-main-merge
 
-        - name: Echo workflow trigger, activity type
+        - name: Echo workflow trigger, activity type (if exists)
           run: |
             echo -e "This workflow was triggered by the ${{ env.YELLOW }}${{ github.event_name }}${{ env.ENDCOLOR }} event"
             [[ "${{ github.event.action }}" != "" ]] && echo -e "This workflow was triggered by the event's activity type ${{ env.YELLOW }}${{ github.event.action }}${{ env.ENDCOLOR }}" || echo ""
