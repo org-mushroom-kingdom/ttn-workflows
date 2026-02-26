@@ -349,8 +349,10 @@ The basic skeleton of the command can be seen below
 
 `gh workflow run non-main-workflow.yml --ref <branch-name> -f notes="Triggered by Github CLI call" -f triggered-by-api=true -f perform-server-check=<true or false>`
 
-ref is the branch
-TODO -f 
+TODO FORMATTING
+
+ref is the branch or tag name that contains the [version of] the workflow you'd like to run. For this scenario, there's essentially only one version of our workflow that we're concerned with, that being the one on our feature branch.
+TODO -f is the --raw-field key. It is used to add a string parameter in key=value format
 TODO gh workflow run non-main-workflow.yml --ref feature/matt-test-workflow-without-main-merge -f notes="Triggered by Github CLI call" -f triggered-by-api=true 
 TODO say this is basically a wrapper of an API call
 
