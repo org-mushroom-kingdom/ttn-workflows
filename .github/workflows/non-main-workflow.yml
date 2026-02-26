@@ -23,7 +23,7 @@ on:
     # This is because Github evaluates only evalutes workflow files that exist in the branch receiving the push. (See dev.solve)
     # You can still include branches: though if you want to make it more explicit or serve as a reminder. 
     # Try testing with the line below commented in or out--the results should be identical
-    branches: [feature/matt-test-workflow-without-main-merge]
+    # branches: [feature/matt-test-workflow-without-main-merge]
     
     # When the workflow isn't merged to main, if you want to fire it whenever a push occurs, DON'T use the below paths: key and its child
     # The paths: key is for fine-tuning. It will see if the changed files in a commit match a certain glob pattern, and fire the workflow ONLY when one of those files matches the glob pattern
@@ -119,12 +119,10 @@ jobs:
           with:
             ref: feature/matt-test-workflow-without-main-merge
 
-        - name: Echo workflow trigger, perform-server-check (input and env var)
+        - name: Echo workflow trigger, activity type
           run: |
             echo -e "This workflow was triggered by the ${{ env.YELLOW }}${{ github.event_name }}${{ env.ENDCOLOR }} event"
             [[ "${{ github.event.action }}" != "" ]] && echo -e "This workflow was triggered by the event's activity type ${{ env.YELLOW }}${{ github.event.action }}${{ env.ENDCOLOR }}"
-            echo "inputs.perform-server-check: ${{ env.YELLOW }}${{ inputs.perform-server-check }}${{ env.ENDCOLOR }}"
-            echo "PERFORM_SERVER_CHECK = ${{ env.YELLOW }}$PERFORM_SERVER_CHECK${{ env.ENDCOLOR }}"
         
         - name: "workflow_dispatch: Read inputs"
           if: github.event_name == 'workflow_dispatch'
