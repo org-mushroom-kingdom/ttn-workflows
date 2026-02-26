@@ -9,11 +9,11 @@ on:
             required: true
             type: boolean
             default: true  
-        feature-branch:
-            # The feature branch that contains the workflow that has not been merged into the default branch.
-            description: "Branch the workflow resides in"
-            required: false
-            type: string
+        # feature-branch:
+        #     # The feature branch that contains the workflow that has not been merged into the default branch.
+        #     description: "Branch the workflow resides in"
+        #     required: false
+        #     type: string
 
 jobs:
     echo-per-input:
