@@ -27,7 +27,9 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - name: 'Echo relevant vars'
-              run: echo "inputs.perform-server-check-caller = ${{ inputs.perform-server-check-caller }}"
+              run: |
+                echo "inputs.perform-server-check-caller = ${{ inputs.perform-server-check-caller }}"
+                echo "inputs.called-by-caller-workflow = ${{ inputs.called-by-caller-workflow }}"
 
     non-main-workflow-caller:
         name: 'Non-main workflow caller Job'
