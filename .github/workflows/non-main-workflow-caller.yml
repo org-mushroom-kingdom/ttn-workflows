@@ -10,7 +10,8 @@ on:
             type: boolean
             default: true  
         # feature-branch:
-        #     # The feature branch that contains the workflow that has not been merged into the default branch.
+        #     Readers of 'Triggering a Github Actions Workflow Without Merging Into The Default Branch: A Guide', you can ignore this input.
+        #     # TODO: The feature branch that contains the workflow that has not been merged into the default branch.
         #     description: "Branch the workflow resides in"
         #     required: false
         #     type: string
