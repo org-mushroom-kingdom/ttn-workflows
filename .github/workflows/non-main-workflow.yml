@@ -126,9 +126,9 @@ jobs:
         - name: Echo workflow trigger, activity type (if exists)
           run: |
             echo -e "This workflow was triggered by the ${{ env.YELLOW }}${{ github.event_name }}${{ env.ENDCOLOR }} event"
-            [[ "${{ inputs.called-by-caller-workflow }}" == true ]] && echo "The non-main-workflow was triggered by workflow_call. The caller workflow was triggered by the above event." || :
-            [[ "${{ github.event.action }}" != "" ]] && echo -e "This workflow was triggered by the event's activity type ${{ env.YELLOW }}${{ github.event.action }}${{ env.ENDCOLOR }}" || echo ""
-            echo "github.event.workflow = ${{ github.event.workflow }}"
+            [[ "${{ inputs.called-by-caller-workflow }}" == true ]] && echo "The non-main-workflow was triggered by ${{ env.YELLOW }}workflow_call${{ env.ENDCOLOR }}. The caller workflow was triggered by the above event." || :
+            [[ "${{ inputs.called-by-caller-workflow }}" == true ]] && echo "Caller workflow (github.event.workflow) = ${{ github.event.workflow }}" || :
+            [[ "${{ github.event.action }}" != "" ]] && echo -e "This workflow was triggered by the event's activity type ${{ env.YELLOW }}${{ github.event.action }}${{ env.ENDCOLOR }}" || :
 
         - name: "workflow_dispatch: Read inputs"
           if: github.event_name == 'workflow_dispatch'
