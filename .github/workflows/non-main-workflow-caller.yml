@@ -8,7 +8,12 @@ on:
             description: "Reusable workflow: Do the server check"
             required: true
             type: boolean
-            default: true  
+            default: true
+        called-by-caller-workflow:
+            description: "Called by workflow"
+            type: boolean
+            default: true
+            required: true
         # feature-branch:
         #     Readers of 'Triggering a Github Actions Workflow Without Merging Into The Default Branch: A Guide', you can ignore this input.
         #     # TODO: The feature branch that contains the workflow that has not been merged into the default branch.
