@@ -14,8 +14,8 @@ on:
             type: boolean
             default: true
             required: true
+        # Readers of 'Triggering a Github Actions Workflow Without Merging Into The Default Branch: A Guide', you can ignore this input.
         # feature-branch:
-        #     Readers of 'Triggering a Github Actions Workflow Without Merging Into The Default Branch: A Guide', you can ignore this input.
         #     # TODO: The feature branch that contains the workflow that has not been merged into the default branch.
         #     description: "Branch the workflow resides in"
         #     required: false
@@ -35,5 +35,6 @@ jobs:
         uses: org-mushroom-kingdom/ttn-workflows/.github/workflows/non-main-workflow.yml@feature/matt-test-workflow-without-main-merge
         with: 
             perform-server-check: ${{ inputs.perform-server-check-caller }}
+            # You don't even need this since the default is true in non-main-workflow.yml
             called-by-caller-workflow: true
 
