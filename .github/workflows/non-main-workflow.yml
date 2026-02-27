@@ -131,7 +131,7 @@ jobs:
             [[ "${{ github.event.action }}" != "" ]] && echo -e "This workflow was triggered by the event's activity type ${{ env.YELLOW }}${{ github.event.action }}${{ env.ENDCOLOR }}" || :
 
         - name: "workflow_dispatch: Read inputs"
-          if: github.event_name == 'workflow_dispatch'
+          if: github.event_name == 'workflow_dispatch' && inputs.called-by-caller-workflow == false
           run: |
             echo "inputs.notes: ${{ env.YELLOW }}${{ inputs.notes }}${{ env.ENDCOLOR }}"
             echo "inputs.triggered-by-api: ${{ env.YELLOW }}${{ inputs.triggered-by-api }}${{ env.ENDCOLOR }}"
