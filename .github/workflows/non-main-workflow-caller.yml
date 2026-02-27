@@ -35,4 +35,5 @@ jobs:
         uses: org-mushroom-kingdom/ttn-workflows/.github/workflows/non-main-workflow.yml@feature/matt-test-workflow-without-main-merge
         with: 
             perform-server-check: ${{ inputs.perform-server-check-caller }}
+            called-by-caller-workflow: true
 
