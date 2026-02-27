@@ -98,7 +98,7 @@ on:
         required: true
         type: boolean
         default: true
-      called:
+      called-by-caller-workflow:
         type: boolean
         default: true
 
