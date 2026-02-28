@@ -35,7 +35,7 @@ CHECK THAT APP IS SECURE ENOUGH SO NEFARIOUS PEOPLE AREN'T GOING TO BE WADS
 
 # Workflows
 
-TODO BLABLABLA
+All workflows located in the .github/workflows directory are detailed below.
 
 # changelog-quality-check.py
 
@@ -240,7 +240,7 @@ TODO NOTE ABOUT BLABLABLA
 
 ## Scenario
 
-The code here is used as a supplement to the Medium article TODO LINK!! 'Triggering a Github Actions Workflow Without Merging Into Main'. Refer to that article for additional context and details.
+The code here is used as a supplement to the Medium article TODO LINK!! 'Triggering a Github Actions Workflow Without Merging Into The Default Branch: A Guide'. Refer to that article for additional context and details.
 
 TODO HOW IT RELATES TO ORG-MUSHROOM-KINGDOM
 
@@ -254,7 +254,7 @@ Note: These triggers still apply, but be aware that this workflow is to be treat
 
 `workflow_dispatch`: This workflow can be triggered manually. Specifically for this scenario, triggering via an API call or using Github CLI is recommended. 
 
-`workflow_call`: A reusable workflow that should be called upon by caller workflows. See **__Caller Workflow Triggers__** for details on the caller workflow trigger. TODO NOTE
+`workflow_call`: This workflow can be treated as a reusable workflow that should be called upon by caller workflows. See **__Caller Workflow Triggers__** for details on the caller workflow trigger. TODO NOTE
 
 **Caller Workflow Triggers**
 
@@ -349,17 +349,17 @@ The basic skeleton of the command can be seen below
 
 `gh workflow run non-main-workflow.yml --ref <branch-name> -f notes="Triggered by Github CLI call" -f triggered-by-api=true -f perform-server-check=<true or false>`
 
-TODO FORMATTING
-
-ref is the branch or tag name that contains the [version of] the workflow you'd like to run. For this scenario, there's essentially only one version of our workflow that we're concerned with, that being the one on our feature branch.
-TODO -f is the --raw-field key. It is used to add a string parameter in key=value format, with key being the name of the input and value being the value to assign that input
+`ref` is the branch or tag name that contains the [version of] the workflow you'd like to run. For this scenario, there's essentially only one version of our workflow that we're concerned with, that being the one on our feature branch.
+`-f` is the `--raw-field` key. It is used to add a string parameter in `key=value` format, with `key` being the name of the input and `value` being the value to assign that input
 
 Consider the following example:
-gh workflow run non-main-workflow.yml --ref feature/matt-test-workflow-without-main-merge -f notes="Triggered by Github CLI call" -f triggered-by-api=true 
+`gh workflow run non-main-workflow.yml --ref feature/matt-test-workflow-without-main-merge -f notes="Triggered by Github CLI call" -f triggered-by-api=true `
 
-This is saying "Run [the version of] non-main-workflow.yml located on the branch 'feature/matt-test-workflow-without-main-merge', with the notes input being set to 'Triggered by Github CLI call' and triggered-by-api set to true" 
+This is saying "Run [the version of] `non-main-workflow.yml` located on the branch '`feature/matt-test-workflow-without-main-merge`', with the `notes` input being set to 'Triggered by Github CLI call' and `triggered-by-api` set to true" 
 
 ### workflow_call
 
 TODO caller workflow for this in same repo so no need to pass/use token in actions/checkout
 inputs for perform same exact as workflow dispatch
+
+# non-main-workflow-caller.yml (Non-main workflow CALLER)
