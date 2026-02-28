@@ -1,7 +1,7 @@
 # ttn-workflows
 
 A repository that stores workflows and things surrounding them (scripts, etc) for the fake app "Toad Town News." Most of the workflows here should be reusable.
-Refer to the Workflows section regarding information about each workflow present in this repository (keep in mind that this repository may evolve from time to time, and so documentation regarding workflows may evolve as well. Basically check in from time to time to make sure you're up to date with the workflow you're reading about)
+Refer to the **__Workflows__** section regarding information about each workflow present in this repository (keep in mind that this repository may evolve from time to time, and so documentation regarding workflows may evolve as well. Basically check in from time to time to make sure you're up to date with the workflow you're reading about)
 
 Be sure to check out the associated repositories with caller workflows:
 - [ttn-frontend](https://github.com/org-mushroom-kingdom/ttn-frontend/)
