@@ -177,7 +177,7 @@ Scenario 4 is tested by using the `pr_num_man` option '5 - dummy-file.txt' which
 
 ## Scenario
 
-The code here is used as a supplement to the Medium article TODO LINK!! 'A Comprehensive Guide to Creating and Using a Basic Github App for Token Management via Installation'. Refer to that article for additional context and details.
+The code here is used as a supplement to the Medium article [A Comprehensive Guide to Creating and Using a Basic Github App for Token Management via Installation](https://medium.com/devops-dev/a-comprehensive-guide-to-creating-and-using-a-basic-github-app-for-token-management-via-0bfcfa39f5c1). Refer to that article for additional context and details.
 
 In this scenario, developers are working on integrating installation access tokens to move away from personal access token management. Devs have complained about having to make their own PATs and having to remember to refresh them when they expire (among other reasons), so a solution where tokens could be generated programmatically and not tied to a user would be an ideal situation. 
 
@@ -193,7 +193,7 @@ As an aside, you don't need to create a Github App for each caller workflow for 
 
 ## Triggers
 
-`workflow_dispatch`: This workflow can be triggered manually. But it won't work TODO EXPLAIN TODO SEE MANUAL TESTING?
+`workflow_dispatch`: This workflow can be triggered manually. But it requires further user intervention in order to function successfully. See **__Manual Testing__** for more details
 
 `workflow_call`: A reusable workflow that should be called upon by caller workflows. See **__Caller Workflow Triggers__** for details on the caller workflow trigger.
 
@@ -231,7 +231,7 @@ Testing the reusable workflow on its own is a more complex task due to the way t
 
 <ins>Caller workflows:</ins>
 
-TODO NOTE ABOUT BLABLABLA 
+Note: This caller workflow is in the same repository as the "reusable" workflow. Additionally, while non-main-workflow.yml can function as a reusable workflow, it's not mean to be reusable per se given the scenario. Instead, non-main-workflow.yml utilizes workflow_call as a way to be triggered without having to be merged in the default branch. See the **__Scenario__** section for more details.  
 
 - [TODO CALLER.yml](TODO LINK.yml)
 
