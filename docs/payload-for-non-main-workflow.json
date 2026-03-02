@@ -1,0 +1,8 @@
+{
+    "ref":"feature/matt-test-workflow-without-main-merge",
+    "inputs":{
+        "notes":"Used Postman to trigger!",
+        "triggered-by-api":true,
+        "perform-server-check":false
+    }
+}

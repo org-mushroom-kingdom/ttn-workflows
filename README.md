@@ -1,5 +1,7 @@
 # ttn-workflows
 
+Note: This really should be organized into a wiki. One day! TODO WIKI
+
 A repository that stores workflows and things surrounding them (scripts, etc) for the fake app "Toad Town News." Most of the workflows here should be reusable.
 Refer to the **__Workflows__** section regarding information about each workflow present in this repository (keep in mind that this repository may evolve from time to time, and so documentation regarding workflows may evolve as well. Basically check in from time to time to make sure you're up to date with the workflow you're reading about)
 
@@ -31,7 +33,9 @@ CHECK THAT APP IS SECURE ENOUGH SO NEFARIOUS PEOPLE AREN'T GOING TO BE WADS
 
 # Workflows
 
-## changelog-quality-check.py
+All workflows located in the .github/workflows directory are detailed below.
+
+# changelog-quality-check.py
 
 <ins>Caller workflows:</ins>
 - [org-mushroom-kingdom/ttn-frontend/.github/workflows/sc-changelog-check-exists-and-naming-caller.yml](https://github.com/org-mushroom-kingdom/ttn-frontend/blob/main/.github/workflows/sc-changelog-check-exists-and-naming-caller.yml)
@@ -39,7 +43,7 @@ CHECK THAT APP IS SECURE ENOUGH SO NEFARIOUS PEOPLE AREN'T GOING TO BE WADS
 
 <ins>Trigger of the caller workflows:</ins> `pull_request (types: [open, synchronize])` See **__Caller Workflow Triggers__** for details
 
-### Scenario
+## Scenario
 
 Note: The code written here is used as a supplement to the Medium article ['Github Actions: Checking Out And Utilizing a Reusable Workflow's Repository'](https://medium.com/devops-dev/github-actions-checking-out-and-utilizing-a-reusable-workflows-repository-992adbe7b3ae).
 
@@ -47,7 +51,7 @@ In this scenario, `ttn-frontend` and `ttn-backend` rely on the reusable workflow
 
 The reusable workflow relies on a script for the brunt of its work. This script is also located in `ttn-workflows`. Since the reusable workflow is in a different repository than the caller workflow's location (either `ttn-frontend` or `ttn-backend`), the script can't be referenced simply by pointing to its path. We must explicitly checkout `ttn-workflows` so the reusable workflow can access the script and perform its logic properly.
 
-### Triggers
+## Triggers
 
 `workflow_dispatch`: This workflow can be triggered manually. TODO SEE MANUAL TESTING?
 
@@ -57,17 +61,17 @@ The reusable workflow relies on a script for the brunt of its work. This script 
 
 `pull_request`: When the caller workflow's repository has certain pull request activity (`types: [opened, synchronize]`) that is a release branch being merged into the main branch. A release branch will have the word 'release' as a prefix. See more details in the caller workflow repositories' README files.
 
-### Business Logic
+## Business Logic
 
 The following section and subsections explain how the `changelog-quality-check.yml` reusable workflow performs its work. 
 
-#### **CHANGELOG File Quantity Check**
+### **CHANGELOG File Quantity Check**
 
 This workflow will assess a pull request's files and ensure there is a singular, properly named CHANGELOG file. 
 
 When assessing the changed files in a pull request, the workflow will assess how many potential CHANGELOG files there are. A potential CHANGELOG file is any file that begins with the substring "CHANGELOG" in this case. In the event the amount of potential CHANGELOG files is NOT 1, the workflow will evaluate this as a failure (even in a scenario where a properly-named CHANGELOG file may be present amongst other potential CHANGELOG files)
 
-#### **Expected CHANGELOG Filename**
+### **Expected CHANGELOG Filename**
 
 When a singular potential CHANGELOG file has been identified, it will be assessed to ensure it has the expected filename. 
 
@@ -90,7 +94,7 @@ Examples CHANGELOG filenames that would NOT be valid are:
 - `CHANGELOG-frontend-1.1.txt` (has '1.1' in it, when the release_version should be 'v1.1')
 
 
-#### **Workflow and Script Logic**
+### **Workflow and Script Logic**
 
 This workflow consists of one job `changelog-check` (full name 'Changelog Check (Exists and Naming)'). This workflow relies on a Python script `changelog-quality-check.py` for much of its work. 
 
@@ -132,11 +136,11 @@ When called upon, this workflow will perform the following logic <br>(Note: step
 10. Use the `CHANGELOG_MSG` environmental variable that was set in step 9 in conjunction with the Github API to put a comment on the PR stating the status of the CHANGELOG file quality checks.
 11. Based upon the status code of the Python script, the workflow returns a passing or failing status. This status can be leveraged with a branch protection rule to allow or disallow merging the PR into the target branch. 
 
-### Manual Testing
+## Manual Testing
 
 This workflow has the `workflow_dispatch` trigger, meaning it can be triggered manually. This workflow was manually tested using the Github Actions UI page.
 
-#### **Manual Testing Inputs**
+### Inputs
 
 The following inputs are used for manual testing:
 
@@ -164,14 +168,14 @@ Scenario 3 is tested by using the `pr_num_man` option '4 - CHANGELOG_backend_v1.
 
 Scenario 4 is tested by using the `pr_num_man` option '5 - dummy-file.txt' which corresponds to a pull request that lacks a CHANGELOG file.
 
-## get-article-titles.yml
+# get-article-titles.yml
 
 <ins>Caller workflows</ins>: [`org-mushroom-kingdom/ttn-frontend/.github/workflows/get-article-titles.yml`](https://github.com/org-mushroom-kingdom/ttn-frontend/blob/main/.github/workflows/get-article-titles.yml)
 <ins>Trigger of the caller workflow</ins>: `workflow_dispatch` (Manually triggered)
 
-### Scenario
+## Scenario
 
-The code here is used as a supplement to the Medium article TODO LINK!! 'A Comprehensive Guide to Creating and Using a Basic Github App for Token Management via Installation'. Refer to that article for additional context and details.
+The code here is used as a supplement to the Medium article [A Comprehensive Guide to Creating and Using a Basic Github App for Token Management via Installation](https://medium.com/devops-dev/a-comprehensive-guide-to-creating-and-using-a-basic-github-app-for-token-management-via-0bfcfa39f5c1). Refer to that article for additional context and details.
 
 In this scenario, developers are working on integrating installation access tokens to move away from personal access token management. Devs have complained about having to make their own PATs and having to remember to refresh them when they expire (among other reasons), so a solution where tokens could be generated programmatically and not tied to a user would be an ideal situation. 
 
@@ -185,17 +189,17 @@ This scenario utilizes a Github App that was created on a personal account (vs. 
 
 As an aside, you don't need to create a Github App for each caller workflow for this particular scenario. Instead, you install the Github App on the repository you intend to use it on, which would be `ttn-workflows` in our case. It's sort of the opposite of how the CHANGELOG quality check logic works--for that logic, we passed a token in from the caller workflow's repo. In this scenario, our token-related activity is on the reusable workflow's repo. Note that you still have to pass a secret (the Github App's private key) from the caller workflow to the reusable workflow. Generally, it is acceptable for the same private key to be used for multiple repositories within the same organization. 
 
-### Triggers
+## Triggers
 
-`workflow_dispatch`: This workflow can be triggered manually. But it won't work TODO EXPLAIN TODO SEE MANUAL TESTING?
+`workflow_dispatch`: This workflow can be triggered manually. But it requires further user intervention in order to function successfully. See **__Manual Testing__** for more details
 
 `workflow_call`: A reusable workflow that should be called upon by caller workflows. See **__Caller Workflow Triggers__** for details on the caller workflow trigger.
 
-**Caller Workflow Triggers**
+### **Caller Workflow Triggers**
 
 `workflow_dispatch`: The caller workflow is only triggered manually.  
 
-### **Workflow Logic**
+## **Workflow Logic**
 
 The following section and subsections explain how the `get-article-titles.yml` reusable workflow performs its work. 
 
@@ -215,9 +219,145 @@ The following section and subsections explain how the `get-article-titles.yml` r
 6. Set the environmental variable `REPO_PATH` to  `ttn-workflows-repo` (This step is skipped if manually testing)
 7. Use `cat` to print the contents of the `article-titles-1–22–26.txt` file. 
 
-### Manual Testing
+## Manual Testing
 
 To properly test this scenario, trigger the caller workflow `sc-changelog-check-exists-and-naming-caller.yml` in `ttn-frontend`.
 
 Testing the reusable workflow on its own is a more complex task due to the way this code was written. For simplicity in the corresponding article that goes along with this code, I didn't want to have to add and then subsequently explain the intracacies of the logic that would be present when it comes to assessing the repository that triggers the reusable workflow in the 'Generate GitHub App token' step. The article is more focused on caller/reusable workflow relationships and how they relate to a use case for installation access tokens rather than testing flexibility. However, there are steps one can take independently to be able to test the reusable workflow via a `workflow_dispatch` event in its own repository: see the comments at the top of the code for details.
 
+# non-main-workflow.yml (Non-main workflow)
+
+<ins>Caller workflows:</ins>
+
+Note: This caller workflow is in the same repository as the "reusable" workflow. Additionally, while `non-main-workflow.yml` can function as a reusable workflow, it's not mean to be reusable per se given the scenario. Instead, `non-main-workflow.yml` utilizes workflow_call as a way to be triggered without having to be merged in the default branch. See the **__Scenario__** section for more details.  
+
+- [non-main-workflow-caller.yml](TODO LINK.yml)
+
+<ins>Trigger of the caller workflows:</ins> `workflow_dispatch (specifically, via API call or Github CLI)` See **__Caller Workflow Triggers__** for details
+
+
+## Scenario
+
+The code here is used as a supplement to the Medium article TODO LINK!! 'Triggering a Github Actions Workflow Without Merging Into The Default Branch: A Guide'. Refer to that article for additional context and details.
+
+TODO HOW IT RELATES TO ORG-MUSHROOM-KINGDOM
+
+This scenario is somewhat unique: The goal here is to show how a workflow (`non-main-workflow.yml`) can be triggered when it is not merged into the repository default branch (Note: the default branch is main for the ttn-workflows repository). Therefore, the workflow should be treated as if it weren't merged to main.     
+
+At this point, readers might wonder why IS the `non-main-workflow.yml` workflow merged in the default branch? The purpose is simple: to archive those ways such a workflow could be triggered. Readers are encouraged to copy this workflow file and test it out on their own repo. 
+
+## Triggers
+
+Note: These triggers still apply, but be aware that this workflow is to be treated as if it were not in the default branch.
+
+`workflow_dispatch`: This workflow can be triggered manually. Specifically for this scenario, triggering via an API call or using Github CLI is recommended. 
+
+`workflow_call`: This workflow can be treated as a reusable workflow that should be called upon by caller workflows. See **__Caller Workflow Triggers__** for details on the caller workflow trigger. TODO NOTE
+
+**Caller Workflow Triggers**
+
+`workflow_dispatch`: When the caller workflow's repository has certain pull request activity (`types: [opened, synchronize]`) that is a release branch being merged into the main branch. A release branch will have the word 'release' as a prefix. See more details in the caller workflow repositories' README files.
+
+
+### Manual Testing
+
+TODO THE NAME OF THE GAME
+
+### **Setting Up**
+
+The most straightforward way to test triggering a workflow when it is not merged into the default branch is to make a feature branch that contains that workflow. In the context of this scenario, we shall refer to this feature branch as `your-feature-branch`
+
+To experiment triggering a workflow that has not been merged to main, try the following:
+
+1. Fork the `ttn-workflows` repo
+2. Copy the contents of `.github/workflows/non-main-workflow.yml` code.  
+3. In a commit, delete the `.github/workflows/non-main-workflow.yml` from the `main` branch. (Or rename it, see Note below)
+4. Push the commit
+5. Make a new feature branch, which will be referred to in this documentation as `your-feature-branch`. (Note: Use Ctrl+Shift+N if using Github Desktop)
+6. Make a new file called `non-main-workflow.yml`. (Or choose a different name, see Note below)
+7. Paste in the code you copied from Step 2 into this file. <br>
+- Update the ref: in actions/checkout to reference your feature branch. <br>
+- Update branches: references to your feature branch. (Things should still work if you don't but it's good to do so anyways.) 
+8. Save the file, and make a commit. This should trigger the workflow (due to the push: trigger).
+9. Proceed to test out other various triggers.
+
+Note: You could also just rename `.github/workflows/non-main-workflow.yml` instead of deleting it, and subsequently name your new workflow something else. 
+
+The following sections detail how to activate each trigger. You may want to comment out other triggers if trying to test a specific one.
+
+### **push**
+
+The `push` trigger is the easiest one to activate. Literally all you need to do is make a commit on `your-feature-branch` and push it. You can experiment with the `branches:` and `paths:` keys. Note that using `paths:` will limit the scope of the `push` trigger based upon the paths (glob patterns) of the changed files in the commit. See the code comments for further details. 
+
+### **pull_request**
+
+The `pull_request` trigger takes slightly more effort to activate. Note that for this workflow, the default activity types of `pull_request` are used: `opened`, `synchronize`, and `reopened`. 
+
+To activate the `pull_request` trigger initially for this workflow, follow these instructions:
+1. Create a new feature branch based off of `your-feature-branch`. This new branch will be referred to as `your-feature-branch-2`
+2. Make a dummy commit on `your-feature-branch-2`
+3. Either through Github Desktop or the Github webpage UI, open a pull request in the following manner:
+base: `your-feature-branch` compare: `your-feature-branch-2`
+In other words, the source branch should be `your-feature-branch-2` and the target branch should be `your-feature-branch`
+4. Once the pull request has been created, this should trigger the workflow.
+
+You can activate the `pull_request` trigger again by doing one of the following:
+ - Open another PR with the target branch being `your-feature-branch` ("`opened`" activity type) __Note: This is listed for the sake of completeness. Don't actually do this, you'd just be repeating the above instructions and have to make a new source branch/dummy commit to that branch__
+ - While the PR is open, make a commit to the `your-feature-branch-2`, the source branch of the PR ("`synchronize`" activity type) *This is the easiest way.
+ - Close and reopen the PR ("`reopened`" activity type)
+
+### **workflow_dispatch**
+
+Note: For triggers that involve API calls, refer to `./docs/payload-for-non-main-workflow.json`. Update the `ref` in that file to reflect your feature branch.
+
+Note: Technically, since this workflow is merged in the default (`main`) branch, you could test it via the Github Actions UI. However, as explained above, we are treating this workflow as if it weren't merged into the default branch, meaning you wouldn't be able to use Github API to trigger it. Thus, we're going to explore the other ways `workflow_dispatch` can be triggered with additional context provided for this particular workflow.
+
+#### **Inputs** 
+
+| Name | Description | Type | Required | Default | Notes |
+|---|---|---|---|---|---|
+| notes | Gives additional context about the workflow_dispatch call. | String | false | "No notes. It's possible this was triggered via the Github Actions UI IF this workflow has been merged into the default branch" | Mostly used for Github CLI call | 
+| triggered-by-api | Is true if called by API | Boolean | true | false |  Should be set to true if using Github API or Github CLI | 
+| perform-server-check | Do the server check | Boolean | N/A | true |  Set this to false if you don't want to do the server check logic. | 
+
+These are primarily of use/value when the workflow isn't in the default branch. However, if you did merge the workflow into the default branch and then run it via the Github UI, the default value of `notes` and `triggered-by-api` make it obvious that this is the case.
+
+#### Different ways to activate workflow_dispatch
+<ins>Via API Call</ins>
+Note: This will require the use of a personal access token since the workflow uses actions/checkout. Be sure to create a token with repo permissions before you try this!
+
+The Github API endpoint "Create a workflow dispatch event" TODO explain what it does and link doc
+
+The criteria for this call is listed below:
+<ins>HTTP Method</ins>: POST
+<ins>URL</ins>: https://api.github.com/repos/<your-username-or-org>/<repo-name>/actions/workflows/non-main-workflow.yml/dispatches 
+<ins>Headers</ins>:
+    Authorization: Bearer <personal-access-token>
+    Accept: application/vnd.github.v3+json
+    Content-Type: application/json
+<ins>Body</ins>: __Copy this from `./docs/payload-for-non-main-workflow.json`__
+
+You can make the call via tools like cURL or Postman. Postman was used to make this call during testing.
+
+<ins>Via Github CLI Call</ins>
+
+The Github CLI can be seen as a wrapper to the Github API. It offers a simpler, command-line format to trigger the workflow.
+
+The basic skeleton of the command can be seen below
+
+`gh workflow run non-main-workflow.yml --ref <branch-name> -f notes="Triggered by Github CLI call" -f triggered-by-api=true -f perform-server-check=<true or false>`
+
+`ref` is the branch or tag name that contains the [version of] the workflow you'd like to run. For this scenario, there's essentially only one version of our workflow that we're concerned with, that being the one on our feature branch.
+`-f` is the `--raw-field` key. It is used to add a string parameter in `key=value` format, with `key` being the name of the input and `value` being the value to assign that input
+
+Consider the following example:
+`gh workflow run non-main-workflow.yml --ref feature/matt-test-workflow-without-main-merge -f notes="Triggered by Github CLI call" -f triggered-by-api=true `
+
+This is saying "Run [the version of] `non-main-workflow.yml` located on the branch '`feature/matt-test-workflow-without-main-merge`', with the `notes` input being set to 'Triggered by Github CLI call' and `triggered-by-api` set to true" 
+
+### workflow_call
+
+TODO caller workflow for this in same repo so no need to pass/use token in actions/checkout
+inputs for perform same exact as workflow dispatch
+
+# non-main-workflow-caller.yml (Non-main workflow CALLER)
