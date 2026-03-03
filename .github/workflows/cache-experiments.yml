@@ -1,0 +1,12 @@
+name: Cache Experiments
+
+on:
+  
+  workflow_dispatch:
+
+jobs:
+  cache-experiment-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Echo vars"
+        run: echo "vars TBD"
