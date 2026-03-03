@@ -361,3 +361,17 @@ TODO caller workflow for this in same repo so no need to pass/use token in actio
 inputs for perform same exact as workflow dispatch
 
 # non-main-workflow-caller.yml (Non-main workflow CALLER)
+
+TBD
+
+# cache-experiments.yml
+
+## Scenario
+
+Here is a scenario we will call ttnf-todo-comment-test:
+
+Say I have a Github Actions workflow job that functions as a status check. This workflow is fired whenever a pull request is opened or synchronized. The workflow will use Python to look at all comments in the HTML, then filter those comments out into an array named todo_comments based on if the comment has the text "TODO" in it. Comments with the text "TODO" in them can be referred to as "'TODO' comments'. 
+
+A script in the workflow will look at each "TODO" comment and check via pattern matching for a substring like "TTNF-1234". If that substring isn't present, it will add it to another array named comments_missing_story_numbers. 
+
+At the end of iterating todo_comments, we check if comments_missing_story_numbers is empty. If it is great, exit 0/status check passes. If not, status check fails. 
