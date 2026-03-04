@@ -10,8 +10,18 @@ name: Cache Experiments
 on:
   
   workflow_dispatch:
+        inputs:
+            use-cache:
+                description: "Use the cache"
+                required: true
+                type: boolean
 
   workflow_call:
+        inputs:
+            use-cache:
+                description: "Use the cache"
+                required: true
+                type: boolean
 
 jobs:
   cache-experiment-job:
@@ -29,3 +39,6 @@ jobs:
           uses: actions/setup-python@v4
           with:
             python-version: "3.11"
+
+        - name: Call script
+          run: echo "blablbala"
