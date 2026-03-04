@@ -42,5 +42,22 @@ jobs:
           with:
             python-version: "3.11"
 
+        # Caches persist for 7 days. TODO move this comment somewhere I dunno where else to put it 
+        - name: "Install dependencies using actions/cache"
+          id: cache-dependencies
+          if: inputs.use-cache
+          uses: actions/cache@v4
+          with: 
+            #  ~/.cache/pip is where TODO
+            path: ~/.cache/pip
+            key: stop-asking-me-to-fill-all-this-in
+
+        - name: Install dependencies manually
+          run: |
+            echo "TBD"
+            # pip install -r ./scripts/html-checks/requirements.txt
+
         - name: Call script
-          run: echo "blablbala"
+          run: |
+            echo "blablbala"
+            # python html-checks/script.py
