@@ -70,7 +70,7 @@ jobs:
             - name: "Assess PR Changed Files for *.html"
               id: check-for-html-files
               run: |
-                if [ ${{ github.event_name }} == "workflow_dispatch" ]
+                if [ "${{ github.event_name }}" == "workflow_dispatch" ]
                 then 
                     echo "html-files-present=true" >> "$GITHUB_OUTPUT"
                 else
