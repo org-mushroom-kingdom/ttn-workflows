@@ -49,7 +49,7 @@ jobs:
 
             - name: "Assess PR Changed Files for *.html"
               run: |
-                mapfile -t changed_filenames < <(gh pr view 8 --json files | jq '.files[].path')
+                mapfile -t changed_filenames < <(gh pr view 7 --json files | jq '.files[].path')
                 for changed_filename in "${changed_filenames[@]}"
                 do
                     echo "changed_filename=${changed_filename}"
