@@ -25,39 +25,46 @@ on:
                 type: boolean
                 default: false
 
+# Do something like Github CLI command to get array of changed filenames from PR
+# First check if there's any .html files in the array. If there isn't exit early with success
+# To really do that though maybe have two jobs: "html-exists", "cache-experiment-job"
+#  cache-experiment-job --> if html-exists.outputs.there-are-html-files == "true"
+
 jobs:
-  cache-experiment-job:
-    runs-on: ubuntu-latest
-    steps:
-        
-        - name: "Checkout repo"
-          uses: actions/checkout@v4
 
-        - name: "Echo vars"
-          run: echo "vars TBD"
 
-        # actions/setup-python makes a virtual environment for you and it's already active? TODO: Look into this
-        - name: Set up Python
-          uses: actions/setup-python@v4
-          with:
-            python-version: "3.11"
+    cache-experiment-job:
+        runs-on: ubuntu-latest
+        steps:
+            
+            - name: "Checkout repo"
+              uses: actions/checkout@v4
 
-        # Caches persist for 7 days. TODO move this comment somewhere I dunno where else to put it 
-        - name: "Install dependencies using actions/cache"
-          id: cache-dependencies
-          if: inputs.use-cache
-          uses: actions/cache@v4
-          with: 
-            #  ~/.cache/pip is where TODO
-            path: ~/.cache/pip
-            key: stop-asking-me-to-fill-all-this-in
+            - name: "Echo vars"
+              run: echo "vars TBD"
 
-        - name: Install dependencies manually
-          run: |
-            echo "TBD"
-            # pip install -r ./scripts/html-checks/requirements.txt
+            # actions/setup-python makes a virtual environment for you and it's already active? TODO: Look into this
+            - name: Set up Python
+              uses: actions/setup-python@v4
+              with:
+                python-version: "3.11"
 
-        - name: Call script
-          run: |
-            echo "blablbala"
-            # python html-checks/script.py
+            # Caches persist for 7 days. TODO move this comment somewhere I dunno where else to put it 
+            - name: "Install dependencies using actions/cache"
+              id: cache-dependencies
+              if: inputs.use-cache
+              uses: actions/cache@v4
+              with: 
+                #  ~/.cache/pip is where TODO
+                path: ~/.cache/pip
+                key: stop-asking-me-to-fill-all-this-in
+
+            - name: Install dependencies manually
+              run: |
+                echo "TBD"
+                # pip install -r ./scripts/html-checks/requirements.txt
+
+            - name: Call script
+              run: |
+                echo "blablbala"
+                # python html-checks/script.py
