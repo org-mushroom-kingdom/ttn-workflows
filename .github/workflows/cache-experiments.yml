@@ -16,6 +16,12 @@ on:
                 required: true
                 type: boolean
                 default: false
+            use-dummy-html:
+                description: "Take HTML file from testing/html-checks/html"
+                required: true
+                type: boolean
+                default: true
+
 
   workflow_call:
         inputs:
@@ -32,8 +38,19 @@ on:
 
 jobs:
 
+    html-exists:
+        name: "Check for HTML files"
+        runs-on: ubuntu-latest
+        steps:
+
+            - name: "Manual trigger: Use dummy HTML"
+              run: echo "TBD"
+
+            - name: "Assess PR Changed Files for *.html"
+              run: echo "gh pr view 8 --json files | jq 'files[].path' "
 
     cache-experiment-job:
+        name: "HTML Checks (example of cache usage)"
         runs-on: ubuntu-latest
         steps:
             
