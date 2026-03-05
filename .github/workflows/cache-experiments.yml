@@ -47,6 +47,7 @@ on:
 #  cache-experiment-job --> if html-exists.outputs.there-are-html-files == "true"
 env:
     GH_TOKEN: ${{ secrets.github_token }}
+
 jobs:
 
     html-exists:
@@ -73,11 +74,14 @@ jobs:
                 then 
                     echo "html-files-present=true" >> "$GITHUB_OUTPUT"
                 else
+                    html_files_found=false
                     mapfile -t changed_filenames < <(gh pr view 4 --json files | jq '.files[].path')
                     for changed_filename in "${changed_filenames[@]}"
                     do
                         [ "${{ inputs.verbose }}" == "true" ] && echo "changed_filename=${changed_filename}" || :
+                        [[ "$str" == *".html" ]] && html_files_found=true || :
                     done
+                    echo "html_files_found = ${html_files_found}"
                 fi
 
     cache-experiment-job:
