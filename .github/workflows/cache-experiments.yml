@@ -51,7 +51,7 @@ jobs:
                 mapfile -t changed_filenames < <(gh pr view 8 --json files | jq '.files[].path')
                 for changed_filename in "${changed_filenames[@]}"
                 do
-                    echo "changed_filename="${changed_filename}"
+                    echo "changed_filename=${changed_filename}"
                 done 
 
     cache-experiment-job:
