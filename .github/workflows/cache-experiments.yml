@@ -47,10 +47,16 @@ jobs:
               run: echo "TBD"
 
             - name: "Assess PR Changed Files for *.html"
-              run: echo "gh pr view 8 --json files | jq 'files[].path' "
+              run: |
+                mapfile -t changed_filenames < <(gh pr view 8 --json files | jq '.files[].path')
+                for changed_filename in "${changed_filenames[@]}"
+                do
+                    echo "changed_filename="${changed_filename}"
+                done 
 
     cache-experiment-job:
         name: "HTML Checks (example of cache usage)"
+        if: 0 == 1
         runs-on: ubuntu-latest
         steps:
             
