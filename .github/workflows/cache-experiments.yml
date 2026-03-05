@@ -35,7 +35,8 @@ on:
 # First check if there's any .html files in the array. If there isn't exit early with success
 # To really do that though maybe have two jobs: "html-exists", "cache-experiment-job"
 #  cache-experiment-job --> if html-exists.outputs.there-are-html-files == "true"
-
+env:
+    GH_TOKEN: ${{ secrets.github_token }}
 jobs:
 
     html-exists:
