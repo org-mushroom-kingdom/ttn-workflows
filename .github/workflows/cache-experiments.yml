@@ -9,8 +9,6 @@ name: Cache Experiments
 
 on:
   
-    push:
-
     workflow_dispatch:
         inputs:
             use-cache:
