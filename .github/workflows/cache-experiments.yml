@@ -75,7 +75,7 @@ jobs:
                     echo "HEY"
                     echo "html-files-present=true" >> "$GITHUB_OUTPUT"
                 else
-                    html_files_found=false
+                    html_files_found="false"
                     mapfile -t changed_filenames < <(gh pr view 4 --json files | jq '.files[].path')
                     for changed_filename in "${changed_filenames[@]}"
                     do
