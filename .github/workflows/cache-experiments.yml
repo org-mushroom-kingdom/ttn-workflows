@@ -86,7 +86,7 @@ jobs:
                             break
                         fi
                     done
-                    echo "html_files_found = ${html_files_found}
+                    echo "html_files_found = ${html_files_found}"
                     echo "html-files-present=${html_files_found}" >> "$GITHUB_OUTPUT"
                 fi
 
