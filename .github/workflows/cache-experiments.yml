@@ -77,6 +77,7 @@ jobs:
                 else
                     html_files_found="false"
                     mapfile -t changed_filenames < <(gh pr view 4 --json files | jq '.files[].path')
+                    [ "${{ inputs.verbose }}" == "true" ] && echo "About to start HTML file search..." || :
                     for changed_filename in "${changed_filenames[@]}"
                     do
                         [ "${{ inputs.verbose }}" == "true" ] && echo "changed_filename=${changed_filename}" || :
