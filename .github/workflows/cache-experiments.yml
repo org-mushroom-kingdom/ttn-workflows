@@ -82,11 +82,12 @@ jobs:
                         [ "${{ inputs.verbose }}" == "true" ] && echo "changed_filename=${changed_filename}" || :
                         if [[ "$str" == *".html" ]] 
                         then
-                            html_files_found=true
+                            html_files_found="true"
                             break
                         fi
                     done
-                    echo "html_files_found = ${html_files_found}"
+                    echo "html_files_found = ${html_files_found}
+                    echo "html-files-present=${html_files_found}" >> "$GITHUB_OUTPUT"
                 fi
 
     cache-experiment-job:
