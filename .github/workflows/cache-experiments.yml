@@ -92,7 +92,6 @@ jobs:
                             html_filenames_str+="${changed_filename},"
                         fi
                     done
-                    html_filenames_str=$(IFS=","; echo "${arr[*]}")
                     echo "html_filenames_str = ${html_filenames_str}"
                     echo "html-filenames=${html_filenames_str}" >> "$GITHUB_OUTPUT"
                     echo "html_files_found = ${html_files_found}"
