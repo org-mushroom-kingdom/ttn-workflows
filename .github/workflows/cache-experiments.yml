@@ -81,7 +81,7 @@ jobs:
                     for changed_filename in "${changed_filenames[@]}"
                     do
                         [ "${{ inputs.verbose }}" == "true" ] && echo "changed_filename=${changed_filename}" || :
-                        if [[ "${changed_file}" == *".html" ]] 
+                        if [[ "${changed_filename}" == *".html" ]] 
                         then
                             echo "Something ended in html"
                             html_files_found="true"
