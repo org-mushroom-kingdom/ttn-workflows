@@ -88,7 +88,7 @@ jobs:
                         if [[ "$changed_filename" == *".html" ]] 
                         then
                             html_files_found='true'
-                            html_filenames_str+="${changed_filename}"
+                            html_filenames_str+="${changed_filename},"
                         fi
                     done
                     html_filenames_str=$(IFS=","; echo "${arr[*]}")
