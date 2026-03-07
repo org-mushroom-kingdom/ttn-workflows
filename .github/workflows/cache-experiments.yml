@@ -56,7 +56,7 @@ jobs:
         outputs: 
             # General format steps.<step-id>.outputs.<var written to GITHUB_OUTPUT>
             html-files-present: ${{ steps.check-for-html-files.outputs.html-files-present }}
-            html-filenames: ${{ steps.check-for-html-files.outputs.html-filenames}}
+            html-filenames: ${{ steps.check-for-html-files.outputs.html-filenames }}
 
         steps:
 
@@ -88,7 +88,7 @@ jobs:
                         if [[ "$changed_filename" == *".html" ]] 
                         then
                             html_files_found='true'
-                            html_filesnames+="${changed_filename}"
+                            html_filenames+="${changed_filename}"
                         fi
                     done
                     html_filenames_str=$(IFS=","; echo "${arr[*]}")
