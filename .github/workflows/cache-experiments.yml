@@ -84,7 +84,7 @@ jobs:
                         if [[ "$changed_filename" == *".html" ]] 
                         then
                             echo "Something ended in html"
-                            html_files_found="true"
+                            html_files_found='true'
                             break
                         fi
                     done
