@@ -73,7 +73,7 @@ jobs:
               id: check-for-html-files
               run: |
                 html_files_found="false"
-                html_filenames=""
+                html_filenames_str=""
                 if [ "${{ github.event_name }}" == "something" ]
                 then 
                     echo "HEY"
