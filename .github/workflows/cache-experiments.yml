@@ -56,6 +56,7 @@ jobs:
         outputs: 
             # General format steps.<step-id>.outputs.<var written to GITHUB_OUTPUT>
             html-files-present: ${{ steps.check-for-html-files.outputs.html-files-present }}
+            html-filenames: ${{ steps.check-for-html-files.outputs.html-filenames}}
 
         steps:
 
@@ -72,6 +73,7 @@ jobs:
               id: check-for-html-files
               run: |
                 html_files_found="false"
+                html_filenames=""
                 if [ "${{ github.event_name }}" == "something" ]
                 then 
                     echo "HEY"
@@ -85,11 +87,12 @@ jobs:
                         [ "${{ inputs.verbose }}" == "true" ] && echo "changed_filename=${changed_filename}" || :
                         if [[ "$changed_filename" == *".html" ]] 
                         then
-                            echo "Something ended in html"
                             html_files_found='true'
-                            break
+                            html_filesnames+="${changed_filename}"
                         fi
                     done
+                    html_filenames_str=$(IFS=","; echo "${arr[*]}")
+                    echo "$html-filenames=${html_filenames_str}" >> "$GITHUB_OUTPUT"
                     echo "html_files_found = ${html_files_found}"
                     echo "html-files-present=${html_files_found}" >> "$GITHUB_OUTPUT"
                 fi
@@ -105,12 +108,12 @@ jobs:
               uses: actions/checkout@v4
 
             - name: "Echo vars"
-              run: echo "vars TBD"
+              run: echo "${{ needs.html-exists.outputs.html-filenames }}"
 
-            - name: "TEMP Early exit TODO DELETE ME"
+            - name: "temp early exit"
               run: exit 1
 
-            # actions/setup-python makes a virtual environment for you and it's already active? TODO: Look into this
+            # actions/setup-python makes a virtual environment for you and it's already active, so usually no need to do things like "python m venv .venv" or "source .venv/bin/activate"
             - name: Set up Python
               uses: actions/setup-python@v4
               with:
