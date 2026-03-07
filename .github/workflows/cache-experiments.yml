@@ -55,6 +55,7 @@ jobs:
         runs-on: ubuntu-latest
         env:
             PR_NUMBER: ${{ github.event.pull_request.number }}
+            EVENT_NAME: ${{ github.event_name }}
         outputs: 
             # General format steps.<step-id>.outputs.<var written to GITHUB_OUTPUT>
             html-files-present: ${{ steps.check-for-html-files.outputs.html-files-present }}
@@ -71,6 +72,7 @@ jobs:
                 echo "Using the following files from testing/html-checks/html"
                 echo "ttn-frontend-fake-main-03032026.html"
 
+            # TODO probably change this to a script. Arg: PR_NUM, inputs.verbose, github.event_name
             - name: "Assess PR Changed Files for *.html"
               id: check-for-html-files
               run: |
@@ -97,7 +99,7 @@ jobs:
                 done
                 
                 # Removes last char (,) from string
-                html_filenames_str=="${html_filenames_str%?}"
+                html_filenames_str="${html_filenames_str%?}"
                 echo "html_filenames_str = ${html_filenames_str}"
                 echo "html-filenames=${html_filenames_str}" >> "$GITHUB_OUTPUT"
                 
@@ -146,4 +148,5 @@ jobs:
             - name: "Script: Check each HTML file's TODOs have corresponding story"
               run: |
                 echo "blablbala"
-                # python html-checks/script.py
+                # You could either feed whole  ".html,.html,..."string in or do a loop here and subject each to script
+                # python html-checks/main.py
