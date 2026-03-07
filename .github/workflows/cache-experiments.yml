@@ -87,6 +87,7 @@ jobs:
                         [ "${{ inputs.verbose }}" == "true" ] && echo "changed_filename=${changed_filename}" || :
                         if [[ "$changed_filename" == *".html" ]] 
                         then
+                            echo "HIT!"
                             html_files_found='true'
                             html_filenames_str+="${changed_filename},"
                         fi
