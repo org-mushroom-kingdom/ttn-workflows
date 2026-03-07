@@ -54,7 +54,8 @@ jobs:
         name: "Check for HTML files"
         runs-on: ubuntu-latest
         outputs: 
-            html-files-present: ${{ steps.check-for-html-files.html-files-present }}
+            # General format steps.<step-id>.outputs.<var written to GITHUB_OUTPUT>
+            html-files-present: ${{ steps.check-for-html-files.outputs.html-files-present }}
 
         steps:
 
@@ -76,6 +77,7 @@ jobs:
                     echo "HEY"
                     echo "html-files-present=true" >> "$GITHUB_OUTPUT"
                 else
+                    # Use process substitution to have jq output be treated as stdin for mapfile. (use Github CLI command below to get file info (obj array)), then jq to get just the "path" from each obj. Use -r to remove double quotes from values otherwise they will be present in the string  )
                     mapfile -t changed_filenames < <(gh pr view 9 --json files | jq -r '.files[].path')
                     [ "${{ inputs.verbose }}" == "true" ] && echo "About to start HTML file search..." || :
                     for changed_filename in "${changed_filenames[@]}"
