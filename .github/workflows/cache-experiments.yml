@@ -72,10 +72,14 @@ jobs:
                 echo "Using the following files from testing/html-checks/html"
                 echo "ttn-frontend-fake-main-03032026.html"
 
+            - name: "Give exec permissions to scripts"
+              run: chmod a+x ./scripts/html-checks/*.sh ./scripts/html-checks/*.py
+
             # TODO probably change this to a script. Arg: PR_NUM, inputs.verbose, github.event_name
             - name: "Assess PR Changed Files for *.html"
               id: check-for-html-files
               run: |
+                
                 html_files_found="false"
                 html_filenames_str=""
                 if [ "${{ github.event_name }}" == "something" ]
