@@ -76,7 +76,7 @@ jobs:
                     echo "HEY"
                     echo "html-files-present=true" >> "$GITHUB_OUTPUT"
                 else
-                    mapfile -t changed_filenames < <(gh pr view 9 --json files | jq '.files[].path')
+                    mapfile -t changed_filenames < <(gh pr view 9 --json files | jq -r '.files[].path')
                     [ "${{ inputs.verbose }}" == "true" ] && echo "About to start HTML file search..." || :
                     for changed_filename in "${changed_filenames[@]}"
                     do
