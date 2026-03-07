@@ -70,12 +70,12 @@ jobs:
             - name: "Assess PR Changed Files for *.html"
               id: check-for-html-files
               run: |
+                html_files_found="false"
                 if [ "${{ github.event_name }}" == "something" ]
                 then 
                     echo "HEY"
                     echo "html-files-present=true" >> "$GITHUB_OUTPUT"
                 else
-                    html_files_found="false"
                     mapfile -t changed_filenames < <(gh pr view 9 --json files | jq '.files[].path')
                     [ "${{ inputs.verbose }}" == "true" ] && echo "About to start HTML file search..." || :
                     for changed_filename in "${changed_filenames[@]}"
@@ -83,6 +83,7 @@ jobs:
                         [ "${{ inputs.verbose }}" == "true" ] && echo "changed_filename=${changed_filename}" || :
                         if [[ "${changed_file}" == *".html" ]] 
                         then
+                            echo "Something ended in html"
                             html_files_found="true"
                             break
                         fi
