@@ -95,8 +95,12 @@ jobs:
                         html_filenames_str+="${changed_filename},"
                     fi
                 done
+                
+                # Removes last char (,) from string
+                html_filenames_str=="${html_filenames_str%?}"
                 echo "html_filenames_str = ${html_filenames_str}"
                 echo "html-filenames=${html_filenames_str}" >> "$GITHUB_OUTPUT"
+                
                 echo "html_files_found = ${html_files_found}"
                 echo "html-files-present=${html_files_found}" >> "$GITHUB_OUTPUT"
             
@@ -124,7 +128,7 @@ jobs:
                 python-version: "3.11"
 
             # Caches persist for 7 days. TODO move this comment somewhere I dunno where else to put it 
-            - name: "Install dependencies using actions/cache"
+            - name: "Use actions/cache to speed up dependency installation"
               id: cache-dependencies
               if: inputs.use-cache
               uses: actions/cache@v4
@@ -133,12 +137,13 @@ jobs:
                 path: ~/.cache/pip
                 key: stop-asking-me-to-fill-all-this-in
 
-            - name: Install dependencies manually
+            # The time duration of this step should decrease drastically when using a cache
+            - name: Install dependencies
               run: |
                 echo "TBD"
                 # pip install -r ./scripts/html-checks/requirements.txt
 
-            - name: Call script
+            - name: "Script: Check each HTML file's TODOs have corresponding story"
               run: |
                 echo "blablbala"
                 # python html-checks/script.py
