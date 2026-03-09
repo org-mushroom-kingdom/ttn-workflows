@@ -113,7 +113,7 @@ jobs:
                 
                 workflow_full_path="${{ github.workflow_ref }}"
                 echo "workflow_full_path = ${workflow_full_path}"
-                workflow_filename=${workflow_full_path#*"workflows/"}
+                workflow_filename=${workflow_full_path#*".github/workflows/"}
                 if [[ "$workflow_filename" == *"@"* ]]; then
                     workflow_filename=${workflow_filename%@*}
                 fi
