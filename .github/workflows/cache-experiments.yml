@@ -86,7 +86,6 @@ jobs:
         runs-on: ubuntu-latest
         needs: html-exists
         env:
-            CURRENT_DATE: ""
             WORKFLOW_FILENAME: ""
         if: needs.html-exists.outputs.html-files-present == 'true'
         steps:
@@ -105,19 +104,16 @@ jobs:
               with:
                 python-version: "3.11"
 
-            - name: Set CURRENT_DATE, WORKFLOW_FILENAME
+            - name: Set WORKFLOW_FILENAME
               run: |
-                date=$(/bin/date -u "+%Y-%m-%d") 
-                echo "date = $date" 
-                echo "CURRENT_DATE=$date" >> $GITHUB_ENV
                 
                 workflow_full_path="${{ github.workflow_ref }}"
-                echo "workflow_full_path = ${workflow_full_path}"
+                # echo "workflow_full_path = ${workflow_full_path}"
                 workflow_filename=${workflow_full_path#*".github/workflows/"}
                 if [[ "$workflow_filename" == *"@"* ]]; then
                     workflow_filename=${workflow_filename%@*}
                 fi
-                echo "workflow_filename = ${workflow_filename}"
+                # echo "workflow_filename = ${workflow_filename}"
                 echo "WORKFLOW_FILENAME=${workflow_filename}" >> $GITHUB_ENV
 
             # Caches persist for 7 days. TODO move this comment somewhere I dunno where else to put it 
@@ -126,11 +122,11 @@ jobs:
               if: inputs.use-cache
               uses: actions/cache@v4
               with: 
-                #  ~/.cache/pip is where TODO
+                #  ~/.cache/pip is where TODO WHEELS
                 path: ~/.cache/pip
                 # actions/cache will look for the cache key: it first looks for an exact match. If no exact matches--> looks for partial matches.
                 # If no partial match found, will look at restore-keys (if using)
-                key: ${{ runner.os }}-${{ env.CURRENT_DATE }}-${{ env.WORKFLOW_FILENAME }}
+                key: ${{ runner.os }}-${{ env.WORKFLOW_FILENAME }}
 
             # The time duration of this step (~20 seconds) should decrease drastically when using a cache
             - name: Install dependencies
