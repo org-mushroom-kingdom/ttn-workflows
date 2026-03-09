@@ -9,8 +9,7 @@ echo ".sh: pr_number = ${pr_number}"
 echo ".sh: verbose = ${verbose}"
 echo ".sh: event_name = ${event_name}"
 
-
-if [ "${event_name}" == "workflow_dispatch" ]
+if [ "$event_name" == "workflow_dispatch" ]
 then 
     echo "HEY"
     # PR #9 in ttn-workflows has 2 .html files in it
