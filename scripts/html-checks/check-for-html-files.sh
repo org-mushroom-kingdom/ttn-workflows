@@ -29,10 +29,10 @@ do
     fi
 done
 
-# Removes last char (,) from string
-html_filenames_str="${html_filenames_str%?}"
-echo -e "\n html_filenames_str = ${html_filenames_str}"
-echo "html-filenames=${html_filenames_str}" >> "$GITHUB_OUTPUT"
-
 echo "html_files_found = ${html_files_found}"
 echo "html-files-present=${html_files_found}" >> "$GITHUB_OUTPUT"
+
+# Removes last char (,) from string
+html_filenames_str="${html_filenames_str%?}"
+echo -e "\nhtml_filenames_str = ${html_filenames_str}"
+echo "html-filenames=${html_filenames_str}" >> "$GITHUB_OUTPUT"
