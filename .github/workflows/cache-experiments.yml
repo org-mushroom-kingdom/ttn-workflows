@@ -109,12 +109,14 @@ jobs:
                 date=$(/bin/date -u "+%Y-%m-%d") 
                 echo "date = $date" 
                 echo "CURRENT_DATE=$date" >> $GITHUB_ENV
+                
                 workflow_full_path="${{ github.workflow_ref }}"
                 workflow_filename=${workflow_full_path#*"workflows/"}
                 if [[ "$workflow_filename" == *"@"* ]]; then
                     workflow_filename=${workflow_filename%@*}
                 fi
                 echo "workflow_filename = ${workflow_filename}"
+                echo "WORKFLOW_FILENAME=${workflow_filename}" >> $GITHUB_ENV
 
             # Caches persist for 7 days. TODO move this comment somewhere I dunno where else to put it 
             - name: "Use actions/cache to speed up dependency installation"
@@ -126,11 +128,11 @@ jobs:
                 path: ~/.cache/pip
                 # actions/cache will look for the cache key: it first looks for an exact match. If no exact matches--> looks for partial matches.
                 # If no partial match found, will look at restore-keys (if using)
-                key: ${{ runner.os }}-$CURRENT_DATE-${{ github.workflow }}
+                key: ${{ runner.os }}-$CURRENT_DATE-$WORKFLOW_FILENAME
 
             # The time duration of this step (~20 seconds) should decrease drastically when using a cache
-            # - name: Install dependencies
-            #   run: pip install -r ./scripts/html-checks/requirements.txt
+            - name: Install dependencies
+              run: pip install -r ./scripts/html-checks/requirements.txt
 
             - name: "Script: Check each HTML file's TODOs have corresponding story"
               run: |
