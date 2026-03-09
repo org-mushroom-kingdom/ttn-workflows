@@ -17,11 +17,13 @@ then
 fi
 
 # Use process substitution to have jq output be treated as stdin for mapfile. (use Github CLI command below to get file info (obj array)), then jq to get just the "path" from each obj. Use -r to remove double quotes from values otherwise they will be present in the string  )
+echo ".sh: mapfile..."
 mapfile -t changed_filenames < <(gh pr view $pr_number --json files | jq -r '.files[].path')
-[ "${verbose}" == "true" ] && echo "About to start HTML file search..." || :
+echo ".sh: echo HTML search"
+[ "${verbose}" = "true" ] && echo "About to start HTML file search..." || :
 for changed_filename in "${changed_filenames[@]}"
 do
-    [ "${verbose}" == "true" ] && echo "changed_filename=${changed_filename}" || :
+    [ "${verbose}" = "true" ] && echo "changed_filename=${changed_filename}" || :
     if [[ "$changed_filename" == *".html" ]] 
     then
         echo "HIT!"
