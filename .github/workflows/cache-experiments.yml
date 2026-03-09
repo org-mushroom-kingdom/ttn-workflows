@@ -104,12 +104,17 @@ jobs:
               with:
                 python-version: "3.11"
 
-            - name: Get Date
+            - name: Set CURRENT_DATE, WORKFLOW_FILENAME
               run: |
                 date=$(/bin/date -u "+%Y-%m-%d") 
                 echo "date = $date" 
                 echo "CURRENT_DATE=$date" >> $GITHUB_ENV
-                echo "github.workflow_ref = ${{ github.workflow_ref }}"
+                workflow_full_path="${{ github.workflow_ref }}"
+                workflow_filename=${workflow_full_path#*"workflows/"}
+                if [[ "$workflow_filename" == *"@"* ]]; then
+                    workflow_filename=${workflow_filename%@*}
+                fi
+                echo "workflow_filename = ${workflow_filename}"
 
             # Caches persist for 7 days. TODO move this comment somewhere I dunno where else to put it 
             - name: "Use actions/cache to speed up dependency installation"
