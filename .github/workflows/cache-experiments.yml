@@ -79,7 +79,7 @@ jobs:
             - name: "Assess PR Changed Files for *.html"
               id: check-for-html-files
               run: |
-                sh ./scripts/html-checks/check-for-html-files.sh 9 ${{ inputs.verbose }} ${{ github.event_name }}
+                bash ./scripts/html-checks/check-for-html-files.sh 9 ${{ inputs.verbose }} ${{ github.event_name }}
 
                 # html_files_found="false"
                 # html_filenames_str=""

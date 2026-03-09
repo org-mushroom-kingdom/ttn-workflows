@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 pr_number="$1"
 verbose="$2"
 event_name="$3"
