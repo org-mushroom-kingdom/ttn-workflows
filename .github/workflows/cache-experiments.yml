@@ -108,6 +108,7 @@ jobs:
               run: |
                 echo "date=$(/bin/date -u "+%Y-%m-%d")" 
                 echo "CURRENT_DATE=date" >> $GITHUB_ENV
+                echo "Key will look like ${{ runner.os }}-$CURRENT_DATE-${{ github.workflow }}"
 
             # Caches persist for 7 days. TODO move this comment somewhere I dunno where else to put it 
             - name: "Use actions/cache to speed up dependency installation"
@@ -117,7 +118,7 @@ jobs:
               with: 
                 #  ~/.cache/pip is where TODO
                 path: ~/.cache/pip
-                key: stop-asking-me-to-fill-all-this-in
+                key: ${{ runner.os }}-$CURRENT_DATE
 
             # The time duration of this step (~20 seconds) should decrease drastically when using a cache
             - name: Install dependencies
