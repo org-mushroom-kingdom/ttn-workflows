@@ -109,6 +109,9 @@ jobs:
                 date=$(/bin/date -u "+%Y-%m-%d") 
                 echo "date = $date" 
                 echo "CURRENT_DATE=date" >> $GITHUB_ENV
+
+            - name: "DELETE THIS STEP"
+              run: |
                 echo "Key will look like ${{ runner.os }}-"$CURRENT_DATE"-${{ github.workflow }}"
 
             # Caches persist for 7 days. TODO move this comment somewhere I dunno where else to put it 
