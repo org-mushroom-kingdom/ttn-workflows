@@ -5,6 +5,11 @@ event_name="$3"
 html_files_found="false"
 html_filenames_str=""
 echo "in .sh!"
+echo ".sh: pr_number = ${pr_number}"
+echo ".sh: verbose = ${verbose}"
+echo ".sh: event_name = ${event_name}"
+
+
 if [ "${{ event_name }}" == "workflow_dispatch" ]
 then 
     echo "HEY"
