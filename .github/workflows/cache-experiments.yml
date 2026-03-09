@@ -69,8 +69,8 @@ jobs:
             - name: "Manual trigger: Use dummy HTML"
               if: inputs.use-dummy-html == true
               run: |
-                echo "Using the following files from testing/html-checks/html"
-                echo "ttn-frontend-fake-main-03032026.html"
+                echo "Setting PR_NUMBER to 9 (has 2 .html files)"
+                echo "PR_NUMBER=9" >> $GITHUB_ENV
 
             - name: "Give exec permissions to scripts"
               run: chmod a+x ./scripts/html-checks/*.sh ./scripts/html-checks/*.py
@@ -79,7 +79,7 @@ jobs:
             - name: "Assess PR Changed Files for *.html"
               id: check-for-html-files
               run: |
-                bash ./scripts/html-checks/check-for-html-files.sh 9 ${{ inputs.verbose }} ${{ github.event_name }}
+                bash ./scripts/html-checks/check-for-html-files.sh $PR_NUMBER ${{ inputs.verbose }} ${{ github.event_name }}
 
     cache-experiment-job:
         name: "HTML Checks (example of cache usage)"
@@ -93,11 +93,8 @@ jobs:
 
             - name: "Echo vars"
               run: |
-                echo "output!html-exists${{ needs.html-exists.outputs.html-filenames }}"
-                echo "output!html-files-present${{ needs.html-exists.outputs.html-files-present }}"
-
-            - name: "temp early exit"
-              run: exit 1
+                echo "output!html-exists = ${{ needs.html-exists.outputs.html-filenames }}"
+                echo "output!html-files-present = ${{ needs.html-exists.outputs.html-files-present }}"
 
             # actions/setup-python makes a virtual environment for you and it's already active, so usually no need to do things like "python m venv .venv" or "source .venv/bin/activate"
             - name: Set up Python

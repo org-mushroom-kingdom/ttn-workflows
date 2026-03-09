@@ -7,13 +7,6 @@ event_name="$3"
 html_files_found="false"
 html_filenames_str=""
 
-if [ "$event_name" = "workflow_dispatch" ]
-then 
-    # PR #9 in ttn-workflows has 2 .html files in it
-    echo "Manually triggered. Setting pr_number to 9 (has 2 .html files)"
-    pr_number="9"
-fi
-
 # Use process substitution to have jq output be treated as stdin for mapfile. (use Github CLI command below to get file info (obj array)), then jq to get just the "path" from each obj. Use -r to remove double quotes from values otherwise they will be present in the string  )
 mapfile -t changed_filenames < <(gh pr view $pr_number --json files | jq -r '.files[].path')
 
