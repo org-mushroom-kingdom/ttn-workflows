@@ -115,8 +115,8 @@ jobs:
             # The time duration of this step should decrease drastically when using a cache
             - name: Install dependencies
               run: |
-                echo "TBD"
-                # pip install -r ./scripts/html-checks/requirements.txt
+                # echo "TBD"
+                pip install -r ./scripts/html-checks/requirements.txt
 
             - name: "Script: Check each HTML file's TODOs have corresponding story"
               run: |
