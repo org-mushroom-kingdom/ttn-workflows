@@ -75,7 +75,7 @@ jobs:
             - name: "Give exec permissions to scripts"
               run: chmod a+x ./scripts/html-checks/*.sh ./scripts/html-checks/*.py
 
-            # TODO probably change this to a script. Arg: PR_NUM, inputs.verbose, github.event_name
+            # TODO change this to a script. Arg: PR_NUM, inputs.verbose, github.event_name
             - name: "Assess PR Changed Files for *.html"
               id: check-for-html-files
               run: |
