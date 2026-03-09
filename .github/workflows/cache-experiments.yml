@@ -106,9 +106,10 @@ jobs:
 
             - name: Get Date
               run: |
-                echo "date=$(/bin/date -u "+%Y-%m-%d")" 
+                date=$(/bin/date -u "+%Y-%m-%d") 
+                echo "date = $date" 
                 echo "CURRENT_DATE=date" >> $GITHUB_ENV
-                echo "Key will look like ${{ runner.os }}-$CURRENT_DATE-${{ github.workflow }}"
+                echo "Key will look like ${{ runner.os }}-"$CURRENT_DATE"-${{ github.workflow }}"
 
             # Caches persist for 7 days. TODO move this comment somewhere I dunno where else to put it 
             - name: "Use actions/cache to speed up dependency installation"
