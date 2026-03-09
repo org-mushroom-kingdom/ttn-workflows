@@ -129,7 +129,7 @@ jobs:
                 path: ~/.cache/pip
                 # actions/cache will look for the cache key: it first looks for an exact match. If no exact matches--> looks for partial matches.
                 # If no partial match found, will look at restore-keys (if using)
-                key: ${{ runner.os }}-${{ env.CURRENT_DATE}}-${{ env.WORKFLOW_FILENAME }}
+                key: ${{ runner.os }}-${{ env.CURRENT_DATE }}-${{ env.WORKFLOW_FILENAME }}
 
             # The time duration of this step (~20 seconds) should decrease drastically when using a cache
             - name: Install dependencies
