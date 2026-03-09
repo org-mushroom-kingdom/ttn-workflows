@@ -106,7 +106,7 @@ jobs:
 
             - name: Get Date
               run: |
-                echo "date=$(/bin/date -u "+%Y%m%d")" 
+                echo "date=$(/bin/date -u "+%Y-%m-%d")" 
                 echo "CURRENT_DATE=date" >> $GITHUB_ENV
 
             # Caches persist for 7 days. TODO move this comment somewhere I dunno where else to put it 
