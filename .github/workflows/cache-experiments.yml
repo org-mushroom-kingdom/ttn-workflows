@@ -108,7 +108,7 @@ jobs:
               run: |
                 date=$(/bin/date -u "+%Y-%m-%d") 
                 echo "date = $date" 
-                echo "CURRENT_DATE=date" >> $GITHUB_ENV
+                echo "CURRENT_DATE=$date" >> $GITHUB_ENV
 
             - name: "DELETE THIS STEP"
               run: |
