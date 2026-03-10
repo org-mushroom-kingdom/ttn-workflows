@@ -116,7 +116,9 @@ jobs:
                 # echo "workflow_filename = ${workflow_filename}"
                 echo "WORKFLOW_FILENAME=${workflow_filename}" >> $GITHUB_ENV
 
-            # Caches persist for 7 days. TODO move this comment somewhere I dunno where else to put it 
+            # Github-hosted runners (exclusively used by ttn-workflows) start in a clean environment every time, meaning dependencies must be redownloaded
+            # Caches speed up workflows by having saved versions of downloaded dependencies (such as Python modules) in Github cloud storage.
+            # Caches persist for 7 days.  
             - name: "Use actions/cache to speed up dependency installation"
               id: cache-dependencies
               if: inputs.use-cache
@@ -124,9 +126,15 @@ jobs:
               with: 
                 #  ~/.cache/pip is where TODO WHEELS
                 path: ~/.cache/pip
-                # actions/cache will look for the cache key: it first looks for an exact match. If no exact matches--> looks for partial matches.
-                # If no partial match found, will look at restore-keys (if using)
+                # actions/cache uses a key to save the cache. A key is a unique string to identify the cache. Caches are saved and restored from the same key. 
+                # actions/cache will look for the cache key: it first looks for an exact match. An exact match is considered a cache hit (anything else is considered a cache miss). 
+                # If no exact matches--> looks for partial matches. This counts as a cache miss. 
+                # If no partial match found, will try to restore using restore-keys (if using. We're not using them here.) This also counts as a cache miss.
+                # restore-keys TODO
+                #
                 key: ${{ runner.os }}-${{ env.WORKFLOW_FILENAME }}
+                # You can fail the workflow in the event of a cache miss (this is false by default)
+                fail-on-cache-miss: false
 
             # The time duration of this step (~20 seconds) should decrease drastically when using a cache
             - name: Install dependencies
