@@ -87,6 +87,7 @@ jobs:
         needs: html-exists
         env:
             WORKFLOW_FILENAME: ""
+            CACHE_NAME: "cache-experiment-job"
         if: needs.html-exists.outputs.html-files-present == 'true'
         steps:
             
@@ -118,27 +119,35 @@ jobs:
 
             # Github-hosted runners (exclusively used by ttn-workflows) start in a clean environment every time, meaning dependencies must be redownloaded
             # Caches speed up workflows by having saved versions of downloaded dependencies (such as Python modules) in Github cloud storage.
-            # Caches persist for 7 days. They are stored on Github servers, 
+            # Caches persist for 7 days. They are stored (saved) on Github servers. Retrieving the cache is known as restoring the cache. 
             # Caches have specific metadata to specify the repository the workflow resides on and the cache version (a hash made based the compression tool and path) 
             - name: "Use actions/cache to speed up dependency installation"
               id: cache-dependencies
               if: inputs.use-cache
               uses: actions/cache@v4
               with: 
-                #  ~/.cache/pip is where TODO WHEELS
+                # path is a list of files/directories/wildcard patterns to cache and restore. This list can be a single item or multiple items (ex. ~/.cache/pip and .venv may both be used when using a virtual environment)
+                #  ~/.cache/pip is where pip stores downloaded packages. (i.e. after pip install is ran) 
+                # ~/.cache/pip Has wheels (.whl: pre-built,compiled,ready-to-install packages) and source archives (tar.gz or .zip: raw source code of package, NOT pre-built)
                 path: ~/.cache/pip
                 # actions/cache uses a key to save the cache. A key is a unique string to identify the cache. Caches are saved and restored from the same key. 
                 # actions/cache will look for the cache key: it first looks for an exact match. An exact match is considered a cache hit (anything else is considered a cache miss). 
                 # If no exact matches--> looks for partial matches. This counts as a cache miss. 
-                # If no partial match found, will try to restore using restore-keys (if using. We're not using them here.) This also counts as a cache miss.
-                # restore-keys is a list of TODO
+                # If no partial match found, will try to restore using restore-keys. This also counts as a cache miss.
+                # Cache hit --> files of cache restored to path:. | Cache miss -->  try to use restore-keys for current job (see below), new cache made if job completed OK,
+                key: ${{ runner.os }}-${{ env.WORKFLOW_FILENAME }}-${{ hashFiles('**/html-checks/requirements.txt') }}
+                # restore-keys is a list of alternative keys with the same prefix going from more specific to less specific
                 # If restore-keys is used: 
-                #   Exact match --> files of restore-keys match used restored to path:
+                #   Exact match --> files of restore-keys match restored to path:
                 #   Partial match --> Most recent cache restored to path: 
-                # Cache hit --> files of cache restored to path:. | Cache miss --> new cache made if job is OK, try to use restore-keys for current job (see above)
-                key: ${{ runner.os }}-${{ env.WORKFLOW_FILENAME }}
+                restore-keys: |
+                    ${{ runner.os }}-${{ env.WORKFLOW_FILENAME }}
+                    ${{ runner.os }}-
                 # You can fail the workflow in the event of a cache miss (this is false by default)
                 fail-on-cache-miss: false
+                # lookup-only: If true, only verifies a cache match exists (i.e. detects cache hit/miss) and does NOT download the cache to use. 
+                # Useful for when you want to check for a cache match and not download it (because some caches are very large, leading to slowdown) 
+                lookup-only: false
 
             # The steps.<step-id>.outputs-cache-hit output shows if there was a cache hit or miss. This info can be useful to conditionally fire off other steps 
             - name: "Show cache-hit value"
@@ -146,6 +155,9 @@ jobs:
               run: echo "${{ steps.cache-dependencies.outputs.cache-hit }}"  
 
             # The time duration of this step (~20 seconds) should decrease drastically when using a cache
+            # Still need an "install dependencies" step if cache is used to unpack/install packages into virtual environment
+            # pip install will download packages from the internet(PyPI), then unpack those files into the /site-packages folder. The "import" in Python draws from site-packages as one of its sources
+            # Using a cache helps skip or speed up the "download packages from the internet" part, but those downloads must still be unpacked.
             - name: Install dependencies
               run: pip install -r ./scripts/html-checks/requirements.txt
 
