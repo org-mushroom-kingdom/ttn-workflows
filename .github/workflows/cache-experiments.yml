@@ -72,8 +72,8 @@ jobs:
                 echo "Setting PR_NUMBER to 9 (has 2 .html files)"
                 echo "PR_NUMBER=9" >> $GITHUB_ENV
 
-            - name: "Give exec permissions to scripts"
-              run: chmod a+x ./scripts/html-checks/*.sh ./scripts/html-checks/*.py
+            - name: "Give exec permissions to Bash scripts"
+              run: chmod a+x ./scripts/html-checks/*.sh
 
             # TODO change this to a script. Arg: PR_NUM, inputs.verbose, github.event_name
             - name: "Assess PR Changed Files for *.html"
@@ -90,7 +90,7 @@ jobs:
             CACHE_NAME: "cache-experiment-job"
         if: needs.html-exists.outputs.html-files-present == 'true'
         steps:
-            
+            # Each job runs in a different environment, so must check out repo again.
             - name: "Checkout repo"
               uses: actions/checkout@v4
 
@@ -167,6 +167,10 @@ jobs:
             # Using a cache helps skip or speed up the "download packages from the internet" part, but those downloads must still be unpacked.
             - name: Install dependencies
               run: pip install -r ./scripts/html-checks/requirements.txt
+
+            # Can't do one chmod for both Bash and Python in html-exists job because each job runs in a separate environment
+            - name: "Give exec permissions to Python scripts"
+              run: chmod a+x ./scripts/html-checks/*.sh
 
             - name: "Script: Check each HTML file's TODOs have corresponding story"
               run: |
