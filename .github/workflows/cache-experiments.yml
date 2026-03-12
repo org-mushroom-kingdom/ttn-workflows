@@ -28,6 +28,7 @@ on:
                 type: boolean
                 required: false
                 default: false
+            # Use this if you only care about seeing the Python script run. Uses a "lite" requirements.txt with only one module
             use-simple-req-txt:
                 description: "Use a requirements.txt that only has bs4"
                 required: false
