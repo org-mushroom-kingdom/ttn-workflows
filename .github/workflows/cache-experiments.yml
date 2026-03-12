@@ -87,17 +87,16 @@ jobs:
         needs: html-exists
         env:
             WORKFLOW_FILENAME: ""
-            CACHE_NAME: "cache-experiment-job"
         if: needs.html-exists.outputs.html-files-present == 'true'
         steps:
             # Each job runs in a different environment, so must check out repo again.
             - name: "Checkout repo"
               uses: actions/checkout@v4
 
-            - name: "Echo vars"
+            - name: "Echo outputs from html-exists"
               run: |
-                echo "output!html-exists = ${{ needs.html-exists.outputs.html-filenames }}"
                 echo "output!html-files-present = ${{ needs.html-exists.outputs.html-files-present }}"
+                echo "output!html-filenames = ${{ needs.html-exists.outputs.html-filenames }}"
 
             # actions/setup-python makes a virtual environment for you and it's already active, so usually no need to do things like "python m venv .venv" or "source .venv/bin/activate"
             - name: Set up Python
@@ -130,6 +129,7 @@ jobs:
                 #  ~/.cache/pip is where pip stores downloaded packages. (i.e. after pip install is ran) 
                 # ~/.cache/pip Has wheels (.whl: pre-built,compiled,ready-to-install packages) and source archives (tar.gz or .zip: raw source code of package, NOT pre-built)
                 path: ~/.cache/pip
+                
                 # actions/cache uses a key to save the cache. A key is a unique string to identify the cache. Caches are saved and restored from the same key. 
                 # actions/cache will look for the cache key: it first looks for an exact match. An exact match is considered a cache hit (anything else is considered a cache miss). 
                 # If no exact matches--> looks for partial matches. This counts as a cache miss. 
@@ -137,6 +137,7 @@ jobs:
                 # Cache hit --> files of cache restored to path:. | Cache miss -->  try to use restore-keys for current job (see below), new cache made if job completed OK,
                 # hashFiles is a built-in Github function that creates a hash of the specified path. Here it's pointed to requirements.txt since this is where the dependencies are specified. If requirements.txt gets updated, the hash changes.
                 key: ${{ runner.os }}-${{ env.WORKFLOW_FILENAME }}-${{ hashFiles('**/html-checks/requirements.txt') }}
+                
                 # restore-keys is a list of alternative keys with the same prefix going from more specific to less specific
                 # This allows you to use a similar cache if there is a cache miss for the main key. 
                 # That cache tied to a restore key will most likely share some of the dependencies of the cache tied to the main key, so some time is still saved
@@ -150,8 +151,10 @@ jobs:
                 restore-keys: |
                     ${{ runner.os }}-${{ env.WORKFLOW_FILENAME }}
                     ${{ runner.os }}-
+                
                 # You can fail the workflow in the event of a cache miss (this is false by default)
                 fail-on-cache-miss: false
+                
                 # lookup-only: If true, only verifies a cache match exists (i.e. detects cache hit/miss) and does NOT download the cache to use. 
                 # Useful for when you want to check for a cache match and not download it (because some caches are very large, leading to slowdown) 
                 lookup-only: false
@@ -176,4 +179,4 @@ jobs:
               run: |
                 echo "blablbala"
                 # You could either feed whole  ".html,.html,..."string in or do a loop here and subject each to script
-                # python html-checks/main.py
+                # python html-checks/main.py 
