@@ -196,4 +196,4 @@ jobs:
               run: |
                 echo "blablbala"
                 # You could either feed whole  ".html,.html,..."string in or do a loop here and subject each to script
-                # python html-checks/main.py 
+                python html-checks/main.py ${{ needs.html-exists.outputs.html-files-present }}
