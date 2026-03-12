@@ -5,6 +5,7 @@ from bs4 import BeautifulSoup
 
 def main():
     print("main() running!")
+    getHTMLFiles()
 
 def getHTMLFiles():
     print("Searching for HTML files within the changed files")
