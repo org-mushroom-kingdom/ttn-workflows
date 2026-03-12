@@ -66,7 +66,7 @@ jobs:
         steps:
 
             - name: "Checkout repo"
-              uses: actions/checkout@v5
+              uses: actions/checkout@v6
 
             - name: "Manual trigger: Use dummy HTML files from a ttn-workflows PR"
               if: inputs.use-dummy-html == true
@@ -93,7 +93,7 @@ jobs:
         steps:
             # Each job runs in a different environment, so must check out repo again.
             - name: "Checkout repo"
-              uses: actions/checkout@v4
+              uses: actions/checkout@v6
 
             - name: "Echo outputs from html-exists"
               run: |
@@ -125,7 +125,7 @@ jobs:
             - name: "Use actions/cache to speed up dependency installation"
               id: cache-dependencies
               if: inputs.use-cache
-              uses: actions/cache@v5
+              uses: actions/cache@v4
               with: 
                 # path is a list of files/directories/wildcard patterns to cache and restore. This list can be a single item or multiple items (ex. ~/.cache/pip and .venv may both be used when using a virtual environment)
                 #  ~/.cache/pip is where pip stores downloaded packages. (i.e. after pip install is ran) 
