@@ -106,7 +106,7 @@ jobs:
 
             # actions/setup-python makes a virtual environment for you and it's already active, so usually no need to do things like "python m venv .venv" or "source .venv/bin/activate"
             - name: Set up Python
-              uses: actions/setup-python@v4
+              uses: actions/setup-python@v6
               with:
                 python-version: "3.11"
 
