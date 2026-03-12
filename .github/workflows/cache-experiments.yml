@@ -1,4 +1,4 @@
-# gh workflow run cache-experiments.yml@feature/matt-cache-experiments -f use-cache=true -f use-dummy-html=true -f verbose=true
+# gh workflow run cache-experiments.yml --ref feature/matt-cache-experiments -f use-cache=true -f use-dummy-html=true -f verbose=true
 
 # Say I have a Github Actions workflow job that functions as a status check. 
 # This workflow is fired whenever a pull request is opened or synchronized. 
