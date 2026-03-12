@@ -28,7 +28,10 @@ on:
                 type: boolean
                 required: false
                 default: false
-
+            use-simple-req-txt:
+                description: "Use a requirements.txt that only has bs4"
+                required: false
+                type: boolean
 
     workflow_call:
         inputs:
@@ -89,6 +92,7 @@ jobs:
         needs: html-exists
         env:
             WORKFLOW_FILENAME: ""
+            REQ_TYPE: ""
         if: needs.html-exists.outputs.html-files-present == 'true'
         steps:
             # Each job runs in a different environment, so must check out repo again.
@@ -106,7 +110,7 @@ jobs:
               with:
                 python-version: "3.11"
 
-            - name: Set WORKFLOW_FILENAME
+            - name: Set WORKFLOW_FILENAME, REQ_TYPE
               run: |
                 
                 workflow_full_path="${{ github.workflow_ref }}"
@@ -117,6 +121,12 @@ jobs:
                 fi
                 # echo "workflow_filename = ${workflow_filename}"
                 echo "WORKFLOW_FILENAME=${workflow_filename}" >> $GITHUB_ENV
+
+                if [[ "${{ inputs.use-simple-req-txt }}" == "true" ]]; then
+                  echo "REQ_TYPE=lite" >> $GITHUB_ENV
+                else
+                  echo "REQ_TYPE=heavy" >> $GITHUB_ENV
+                fi
 
             # Github-hosted runners (exclusively used by ttn-workflows) start in a clean environment every time, meaning dependencies must be redownloaded
             # Caches speed up workflows by having saved versions of downloaded dependencies (such as Python modules) in Github cloud storage.
@@ -170,9 +180,14 @@ jobs:
             # Still need an "install dependencies" step if cache is used to unpack/install packages into virtual environment
             # pip install will download packages from the internet(PyPI), then unpack those files into the /site-packages folder. The "import" in Python draws from site-packages as one of its sources
             # Using a cache helps skip or speed up the "download packages from the internet" part, but those downloads must still be unpacked.
-            - name: Install dependencies
-              run: pip install -r ./scripts/html-checks/requirements.txt
-
+            - name: "Install dependencies ${{ env.REQ_TYPE }}"
+              run: |
+                if [[ "$REQ_TYPE" == "heavy" ]]
+                then
+                  pip install -r ./scripts/html-checks/requirements.txt
+                else 
+                  pip install -r ./scripts/html-checks/requirements-lite.txt
+                fi 
             # Can't do one chmod for both Bash and Python in html-exists job because each job runs in a separate environment
             - name: "Give exec permissions to Python scripts"
               run: chmod a+x ./scripts/html-checks/*.sh

@@ -1,0 +1,2 @@
+#  Use this if you just want to fire the html-checks/main.py and don't care about cache demos. 
+beautifulsoup4==4.12.2
