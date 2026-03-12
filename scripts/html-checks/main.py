@@ -14,5 +14,6 @@ def getHTMLFiles():
     html_files_arr = html_files_str.split(',')
     for html_filename in html_files_arr:
         print(f"HTML filename = {html_filename}")
+
 if __name__ == "__main__":
     main()

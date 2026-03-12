@@ -195,6 +195,5 @@ jobs:
 
             - name: "Script: Check each HTML file's TODOs have corresponding story"
               run: |
-                echo "blablbala"
                 # You could either feed whole  ".html,.html,..."string in or do a loop here and subject each to script
                 python ./scripts/html-checks/main.py ${{ needs.html-exists.outputs.html-files-present }}
