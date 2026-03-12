@@ -191,10 +191,10 @@ jobs:
                 fi 
             # Can't do one chmod for both Bash and Python in html-exists job because each job runs in a separate environment
             - name: "Give exec permissions to Python scripts"
-              run: chmod a+x ./scripts/html-checks/*.sh
+              run: chmod a+x ./scripts/html-checks/*.py
 
             - name: "Script: Check each HTML file's TODOs have corresponding story"
               run: |
                 echo "blablbala"
                 # You could either feed whole  ".html,.html,..."string in or do a loop here and subject each to script
-                python html-checks/main.py ${{ needs.html-exists.outputs.html-files-present }}
+                python ./scripts/html-checks/main.py ${{ needs.html-exists.outputs.html-files-present }}
