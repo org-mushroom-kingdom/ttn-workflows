@@ -11,6 +11,7 @@ def getHTMLFiles():
     print("Searching for HTML files within the changed files")
     # Array of filenames "ex-file1.html,ex-file2.html"
     html_files_str = sys.argv[1]
+    print(f"html_files_str = {html_files_str}")
     html_files_arr = html_files_str.split(',')
     for html_filename in html_files_arr:
         print(f"HTML filename = {html_filename}")
