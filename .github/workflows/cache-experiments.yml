@@ -135,8 +135,15 @@ jobs:
                 # If no exact matches--> looks for partial matches. This counts as a cache miss. 
                 # If no partial match found, will try to restore using restore-keys. This also counts as a cache miss.
                 # Cache hit --> files of cache restored to path:. | Cache miss -->  try to use restore-keys for current job (see below), new cache made if job completed OK,
+                # hashFiles is a built-in Github function that creates a hash of the specified path. Here it's pointed to requirements.txt since this is where the dependencies are specified. If requirements.txt gets updated, the hash changes.
                 key: ${{ runner.os }}-${{ env.WORKFLOW_FILENAME }}-${{ hashFiles('**/html-checks/requirements.txt') }}
                 # restore-keys is a list of alternative keys with the same prefix going from more specific to less specific
+                # This allows you to use a similar cache if there is a cache miss for the main key. 
+                # That cache tied to a restore key will most likely share some of the dependencies of the cache tied to the main key, so some time is still saved
+                # This is useful when dependencies change often: for example, if a new dependency was added to requirements.txt, hash associated with requirements.txt changes.
+                # That would result in a cache miss because this changes the value of key:. However, the previous cache that was saved before
+                # this change is most likely still active, and has a similar named cache due to how the key is set up. It will match one of the restore-keys patterns.
+                # If only one new dependency added, still save a huge amount of time with "old" cache because it already has all other dependencies saved
                 # If restore-keys is used: 
                 #   Exact match --> files of restore-keys match restored to path:
                 #   Partial match --> Most recent cache restored to path: 
