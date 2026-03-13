@@ -71,6 +71,9 @@ jobs:
 
             - name: "Checkout repo"
               uses: actions/checkout@v6
+              # TODO: DELETE THIS once done with feature branch
+              with:
+                ref: feature/matt-cache-experiments
 
             - name: "Manual trigger: Use dummy HTML files from a ttn-workflows PR"
               if: inputs.use-dummy-html == true
@@ -99,6 +102,9 @@ jobs:
             # Each job runs in a different environment, so must check out repo again.
             - name: "Checkout repo"
               uses: actions/checkout@v6
+              # TODO: DELETE THIS once done with feature branch
+              with:
+                ref: feature/matt-cache-experiments
 
             - name: "Echo outputs from html-exists"
               run: |
