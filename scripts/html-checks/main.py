@@ -39,10 +39,15 @@ def findTODOs():
         comments = soup.find_all(string=lambda line_text: isinstance(line_text, Comment))
 
         # At this point we have all the comments in the HTML
-        print(f"Comments in {html_filename}:")
+        # print(f"Comments in {html_filename}:")
         for comment in comments:
-            print(f"{comment}")
+            has_todo=""
             # Filter out comments that contain the text "TODO"
+            if "TODO" in comment:
+                print(f"TODO!!!! {comment}")
+            else:
+                print(f"{comment}")
+
 
 if __name__ == "__main__":
     main()
