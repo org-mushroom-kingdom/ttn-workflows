@@ -213,7 +213,7 @@ jobs:
                 fi 
             # Can't do one chmod for both Bash and Python in html-exists job because each job runs in a separate environment
             - name: "Give exec permissions to Python scripts"
-              run: chmod a+x ./scripts/html-checks/*.py
+              run: chmod a+x feature-with-scripts/scripts/html-checks/*.py
 
             - name: "Script: Check each HTML file's TODOs have corresponding story"
               run: |
