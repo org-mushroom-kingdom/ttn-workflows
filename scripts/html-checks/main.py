@@ -12,7 +12,7 @@ def findTODOs():
     # comma-separated string of filenames "path/.../ex-file1.html,path/.../ex-file2.html"
     html_files_str = sys.argv[1]
     html_files_arr = html_files_str.split(',')
-    html_files_arr = ["./docs/testing/html-checks/html/article-template.html"]
+    # html_files_arr = ["./docs/testing/html-checks/html/article-template.html"]
     cwd = os.getcwd()
     print(f"Current working directory: {cwd}")
     for html_filename in html_files_arr:
