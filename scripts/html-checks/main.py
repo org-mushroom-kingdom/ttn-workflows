@@ -19,7 +19,7 @@ def findTODOs():
     for html_filename in html_files_arr:
         print(f"HTML filename = {html_filename}")
         # Open file --> Make bs4 obj? from each file's contents --> scan contents for TODOs, throw in arr?
-        path_html_filename = path+html_filename
+        path_html_filename = path+"/"+html_filename
         # The with keyword ensures the file is closed once done with open() activity
         # open() opens a file: "r" specifies read mode, encoding is the charset
         with open(path_html_filename, "r", encoding="utf-8") as html_file:
