@@ -103,7 +103,18 @@ jobs:
             - name: "Checkout repo"
               uses: actions/checkout@v6
               # TODO: DELETE THIS once done with feature branch
+              # Check out branch with script
               with:
+                path: feature-with-htmls
+                ref: feature/matt-cache-experiments
+
+            # Each job runs in a different environment, so must check out repo again.
+            - name: "Checkout repo"
+              uses: actions/checkout@v6
+              # TODO: DELETE THIS once done with feature branch
+              # Check out branch with dummy-html files
+              with:
+                path: feature-with-scripts
                 ref: feature/matt-cache-experiments
 
             - name: "Echo outputs from html-exists"
