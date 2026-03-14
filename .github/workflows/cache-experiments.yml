@@ -73,7 +73,7 @@ jobs:
               uses: actions/checkout@v6
               # TODO: DELETE THIS once done with feature branch
               with:
-                ref: feature/matt-cache-exp-related-add-htmls
+                ref: feature/matt-cache-experiments
 
             - name: "Manual trigger: Use dummy HTML files from a ttn-workflows PR"
               if: inputs.use-dummy-html == true
