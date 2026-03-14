@@ -11,44 +11,49 @@ name: Cache Experiments
 
 on:
   
-    workflow_dispatch:
-        inputs:
-            use-cache:
-                description: "Use the cache"
-                required: true
-                type: boolean
-                default: false
-            use-dummy-html:
-                description: "Take HTML file from testing/html-checks/html"
-                required: true
-                type: boolean
-                default: true
-            verbose:
-                description: "Adds more debug statements"
-                type: boolean
-                required: false
-                default: false
-            # Use this if you only care about seeing the Python script run. Uses a "lite" requirements.txt with only one module
-            use-simple-req-txt:
-                description: "Use a requirements.txt that only has bs4"
-                required: false
-                type: boolean
+  workflow_dispatch:
+    inputs:
+        use-cache:
+            description: "Use the cache"
+            required: true
+            type: boolean
+            default: false
+        use-dummy-html:
+            description: "Take HTML file from testing/html-checks/html"
+            required: true
+            type: boolean
+            default: true
+        verbose:
+            description: "Adds more debug statements"
+            type: boolean
+            required: false
+            default: false
+        # Use this if you only care about seeing the Python script run. Uses a "lite" requirements.txt with only one module
+        use-simple-req-txt:
+            description: "Use a requirements.txt that only has bs4"
+            required: false
+            type: boolean
 
-    workflow_call:
-        inputs:
-            use-cache:
-                description: "Use the cache"
-                required: true
-                type: boolean
-                default: false
-            verbose:
-                description: "Adds more debug statements"
-                type: boolean
-                required: false
-                default: false
+  workflow_call:
+      inputs:
+          use-cache:
+              description: "Use the cache"
+              required: true
+              type: boolean
+              default: false
+          verbose:
+              description: "Adds more debug statements"
+              type: boolean
+              required: false
+              default: false
+
+  pull_request:
+    types: [opened]
+    branches: 
+      - feature/matt-cache-experiments
 
 # Do something like Github CLI command to get array of changed filenames from PR
-# First check if there's any .html files in the array. If there isn't exit early with success
+# First check if there's any .html files in the array. If there isn't exit early with success (skip job)
 # To really do that though maybe have two jobs: "html-exists", "cache-experiment-job"
 #  cache-experiment-job --> if html-exists.outputs.there-are-html-files == "true"
 env:
@@ -105,7 +110,7 @@ jobs:
               # TODO: DELETE THIS once done with feature branch
               # Check out branch with script
               with:
-                path: feature-with-htmls
+                path: feature-with-scripts
                 ref: feature/matt-cache-experiments
 
             # Each job runs in a different environment, so must check out repo again.
@@ -114,8 +119,8 @@ jobs:
               # TODO: DELETE THIS once done with feature branch
               # Check out branch with dummy-html files
               with:
-                path: feature-with-scripts
-                ref: feature/matt-cache-experiments
+                path: feature-with-htmls
+                ref: feature/matt-cache-exp-related-add-htmls
 
             - name: "Echo outputs from html-exists"
               run: |
@@ -202,9 +207,9 @@ jobs:
               run: |
                 if [[ "$REQ_TYPE" == "heavy" ]]
                 then
-                  pip install -r ./scripts/html-checks/requirements.txt
+                  pip install -r feature/matt-cache-experiments/scripts/html-checks/requirements.txt
                 else 
-                  pip install -r ./scripts/html-checks/requirements-lite.txt
+                  pip install -r feature/matt-cache-experiments/scripts/html-checks/requirements-lite.txt
                 fi 
             # Can't do one chmod for both Bash and Python in html-exists job because each job runs in a separate environment
             - name: "Give exec permissions to Python scripts"
@@ -213,4 +218,4 @@ jobs:
             - name: "Script: Check each HTML file's TODOs have corresponding story"
               run: |
                 # You could either feed whole  ".html,.html,..."string in or do a loop here and subject each to script
-                python ./scripts/html-checks/main.py ${{ needs.html-exists.outputs.html-filenames }}
+                python feature/matt-cache-exp-related-add-htmls/scripts/html-checks/main.py ${{ needs.html-exists.outputs.html-filenames }}
