@@ -42,11 +42,12 @@ def findTODOs():
         # print(f"Comments in {html_filename}:")
         for comment in comments:
             has_todo=""
+            print(f"{comment}")
             # Filter out comments that contain the text "TODO"
-            if "TODO" in comment:
-                print(f"TODO!!!! {comment}")
-            else:
-                print(f"{comment}")
+            # if "TODO" in comment:
+            #     print(f"TODO!!!! {comment}")
+            # else:
+            #     print(f"{comment}")
 
 
 if __name__ == "__main__":
