@@ -22,7 +22,7 @@ def findTODOs():
         path_html_filename = path+html_filename
         # The with keyword ensures the file is closed once done with open() activity
         # open() opens a file: "r" specifies read mode, encoding is the charset
-        with open(html_filename, "r", encoding="utf-8") as html_file:
+        with open(path_html_filename, "r", encoding="utf-8") as html_file:
             html_contents = html_file.read()
 
         # This creates a bs4 object, which can be accessed as a data structure
