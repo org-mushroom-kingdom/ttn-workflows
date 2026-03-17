@@ -8,14 +8,17 @@ from bs4 import BeautifulSoup, Comment, NavigableString
 
 def main():
     print("main() running!")
-    findTODOs()
-
-def findTODOs() -> list[NavigableString]:
-    
     # The <var>: <datatype> = <value> seen below here is know as type annotation. This is an optional Python way of defining/declaring variables. 
     html_files_str: str = sys.argv[1] # comma-separated string of filenames "path/.../ex-file1.html,path/.../ex-file2.html"
     path: str = sys.argv[2]
     html_files_arr: list[str] = html_files_str.split(',')
+    for html_filename in html_files_arr:
+        todos = findTODOs()
+        print(f"todos[0] = {todos[0]}")
+        # assessTODOs()
+
+def findTODOs() -> list[NavigableString]:
+    
 
     # html_files_arr = ["./docs/testing/html-checks/html/article-template.html"]
     cwd: str = os.getcwd()
@@ -23,7 +26,7 @@ def findTODOs() -> list[NavigableString]:
     
     files_with_bad_todos: list[str] = []
 
-    for html_filename in html_files_arr:
+    # for html_filename in html_files_arr:
         print("--------------")
         print(f"HTML filename = {html_filename}")
         # Open file --> Make bs4 obj? from each file's contents --> scan contents for TODOs, throw in arr?
