@@ -52,7 +52,7 @@ def findTODOs():
         #         print(f"{comment}")
 
         # This is a list comprehension
-        filtered_list = [comment for comment in comments if "TODO" in comment == 0]
+        filtered_list = [comment for comment in comments if "TODO" in comment]
         for item in filtered_list:
             print(f"Item in filtered_list: {item}")
 
