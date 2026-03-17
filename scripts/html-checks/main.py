@@ -13,7 +13,7 @@ def main():
     html_files_str: str = sys.argv[1] # comma-separated string of filenames "path/.../ex-file1.html,path/.../ex-file2.html"
     repo_path: str = sys.argv[2]
     html_files_arr: list[str] = html_files_str.split(',')
-
+    files_with_bad_todos = []
     # html_files_arr = ["./docs/testing/html-checks/html/article-template.html"]
     cwd: str = os.getcwd()
     print(f"Current working directory: {cwd}")
