@@ -42,15 +42,19 @@ def findTODOs():
 
         # At this point we have all the comments in the HTML
         # print(f"Comments in {html_filename}:")
-        for comment in comments:
-            has_todo=""
-            print(f"{comment}")
-            # Filter out comments that contain the text "TODO"
-            # if "TODO" in comment:
-            #     print(f"TODO!!!! {comment}")
-            # else:
-            #     print(f"{comment}")
+        # for comment in comments:
+        #     has_todo=""
+        #     print(f"{comment}")
+        #     # Filter out comments that contain the text "TODO"
+        #     if "TODO" in comment:
+        #         print(f"TODO!!!! {comment}")
+        #     else:
+        #         print(f"{comment}")
 
+        # This is a list comprehension
+        filtered_list = [comment for comment in comments if "TODO" in comment == 0]
+        for item in filtered_list:
+            print(f"Item in filtered_list: {item}")
 
 if __name__ == "__main__":
     main()
