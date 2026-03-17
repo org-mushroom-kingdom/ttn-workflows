@@ -22,9 +22,9 @@ def main():
     for html_filename in html_files_arr:
         comments_with_todos: list[NavigableString] = find_TODOs(html_filename,repo_path)
         todos_missing_jira_story = get_TODOs_missing_jira_nums(comments_with_todos)
-        if (len(todos_missing_jiras)):
+        if (len(todos_missing_jira_story)):
             print("The following comments have 'TODO' in them, but are missing corresponding Jira story numbers:")
-            for bad_todo in todos_missing_jiras:
+            for bad_todo in todos_missing_jira_story:
                 print(f"{bad_todo}")
                 files_with_bad_todos.append(html_filename)
 
