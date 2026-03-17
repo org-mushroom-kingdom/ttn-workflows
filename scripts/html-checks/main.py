@@ -10,7 +10,7 @@ def main():
     print("main() running!")
     # The <var>: <datatype> = <value> seen below here is know as type annotation. This is an optional Python way of defining/declaring variables. 
     html_files_str: str = sys.argv[1] # comma-separated string of filenames "path/.../ex-file1.html,path/.../ex-file2.html"
-    path: str = sys.argv[2]
+    path1: str = sys.argv[2]
     html_files_arr: list[str] = html_files_str.split(',')
     for html_filename1 in html_files_arr:
         todos = findTODOs(html_filename1,path1)
