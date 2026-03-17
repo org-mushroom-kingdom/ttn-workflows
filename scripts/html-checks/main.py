@@ -13,10 +13,27 @@ def main():
     html_files_str: str = sys.argv[1] # comma-separated string of filenames "path/.../ex-file1.html,path/.../ex-file2.html"
     repo_path: str = sys.argv[2]
     html_files_arr: list[str] = html_files_str.split(',')
+
+    # html_files_arr = ["./docs/testing/html-checks/html/article-template.html"]
+    cwd: str = os.getcwd()
+    print(f"Current working directory: {cwd}")
+
     # all_todos_look_good
     for html_filename in html_files_arr:
-        todos = find_TODOs(html_filename,repo_path)
-        print(f"todos[0] = {todos[0]}")
+        comments_with_todos: list[NavigableString] = find_TODOs(html_filename,repo_path)
+        todos_missing_jira_story = get_TODOs_missing_jira_nums(comments_with_todos)
+        if (len(todos_missing_jiras)):
+            print("The following comments have 'TODO' in them, but are missing corresponding Jira story numbers:")
+            for bad_todo in todos_missing_jiras:
+                print(f"{bad_todo}")
+                files_with_bad_todos.append(html_filename)
+
+
+    if (len(files_with_bad_todos)):
+        exit 1
+    else
+        exit 0
+        # print(f"todos[0] = {todos[0]}")
         # bad_todos = check_TODOs_for_jira_nums()
         # if len(bad_todos) > 0 --> print them, set all_todos_look_good = FAIL?
         # else do nothing
@@ -24,12 +41,10 @@ def main():
     # if all_todos_look_good
     # exit 0 (or whatever passing is)
     # else exit 1 (or whatever failing is)
+
 def find_TODOs(html_filename, path) -> list[NavigableString]:
     
 
-    # html_files_arr = ["./docs/testing/html-checks/html/article-template.html"]
-    cwd: str = os.getcwd()
-    print(f"Current working directory: {cwd}")
 
     print("--------------")
     print(f"HTML filename = {html_filename}")
@@ -63,7 +78,7 @@ def find_TODOs(html_filename, path) -> list[NavigableString]:
     
     return todo_comments
 
-def check_TODOs_for_jira_nums(todo_comments: list[NavigableString]):
+def get_TODOs_missing_jira_nums(todo_comments: list[NavigableString]) -> list[NavigableString]:
 
     todos_missing_jiras: list[str] = []
     for todo_comment in todo_comments:
@@ -80,13 +95,7 @@ def check_TODOs_for_jira_nums(todo_comments: list[NavigableString]):
             print(f"This TODO comment DOES NOT have a story number! {todo_comment}")
             todos_missing_jiras.append(todo_comment)
 
-    if (len(todos_missing_jiras)):
-        print("The following comments have 'TODO' in them, but are missing corresponding Jira story numbers:")
-        for bad_todo in todos_missing_jiras:
-            print(f"{bad_todo}")
-            files_with_bad_todos.append(html_filename)
-
-    return files_with_bad_todos
+    return todos_missing_jiras
 
 # def find_TODOs() -> list[NavigableString]:
     
