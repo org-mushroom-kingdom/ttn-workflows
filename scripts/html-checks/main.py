@@ -47,8 +47,6 @@ def main():
 
 def find_TODOs(html_filename, path) -> list[NavigableString]:
     
-
-
     print("--------------")
     print(f"HTML filename = {html_filename}")
     # Open file --> Make bs4 obj? from each file's contents --> scan contents for TODOs, throw in arr?
@@ -84,7 +82,7 @@ def find_TODOs(html_filename, path) -> list[NavigableString]:
 def get_TODOs_missing_jira_nums(todo_comments: list[NavigableString]) -> list[NavigableString]:
 
     print("get_TODOs...")
-    todos_missing_jiras: list[str] = []
+    todos_missing_jiras: list[NavigableString] = []
     for todo_comment in todo_comments:
         # print(f"Item in todo_comments: {todo_comment}")
         # re.Pattern is the result of re.compile(). It's an object you can call regex-based methods on, like search() (see below)
