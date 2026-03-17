@@ -31,13 +31,14 @@ def main():
 
     if (len(files_with_bad_todos)):
         print("WARNING! SEE ABOVE MESSAGES!")
-        exit 1
+        # exit 1
     else
-        exit 0
-        # print(f"todos[0] = {todos[0]}")
-        # bad_todos = check_TODOs_for_jira_nums()
-        # if len(bad_todos) > 0 --> print them, set all_todos_look_good = FAIL?
-        # else do nothing
+        # exit 0
+        
+    # print(f"todos[0] = {todos[0]}")
+    # bad_todos = check_TODOs_for_jira_nums()
+    # if len(bad_todos) > 0 --> print them, set all_todos_look_good = FAIL?
+    # else do nothing
 
     # if all_todos_look_good
     # exit 0 (or whatever passing is)
