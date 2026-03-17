@@ -54,7 +54,7 @@ def findTODOs() -> list[NavigableString]:
         # You can map and filter in the same step. For example if the first "comment" after [ was replace with "comment.upper" you'd filter for all comments containing "TODO", then upper() to those
         todo_comments: list[str] = [comment for comment in comments if "TODO" in comment]
         
-        improper_todos: list[str] = []
+        todos_missing_jiras: list[str] = []
         for todo_comment in todo_comments:
             # print(f"Item in todo_comments: {todo_comment}")
             # re.Pattern is the result of re.compile(). It's an object you can call regex-based methods on, like search() (see below)
@@ -67,7 +67,7 @@ def findTODOs() -> list[NavigableString]:
                 print(f"This TODO comment has a story number! {todo_comment}")
             else:
                 print(f"This TODO comment DOES NOT have a story number! {todo_comment}")
-                improper_todos.append(todo_comment)
+                todos_missing_jiras.append(todo_comment)
 
         if (len(todos_missing_jiras)):
             print("The following comments have 'TODO' in them, but are missing corresponding Jira story numbers:")
