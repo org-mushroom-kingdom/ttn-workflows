@@ -45,7 +45,7 @@ def findTODOs() -> list[NavigableString]:
         # find_all returns a ResultSet, which is a bs4 version of a Python list. 
         # Each item in that ResultSet is a NavigableString, which is like a string++: in addition to the text contents, it also has navagational functionality.
         # A Comment is a specialized subclass of NavigableString (All Comments are NavigableStrings, but not all NavigableStrings are comments)
-        comments: list[Tag] = soup.find_all(string=lambda line_text: isinstance(line_text, Comment))
+        comments: list[NavigableString] = soup.find_all(string=lambda line_text: isinstance(line_text, Comment))
 
 
         # This is a list comprehension. It's a shorthand way to create a new list based on the values of an existing list
