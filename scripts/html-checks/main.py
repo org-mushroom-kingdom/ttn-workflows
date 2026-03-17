@@ -82,6 +82,7 @@ def find_TODOs(html_filename, path) -> list[NavigableString]:
 
 def get_TODOs_missing_jira_nums(todo_comments: list[NavigableString]) -> list[NavigableString]:
 
+    print("get_TODOs...")
     todos_missing_jiras: list[str] = []
     for todo_comment in todo_comments:
         # print(f"Item in todo_comments: {todo_comment}")
