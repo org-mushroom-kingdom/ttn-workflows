@@ -12,13 +12,13 @@ def main():
     html_files_str: str = sys.argv[1] # comma-separated string of filenames "path/.../ex-file1.html,path/.../ex-file2.html"
     path: str = sys.argv[2]
     html_files_arr: list[str] = html_files_str.split(',')
-    for html_filename in html_files_arr:
-        todos = findTODOs()
+    for html_filename1 in html_files_arr:
+        todos = findTODOs(html_filename1)
         print(f"todos[0] = {todos[0]}")
         # assessTODOs()
 
 
-def findTODOs() -> list[NavigableString]:
+def findTODOs(html_filename) -> list[NavigableString]:
     
 
     # html_files_arr = ["./docs/testing/html-checks/html/article-template.html"]
