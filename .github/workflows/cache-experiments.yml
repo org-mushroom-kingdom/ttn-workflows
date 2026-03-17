@@ -48,7 +48,7 @@ on:
               default: false
 
   pull_request:
-    types: [opened]
+    types: [opened,synchronize]
     branches: 
       - feature/matt-cache-experiments
 
