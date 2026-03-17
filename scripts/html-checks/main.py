@@ -1,10 +1,10 @@
 # Built-in modules
 import sys
 import os
+import re
 
 # Need BeautifulSoup to make the bs4 obj, Comment to TODO WHAT DOES IT DO
 from bs4 import BeautifulSoup, Comment
-import re
 
 def main():
     print("main() running!")
