@@ -54,6 +54,8 @@ def findTODOs() -> list[NavigableString]:
         # You can map and filter in the same step. For example if the first "comment" after [ was replace with "comment.upper" you'd filter for all comments containing "TODO", then upper() to those
         todo_comments: list[str] = [comment for comment in comments if "TODO" in comment]
         
+        return todo_comments
+
         todos_missing_jiras: list[str] = []
         for todo_comment in todo_comments:
             # print(f"Item in todo_comments: {todo_comment}")
