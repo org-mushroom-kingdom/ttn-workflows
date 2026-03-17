@@ -17,6 +17,7 @@ def findTODOs():
     cwd = os.getcwd()
     print(f"Current working directory: {cwd}")
     for html_filename in html_files_arr:
+        print("--------------")
         print(f"HTML filename = {html_filename}")
         # Open file --> Make bs4 obj? from each file's contents --> scan contents for TODOs, throw in arr?
         path_html_filename = path+"/"+html_filename
