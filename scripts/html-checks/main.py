@@ -30,6 +30,7 @@ def main():
 
 
     if (len(files_with_bad_todos)):
+        print("WARNING! SEE ABOVE MESSAGES!")
         exit 1
     else
         exit 0
