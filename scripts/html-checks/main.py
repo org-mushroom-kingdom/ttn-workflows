@@ -1,21 +1,26 @@
+# Built-in modules
 import sys
 import os
 
 # Need BeautifulSoup to make the bs4 obj, Comment to TODO WHAT DOES IT DO
 from bs4 import BeautifulSoup, Comment
+import re
 
 def main():
     print("main() running!")
     findTODOs()
 
 def findTODOs():
-    # comma-separated string of filenames "path/.../ex-file1.html,path/.../ex-file2.html"
-    html_files_str = sys.argv[1]
-    path = sys.argv[2]
-    html_files_arr = html_files_str.split(',')
+    
+    # The <var>: <datatype> = <value> seen below here is know as type annotation. This is an optional Python way of defining/declaring variables. 
+    html_files_str: str = sys.argv[1] # comma-separated string of filenames "path/.../ex-file1.html,path/.../ex-file2.html"
+    path: str = sys.argv[2]
+    html_files_arr: list[str] = html_files_str.split(',')
     # html_files_arr = ["./docs/testing/html-checks/html/article-template.html"]
+    # soup: BeautifulSoup
     cwd = os.getcwd()
     print(f"Current working directory: {cwd}")
+    
     for html_filename in html_files_arr:
         print("--------------")
         print(f"HTML filename = {html_filename}")
@@ -54,9 +59,15 @@ def findTODOs():
         # This is a list comprehension. It's a shorthand way to create a new list based on the values of an existing list
         # The structure of a list comprehenison is [<expression><iterable><filter condition (optional)>]
         # This is saying "For each comment (in the comments array), if the comment has "TODO" in it, keep it AS IS (thus the very first "comment") in this new list. 
-        todo_comments = [comment.upper() for comment in comments if "TODO" in comment]
-        for item in todo_comments:
+        # You can map and filter in the same step. For example if the first "comment" after [ was replace with "comment.upper" you'd filter for all comments containing "TODO", then upper() to those
+        todo_comments = [comment for comment in comments if "TODO" in comment]
+        
+        for todo_comment in todo_comments:
             print(f"Item in todo_comments: {item}")
+            # if the todo comment doesn't have a substring like "#>=4letters-(0-5 numbers)"
+            jira_story_pattern = r"^#"
+            match = re.search(jira_story_pattern,comment)
+            if 
 
 if __name__ == "__main__":
     main()
