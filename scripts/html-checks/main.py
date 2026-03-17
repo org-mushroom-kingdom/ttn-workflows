@@ -4,7 +4,7 @@ import os
 import re
 
 # Need BeautifulSoup to make the bs4 obj, Comment to TODO WHAT DOES IT DO
-from bs4 import BeautifulSoup, Comment
+from bs4 import BeautifulSoup, Comment, NavigableString
 
 def main():
     print("main() running!")
