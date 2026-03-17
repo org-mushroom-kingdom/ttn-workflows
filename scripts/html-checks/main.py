@@ -32,7 +32,7 @@ def main():
     if (len(files_with_bad_todos)):
         print("WARNING! SEE ABOVE MESSAGES!")
         # exit 1
-    else
+    else:
         # exit 0
         
     # print(f"todos[0] = {todos[0]}")
