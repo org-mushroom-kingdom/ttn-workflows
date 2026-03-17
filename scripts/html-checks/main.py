@@ -3,31 +3,34 @@ import sys
 import os
 import re
 
-# Need BeautifulSoup to make the bs4 obj, Comment to TODO WHAT DOES IT DO
+# Need BeautifulSoup to make the bs4 obj, Comment to TODO WHAT DOES IT DO, NavigableString needed since some methods return a list[NavigableString] and NavigableString isn't imported by default
+# You could technically do "import bs4" but then you have to mention everything using "bs4." as a prefix. (ex. soup = BeautifulSoup4() --> soup = bs4.BeautifulSoup() )
 from bs4 import BeautifulSoup, Comment, NavigableString
 
 def main():
     print("main() running!")
     # The <var>: <datatype> = <value> seen below here is know as type annotation. This is an optional Python way of defining/declaring variables. 
     html_files_str: str = sys.argv[1] # comma-separated string of filenames "path/.../ex-file1.html,path/.../ex-file2.html"
-    path1: str = sys.argv[2]
+    repo_path: str = sys.argv[2]
     html_files_arr: list[str] = html_files_str.split(',')
-    for html_filename1 in html_files_arr:
-        todos = findTODOs(html_filename1,path1)
+    # all_todos_look_good
+    for html_filename in html_files_arr:
+        todos = find_TODOs(html_filename,repo_path)
         print(f"todos[0] = {todos[0]}")
-        # assessTODOs()
+        # bad_todos = check_TODOs_for_jira_nums()
+        # if len(bad_todos) > 0 --> print them, set all_todos_look_good = FAIL?
+        # else do nothing
 
-
-def findTODOs(html_filename, path) -> list[NavigableString]:
+    # if all_todos_look_good
+    # exit 0 (or whatever passing is)
+    # else exit 1 (or whatever failing is)
+def find_TODOs(html_filename, path) -> list[NavigableString]:
     
 
     # html_files_arr = ["./docs/testing/html-checks/html/article-template.html"]
     cwd: str = os.getcwd()
     print(f"Current working directory: {cwd}")
-    
-    files_with_bad_todos: list[str] = []
 
-    # for html_filename in html_files_arr:
     print("--------------")
     print(f"HTML filename = {html_filename}")
     # Open file --> Make bs4 obj? from each file's contents --> scan contents for TODOs, throw in arr?
@@ -60,7 +63,32 @@ def findTODOs(html_filename, path) -> list[NavigableString]:
     
     return todo_comments
 
-# def findTODOs() -> list[NavigableString]:
+def check_TODOs_for_jira_nums(todo_comments: list[NavigableString]):
+
+    todos_missing_jiras: list[str] = []
+    for todo_comment in todo_comments:
+        # print(f"Item in todo_comments: {todo_comment}")
+        # re.Pattern is the result of re.compile(). It's an object you can call regex-based methods on, like search() (see below)
+        # This pattern is  "A #, followed by 4-6 letters, followed by a -, followed by (1-5 numbers)"
+        jira_story_pattern: re.Pattern = re.compile(r"#[a-z]{4,6}-\d{1,5}", re.IGNORECASE)
+
+        # search() returns a Match object if a match was found. It returns None if it wasn't (None evaluates to falsy)
+        match: bool = jira_story_pattern.search(todo_comment)
+        if match: 
+            print(f"This TODO comment has a story number! {todo_comment}")
+        else:
+            print(f"This TODO comment DOES NOT have a story number! {todo_comment}")
+            todos_missing_jiras.append(todo_comment)
+
+    if (len(todos_missing_jiras)):
+        print("The following comments have 'TODO' in them, but are missing corresponding Jira story numbers:")
+        for bad_todo in todos_missing_jiras:
+            print(f"{bad_todo}")
+            files_with_bad_todos.append(html_filename)
+
+    return files_with_bad_todos
+
+# def find_TODOs() -> list[NavigableString]:
     
 
 #     # html_files_arr = ["./docs/testing/html-checks/html/article-template.html"]
