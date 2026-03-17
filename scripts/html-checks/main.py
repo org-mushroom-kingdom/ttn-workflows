@@ -52,15 +52,20 @@ def findTODOs():
         # You can map and filter in the same step. For example if the first "comment" after [ was replace with "comment.upper" you'd filter for all comments containing "TODO", then upper() to those
         todo_comments: list[str] = [comment for comment in comments if "TODO" in comment]
         
+        improper_todos: list[str] = []
         for todo_comment in todo_comments:
             # print(f"Item in todo_comments: {todo_comment}")
             # if the todo comment doesn't have a substring like "#>=4letters-(1-5 numbers)"
             jira_story_pattern: re.Pattern = re.compile(r"#[a-z]{4,6}-\d{1,5}", re.IGNORECASE)
             match = jira_story_pattern.search(todo_comment)
             if match: 
-                print(f"This comment has a story number! {todo_comment}")
+                print(f"This TODO comment has a story number! {todo_comment}")
             else:
-                print(f"This comment DOES NOT have a story number! {todo_comment}")
+                print(f"This TODO comment DOES NOT have a story number! {todo_comment}")
+                improper_todos.append(todo_comment)
+
+        for bad_todo in improper_todos:
+            print(f"Item in improper_todos: {bad_todo}")
 
 if __name__ == "__main__":
     main()
