@@ -64,8 +64,10 @@ def findTODOs():
                 print(f"This TODO comment DOES NOT have a story number! {todo_comment}")
                 improper_todos.append(todo_comment)
 
-        for bad_todo in improper_todos:
-            print(f"Item in improper_todos: {bad_todo}")
+        if (len(todos_missing_jiras)):
+            print("The following comments have 'TODO' in them, but are missing corresponding Jira story numbers:")
+            for bad_todo in todos_missing_jiras:
+                print(f"{bad_todo}")
 
 if __name__ == "__main__":
     main()
