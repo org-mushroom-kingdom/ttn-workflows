@@ -51,10 +51,12 @@ def findTODOs():
         #     else:
         #         print(f"{comment}")
 
-        # This is a list comprehension
-        filtered_list = [comment for comment in comments if "TODO" in comment]
-        for item in filtered_list:
-            print(f"Item in filtered_list: {item}")
+        # This is a list comprehension. It's a shorthand way to create a new list based on the values of an existing list
+        # The structure of a list comprehenison is [<expression><iterable><filter condition (optional)>]
+        # This is saying "For each comment (in the comments array), if the comment has "TODO" in it, keep it AS IS (thus the very first "comment") in this new list. 
+        todo_comments = [comment.upper() for comment in comments if "TODO" in comment]
+        for item in todo_comments:
+            print(f"Item in todo_comments: {item}")
 
 if __name__ == "__main__":
     main()
