@@ -63,7 +63,7 @@ def findTODOs():
         todo_comments = [comment for comment in comments if "TODO" in comment]
         
         for todo_comment in todo_comments:
-            print(f"Item in todo_comments: {item}")
+            print(f"Item in todo_comments: {todo_commen}")
             # if the todo comment doesn't have a substring like "#>=4letters-(0-5 numbers)"
             # jira_story_pattern = r"^#"
             # match = re.search(jira_story_pattern,comment)
