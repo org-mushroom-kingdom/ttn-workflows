@@ -31,7 +31,7 @@ def main():
 
     if (len(files_with_bad_todos)):
         print("WARNING! SEE ABOVE MESSAGES!")
-        sys.exit(0)
+        sys.exit(1)
     else:
         print("HAPPY PATH")
         sys.exit(0)
