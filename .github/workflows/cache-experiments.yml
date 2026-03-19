@@ -134,9 +134,9 @@ jobs:
               uses: actions/checkout@v6
               # TODO: DELETE THIS once done with feature branch
               # Check out branch with dummy-html files
-              with:
-                path: feature-with-htmls
-                ref: feature/matt-cache-exp-related-add-htmls
+              # with:
+              #   path: feature-with-htmls
+              #   ref: feature/matt-cache-exp-related-add-htmls
 
             - name: "Echo outputs from html-exists"
               run: |
@@ -233,4 +233,4 @@ jobs:
             - name: "Script: Check each HTML file's TODOs have corresponding story"
               run: |
                 # You could either feed whole  ".html,.html,..."string in or do a loop here and subject each to script
-                python feature-with-scripts/scripts/html-checks/main.py ${{ needs.html-exists.outputs.html-filenames }} "feature-with-htmls"
+                python feature-with-scripts/scripts/html-checks/main.py ${{ needs.html-exists.outputs.html-filenames }} "."
