@@ -25,8 +25,8 @@ on:
             default: 'none'
             options:
               - none 
-              - fail # 2 HTMLs: Has TODOs missing properly formatted Jira stories
-              - pass-1 # 2 HTMLs: All TODOs have properly formatted Jira stories
+              - fail # 2 HTMLs: Has TODOs missing properly formatted Jira stories (PR #9)
+              - pass-1 # 2 HTMLs: All TODOs have properly formatted Jira stories (PR #10)
               - pass-2 # 2 HTMLs: No TODOs present
         verbose:
             description: "Adds more debug statements"
@@ -133,7 +133,7 @@ jobs:
             # Each job runs in a different environment, so must check out repo again.
             - name: "Checkout repo (for HTMLs)"
               uses: actions/checkout@v6
-              # TODO: DELETE THIS once done with feature branch
+              # TODO: EXPLAIN HOW THIS WORKS
               # Check out branch with dummy-html files
               with:
                 path: feature-with-htmls
