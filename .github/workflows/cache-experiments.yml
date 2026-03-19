@@ -18,11 +18,15 @@ on:
             required: true
             type: boolean
             default: false
-        use-dummy-html:
+        test-case:
             description: "Take HTML file from testing/html-checks/html"
             required: true
-            type: boolean
-            default: true
+            type: choice
+            default: 'none'
+            options:
+              - none
+              - fail
+              - pass
         verbose:
             description: "Adds more debug statements"
             type: boolean
@@ -67,7 +71,6 @@ jobs:
         runs-on: ubuntu-latest
         env:
             PR_NUMBER: ${{ github.event.pull_request.number }}
-            EVENT_NAME: ${{ github.event_name }}
         outputs: 
             # General format steps.<step-id>.outputs.<var written to GITHUB_OUTPUT>
             html-files-present: ${{ steps.check-for-html-files.outputs.html-files-present }}
@@ -82,7 +85,7 @@ jobs:
                 ref: feature/matt-cache-experiments
 
             - name: "Manual trigger: Use dummy HTML files from a ttn-workflows PR (#9)"
-              if: inputs.use-dummy-html == true
+              if: inputs.test-case != 'none'
               run: |
                 echo "Setting PR_NUMBER to 9 (has 2 .html files)"
                 echo "PR_NUMBER=9" >> $GITHUB_ENV
