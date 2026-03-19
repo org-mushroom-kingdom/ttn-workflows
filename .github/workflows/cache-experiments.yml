@@ -89,7 +89,7 @@ jobs:
               if: inputs.test-case != 'none'
               run: |
                 test_pr_num=""
-                if [[ ${{ inputs.test-case }} == 'pass' ]]; then
+                if [[ ${{ inputs.test-case }} == 'pass-1' ]]; then
                   test_pr_num='10'
                 elif [[ ${{ inputs.test-case }} == 'pass-2' ]]; then
                   test_pr_num='10'
