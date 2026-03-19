@@ -90,6 +90,9 @@ jobs:
                 echo "Setting PR_NUMBER to 9 (has 2 .html files)"
                 echo "PR_NUMBER=9" >> $GITHUB_ENV
 
+            - name: TEMP EARLY EXIT DELETE ME
+              run: exit 1
+
             - name: "Give exec permissions to Bash scripts"
               run: chmod a+x ./scripts/html-checks/*.sh
 
