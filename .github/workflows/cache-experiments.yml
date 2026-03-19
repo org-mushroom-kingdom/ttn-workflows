@@ -136,7 +136,7 @@ jobs:
               # Check out branch with dummy-html files
               with:
                 path: feature-with-htmls
-                ref: $SOURCE_BRANCH
+                ref: "${{ env.SOURCE_BRANCH }}"
 
             # Each job runs in a different environment, so must check out repo again.
             - name: "Checkout repo (for script/reqs)"
