@@ -127,6 +127,7 @@ jobs:
         steps:
             
             - name: "Manual run: Get source branch for dummy files"
+              if: github.event_name == 'workflow_dispatch'
               run: echo "SOURCE_BRANCH=${{ needs.html-exists.outputs.source-branch-name }}" >> $GITHUB_ENV
             
             # Each job runs in a different environment, so must check out repo again.
