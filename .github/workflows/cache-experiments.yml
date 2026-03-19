@@ -121,6 +121,15 @@ jobs:
         if: needs.html-exists.outputs.html-files-present == 'true'
         steps:
             # Each job runs in a different environment, so must check out repo again.
+            - name: "Checkout repo (for HTMLs)"
+              uses: actions/checkout@v6
+              # TODO: DELETE THIS once done with feature branch
+              # Check out branch with dummy-html files
+              # with:
+              #   path: feature-with-htmls
+              #   ref: feature/matt-cache-exp-related-add-htmls
+
+            # Each job runs in a different environment, so must check out repo again.
             - name: "Checkout repo (for script/reqs)"
               uses: actions/checkout@v6
               # TODO: DELETE THIS once done with feature branch
@@ -129,14 +138,6 @@ jobs:
                 path: feature-with-scripts
                 ref: feature/matt-cache-experiments
 
-            # Each job runs in a different environment, so must check out repo again.
-            - name: "Checkout repo (for HTMLs)"
-              uses: actions/checkout@v6
-              # TODO: DELETE THIS once done with feature branch
-              # Check out branch with dummy-html files
-              # with:
-              #   path: feature-with-htmls
-              #   ref: feature/matt-cache-exp-related-add-htmls
 
             - name: "Echo outputs from html-exists"
               run: |
