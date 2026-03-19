@@ -24,9 +24,10 @@ on:
             type: choice
             default: 'none'
             options:
-              - none
-              - fail
-              - pass
+              - none 
+              - fail # 2 HTMLs: Has TODOs missing properly formatted Jira stories
+              - pass-1 # 2 HTMLs: All TODOs have properly formatted Jira stories
+              - pass-2 # 2 HTMLs: No TODOs present
         verbose:
             description: "Adds more debug statements"
             type: boolean
@@ -87,7 +88,15 @@ jobs:
             - name: "Manual trigger: Use dummy HTML files from a ttn-workflows PR (#9)"
               if: inputs.test-case != 'none'
               run: |
-                echo "Setting PR_NUMBER to 9 (has 2 .html files)"
+                test_pr_num=""
+                if [[ ${{ inputs.test-case }} == 'pass' ]]; then
+                  test_pr_num='10'
+                elif [[ ${{ inputs.test-case }} == 'pass-2' ]]; then
+                  test_pr_num='10'
+                elif [[ ${{ inputs.test-case }} == 'fail' ]]; then
+                  test_pr_num='9'
+                fi
+                echo "Setting PR_NUMBER to ${test_pr_num}"
                 echo "PR_NUMBER=9" >> $GITHUB_ENV
 
             - name: TEMP EARLY EXIT DELETE ME
@@ -212,8 +221,7 @@ jobs:
             # Using a cache helps skip or speed up the "download packages from the internet" part, but those downloads must still be unpacked.
             - name: "Install dependencies (${{ env.REQ_TYPE }})"
               run: |
-                if [[ "$REQ_TYPE" == "heavy" ]]
-                then
+                if [[ "$REQ_TYPE" == "heavy" ]]; then
                   pip install -r feature-with-scripts/scripts/html-checks/requirements.txt
                 else 
                   pip install -r feature-with-scripts/scripts/html-checks/requirements-lite.txt
