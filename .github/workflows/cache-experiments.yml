@@ -76,7 +76,7 @@ jobs:
             # General format --> steps.<step-id>.outputs.<var written to GITHUB_OUTPUT>
             html-files-present: ${{ steps.check-for-html-files.outputs.html-files-present }}
             html-filenames: ${{ steps.check-for-html-files.outputs.html-filenames }}
-
+            source-branch-name: ${{ steps.dummy-html-get.outputs.source-branch-name }}
         steps:
 
             - name: "Checkout repo"
@@ -86,15 +86,20 @@ jobs:
                 ref: feature/matt-cache-experiments
 
             - name: "Manual trigger: Use dummy HTML files from a ttn-workflows PR (#9)"
+              id: dummy-html-get
+              # TODO if workflow-dispatch &&
               if: inputs.test-case != 'none'
               run: |
                 test_pr_num=""
                 if [[ ${{ inputs.test-case }} == 'pass-1' ]]; then
                   test_pr_num='10'
+                  echo "source-branch-name=feature/matt-cache-exp-related-good-htmls" >> $GITHUB_OUTPUT
                 elif [[ ${{ inputs.test-case }} == 'pass-2' ]]; then
                   test_pr_num='10'
+                  echo "source-branch-name=feature/matt-TODOFEATUREBRNACHNAMEHEREEEEEEEEEEEEEEEEEEEEEEEEEEE" >> "$GITHUB_OUTPUT"
                 elif [[ ${{ inputs.test-case }} == 'fail' ]]; then
                   test_pr_num='9'
+                  echo "source-branch-name=feature/matt-cache-exp-related-add-htmls" >> $GITHUB_OUTPUT
                 fi
                 echo "Setting PR_NUMBER to ${test_pr_num}"
                 echo "PR_NUMBER=9" >> $GITHUB_ENV
@@ -105,7 +110,6 @@ jobs:
             - name: "Give exec permissions to Bash scripts"
               run: chmod a+x ./scripts/html-checks/*.sh
 
-            # TODO change this to a script. Arg: PR_NUM, inputs.verbose, github.event_name
             - name: "Assess PR Changed Files for *.html"
               id: check-for-html-files
               run: |
@@ -118,16 +122,21 @@ jobs:
         env:
             WORKFLOW_FILENAME: ""
             REQ_TYPE: ""
+            SOURCE_BRANCH: ${{ github.head_ref }}
         if: needs.html-exists.outputs.html-files-present == 'true'
         steps:
+            
+            - name: "Manual run: Get source branch for dummy files"
+              run: echo "SOURCE_BRANCH=${{ needs.html-exists.outputs.source-branch-name }}" >> $GITHUB_ENV
+            
             # Each job runs in a different environment, so must check out repo again.
             - name: "Checkout repo (for HTMLs)"
               uses: actions/checkout@v6
               # TODO: DELETE THIS once done with feature branch
               # Check out branch with dummy-html files
-              # with:
-              #   path: feature-with-htmls
-              #   ref: feature/matt-cache-exp-related-add-htmls
+              with:
+                path: feature-with-htmls
+                ref: $SOURCE_BRANCH
 
             # Each job runs in a different environment, so must check out repo again.
             - name: "Checkout repo (for script/reqs)"
@@ -234,4 +243,4 @@ jobs:
             - name: "Script: Check each HTML file's TODOs have corresponding story"
               run: |
                 # You could either feed whole  ".html,.html,..."string in or do a loop here and subject each to script
-                python feature-with-scripts/scripts/html-checks/main.py ${{ needs.html-exists.outputs.html-filenames }} "."
+                python feature-with-scripts/scripts/html-checks/main.py ${{ needs.html-exists.outputs.html-filenames }} "FBNAME"
