@@ -99,8 +99,8 @@ jobs:
                 echo "Setting PR_NUMBER to ${test_pr_num}"
                 echo "PR_NUMBER=9" >> $GITHUB_ENV
 
-            - name: TEMP EARLY EXIT DELETE ME
-              run: exit 1
+            # - name: TEMP EARLY EXIT DELETE ME
+            #   run: exit 1
 
             - name: "Give exec permissions to Bash scripts"
               run: chmod a+x ./scripts/html-checks/*.sh
