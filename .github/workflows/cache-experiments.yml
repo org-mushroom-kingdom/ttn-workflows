@@ -243,4 +243,4 @@ jobs:
             - name: "Script: Check each HTML file's TODOs have corresponding story"
               run: |
                 # You could either feed whole  ".html,.html,..."string in or do a loop here and subject each to script
-                python feature-with-scripts/scripts/html-checks/main.py ${{ needs.html-exists.outputs.html-filenames }} "${{ env.SOURCE_BRANCH }}"
+                python feature-with-scripts/scripts/html-checks/main.py ${{ needs.html-exists.outputs.html-filenames }} "feature-with-htmls"
