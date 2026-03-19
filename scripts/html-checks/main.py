@@ -30,10 +30,10 @@ def main():
 
 
     if (len(files_with_bad_todos)):
-        print("WARNING! SEE ABOVE MESSAGES!")
+        print("WARNING! HTML files in the pull request have 'TODO' comments with no corresponding Jira story number!")
         sys.exit(1)
     else:
-        print("HAPPY PATH")
+        print("All HTML files in the pull request with 'TODO' comments have a corresponding Jira story number.")
         sys.exit(0)
         
     # print(f"todos[0] = {todos[0]}")
