@@ -72,7 +72,7 @@ jobs:
         env:
             PR_NUMBER: ${{ github.event.pull_request.number }}
         outputs: 
-            # General format steps.<step-id>.outputs.<var written to GITHUB_OUTPUT>
+            # General format --> steps.<step-id>.outputs.<var written to GITHUB_OUTPUT>
             html-files-present: ${{ steps.check-for-html-files.outputs.html-files-present }}
             html-filenames: ${{ steps.check-for-html-files.outputs.html-filenames }}
 
