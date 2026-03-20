@@ -14,6 +14,7 @@ def main():
     repo_path: str = sys.argv[2]
     html_files_arr: list[str] = html_files_str.split(',')
     files_with_bad_todos: list[str] = []
+    todos_found: bool = False
     # html_files_arr = ["./docs/testing/html-checks/html/article-template.html"]
     cwd: str = os.getcwd()
     print(f"Current working directory: {cwd}")
@@ -21,16 +22,24 @@ def main():
     for html_filename in html_files_arr:
         # Get the comments containing "TODO"
         comments_with_todos: list[NavigableString] = find_TODOs(html_filename,repo_path)
-        # Filter the "TODO" comments to ones that have missing/misaligned Jira story number
-        todos_missing_jira_story = get_TODOs_missing_jira_nums(comments_with_todos)
-        # If the filtered arr isn't empty, print the offending comments. Add the file containing these comments to an array (files_with_bad_todos).
-        if (len(todos_missing_jira_story)):
-            print("The following comments have 'TODO' in them, but are missing corresponding, properly formatted Jira story numbers:")
-            for bad_todo in todos_missing_jira_story:
-                print(f"{bad_todo}")
-                # This helps keep array unique, so you don't add the same filename multiple times
-                if html_filename not in files_with_bad_todos:
-                    files_with_bad_todos.append(html_filename)
+        if (len(comments_with_todos)):
+            todos_found = True
+            # Filter the "TODO" comments to ones that have missing/misaligned Jira story number
+            todos_missing_jira_story = get_TODOs_missing_jira_nums(comments_with_todos)
+            # If the filtered arr isn't empty, print the offending comments. Add the file containing these comments to an array (files_with_bad_todos).
+            if (len(todos_missing_jira_story)):
+                print("The following comments have 'TODO' in them, but are missing corresponding, properly formatted Jira story numbers:")
+                for bad_todo in todos_missing_jira_story:
+                    print(f"{bad_todo}")
+                    # This helps keep array unique, so you don't add the same filename multiple times
+                    if html_filename not in files_with_bad_todos:
+                        files_with_bad_todos.append(html_filename)
+        else:
+            print("HTML file present, but no TODO comments found.")
+    
+    if not todos_found:
+        print("HTML files present, but no TODO comments found in any of them.")
+        sys.exit(0)
 
     # If the array of files containing bad TODO comments isn't empty, exit with a bad status code (1). 
     # If it is empty, this means all HTML files assessed have TODO comments with a corresponding correctly formatted story number. Or, no HTML files have TODO comments.   
