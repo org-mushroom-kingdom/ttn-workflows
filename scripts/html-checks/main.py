@@ -86,9 +86,9 @@ def get_TODOs_missing_jira_nums(todo_comments: list[NavigableString]) -> list[Na
         # search() returns a Match object if a match was found. It returns None if it wasn't (None evaluates to falsy)
         match: bool = jira_story_pattern.search(todo_comment)
         if match: 
-            print(f"This TODO comment has a story number! {todo_comment}")
+            print(f"This TODO comment has a corresponding, properly formatted story number! {todo_comment}")
         else:
-            print(f"This TODO comment DOES NOT have a story number! {todo_comment}")
+            print(f"This TODO comment DOES NOT have a corresponding, properly formatted story number! {todo_comment}")
             todos_missing_jiras.append(todo_comment)
 
     return todos_missing_jiras
