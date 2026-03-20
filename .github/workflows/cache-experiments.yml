@@ -95,6 +95,9 @@ jobs:
                 if [[ ${{ inputs.test-case }} == 'pass-1' ]]; then
                   test_pr_num='10'
                   echo "source-branch-name=feature/matt-cache-exp-related-good-htmls" >> $GITHUB_OUTPUT
+                elif [[ ${{ inputs.test-case }} == 'pass-2' ]]; then
+                  test_pr_num='12'
+                  echo "source-branch-name=feature/matt-cache-exp-related-no-todos-htmls" >> $GITHUB_OUTPUT
                 elif [[ ${{ inputs.test-case }} == 'pass-3' ]]; then
                   test_pr_num='11'
                   echo "source-branch-name=feature/matt-cache-exp-related-no-htmls" >> "$GITHUB_OUTPUT"
