@@ -28,6 +28,7 @@ on:
               - fail # 2 HTMLs: Has TODOs missing properly formatted Jira stories (PR #9)
               - pass-1 # 2 HTMLs: All TODOs have properly formatted Jira stories (PR #10)
               - pass-2 # 2 HTMLs: No TODOs present
+              - pass-3 # No HTMLs present
         verbose:
             description: "Adds more debug statements"
             type: boolean
@@ -94,7 +95,7 @@ jobs:
                 if [[ ${{ inputs.test-case }} == 'pass-1' ]]; then
                   test_pr_num='10'
                   echo "source-branch-name=feature/matt-cache-exp-related-good-htmls" >> $GITHUB_OUTPUT
-                elif [[ ${{ inputs.test-case }} == 'pass-2' ]]; then
+                elif [[ ${{ inputs.test-case }} == 'pass-3' ]]; then
                   test_pr_num='11'
                   echo "source-branch-name=feature/matt-TODOFEATUREBRNACHNAMEHEREEEEEEEEEEEEEEEEEEEEEEEEEEE" >> "$GITHUB_OUTPUT"
                 elif [[ ${{ inputs.test-case }} == 'fail' ]]; then
