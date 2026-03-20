@@ -103,7 +103,7 @@ jobs:
                   echo "source-branch-name=feature/matt-cache-exp-related-add-htmls" >> $GITHUB_OUTPUT
                 fi
                 echo "Setting PR_NUMBER to ${test_pr_num}"
-                echo "PR_NUMBER=9" >> $GITHUB_ENV
+                echo "PR_NUMBER=${test_pr_num}" >> $GITHUB_ENV
 
             # - name: TEMP EARLY EXIT DELETE ME
             #   run: exit 1
