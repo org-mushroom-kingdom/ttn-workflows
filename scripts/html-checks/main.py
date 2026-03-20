@@ -28,7 +28,9 @@ def main():
             print("The following comments have 'TODO' in them, but are missing corresponding, properly formatted Jira story numbers:")
             for bad_todo in todos_missing_jira_story:
                 print(f"{bad_todo}")
-                files_with_bad_todos.append(html_filename)
+                # This helps keep array unique, so you don't add the same filename multiple times
+                if html_filename not in files_with_bad_todos:
+                    files_with_bad_todos.append(html_filename)
 
     # If the array of files containing bad TODO comments isn't empty, exit with a bad status code (1). 
     # If it is empty, this means all HTML files assessed have TODO comments with a corresponding correctly formatted story number. Or, no HTML files have TODO comments.   
