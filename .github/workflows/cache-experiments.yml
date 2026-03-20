@@ -133,8 +133,7 @@ jobs:
             # Each job runs in a different environment, so must check out repo again.
             - name: "Checkout repo (for HTMLs)"
               uses: actions/checkout@v6
-              # TODO: EXPLAIN HOW THIS WORKS
-              # Check out branch with dummy-html files
+              # If testing, check out branch with dummy HTML files. Otherwise get the HTML files from the actual source branch of the PR.
               with:
                 path: feature-with-htmls
                 ref: "${{ env.SOURCE_BRANCH }}"
@@ -142,7 +141,7 @@ jobs:
             # Each job runs in a different environment, so must check out repo again.
             - name: "Checkout repo (for script/reqs)"
               uses: actions/checkout@v6
-              # TODO: DELETE THIS once done with feature branch
+              # TODO: DELETE THIS (path?,ref) once done with feature branch
               # Check out branch with script
               with:
                 path: feature-with-scripts
