@@ -28,7 +28,7 @@ on:
               - fail # 2 HTMLs: Has TODOs missing properly formatted Jira stories (PR #9)
               - pass-1 # 2 HTMLs: All TODOs have properly formatted Jira stories (PR #10)
               - pass-2 # 2 HTMLs: No TODOs present
-              - pass-3 # No HTMLs present
+              - pass-3 # No HTMLs present (PR #11)
         verbose:
             description: "Adds more debug statements"
             type: boolean
