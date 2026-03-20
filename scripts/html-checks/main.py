@@ -37,6 +37,8 @@ def main():
         else:
             print("HTML file present, but no TODO comments found.")
     
+    print("--------------")
+
     if not todos_found:
         print("HTML files present, but no TODO comments found in any of them.")
         sys.exit(0)
