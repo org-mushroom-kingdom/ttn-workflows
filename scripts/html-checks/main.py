@@ -78,8 +78,7 @@ def find_TODOs(html_filename, path) -> list[NavigableString]:
     return todo_comments
 
 def get_TODOs_missing_jira_nums(todo_comments: list[NavigableString]) -> list[NavigableString]:
-
-    print("get_TODOs...")
+    # Identify and Filter out the TODO comments that do not have a corresponding, properly formatted story number
     todos_missing_jiras: list[NavigableString] = []
     for todo_comment in todo_comments:
         # print(f"Item in todo_comments: {todo_comment}")
