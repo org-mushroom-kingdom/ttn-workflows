@@ -13,7 +13,7 @@ def main():
     html_files_str: str = sys.argv[1] # comma-separated string of filenames "path/.../ex-file1.html,path/.../ex-file2.html"
     repo_path: str = sys.argv[2]
     html_files_arr: list[str] = html_files_str.split(',')
-    files_with_bad_todos = []
+    files_with_bad_todos: list[str] = []
     # html_files_arr = ["./docs/testing/html-checks/html/article-template.html"]
     cwd: str = os.getcwd()
     print(f"Current working directory: {cwd}")
@@ -33,7 +33,9 @@ def main():
     # If the array of files containing bad TODO comments isn't empty, exit with a bad status code (1). 
     # If it is empty, this means all HTML files assessed have TODO comments with a corresponding correctly formatted story number. Or, no HTML files have TODO comments.   
     if (len(files_with_bad_todos)):
-        print("WARNING! HTML files in the pull request have 'TODO' comments with no corresponding, properly formatted Jira story number!")
+        print("WARNING! The following HTML files in the pull request have 'TODO' comments with no corresponding, properly formatted Jira story number!")
+        for bad_html_file in files_with_bad_todos:
+            print(f"{bad_html_file}")
         sys.exit(1)
     else:
         print("All HTML files in the pull request with 'TODO' comments have a corresponding, properly formatted Jira story number.")
