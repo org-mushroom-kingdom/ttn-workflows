@@ -25,7 +25,7 @@ def main():
         todos_missing_jira_story = get_TODOs_missing_jira_nums(comments_with_todos)
         # If the filtered arr isn't empty, print the offending comments. Add the file containing these comments to an array (files_with_bad_todos).
         if (len(todos_missing_jira_story)):
-            print("The following comments have 'TODO' in them, but are missing corresponding Jira story numbers:")
+            print("The following comments have 'TODO' in them, but are missing corresponding, properly formatted Jira story numbers:")
             for bad_todo in todos_missing_jira_story:
                 print(f"{bad_todo}")
                 files_with_bad_todos.append(html_filename)
@@ -33,15 +33,15 @@ def main():
     # If the array of files containing bad TODO comments isn't empty, exit with a bad status code (1). 
     # If it is empty, this means all HTML files assessed have TODO comments with a corresponding correctly formatted story number. Or, no HTML files have TODO comments.   
     if (len(files_with_bad_todos)):
-        print("WARNING! HTML files in the pull request have 'TODO' comments with no corresponding Jira story number!")
+        print("WARNING! HTML files in the pull request have 'TODO' comments with no corresponding, properly formatted Jira story number!")
         sys.exit(1)
     else:
-        print("All HTML files in the pull request with 'TODO' comments have a corresponding Jira story number.")
+        print("All HTML files in the pull request with 'TODO' comments have a corresponding, properly formatted Jira story number.")
         sys.exit(0)
 
 def find_TODOs(html_filename, path) -> list[NavigableString]:
     # Note: Technically you could probably not use bs4 for this and just loop thru the file contents line by line but bs4 helps trim the fat somewhat.
-    # The way bs4 is used here still looks line by line, but makes it easier to filter for comments and assess the text within those comments
+    # The way bs4 is used here still looks line by line, but makes it easier to filter for comments and assess the text within those comments (i.e. helps avoid logic around strings like "<!--" or "-->")
     print("--------------")
     print(f"HTML filename = {html_filename}")
     html_filepath: str = path+"/"+html_filename
