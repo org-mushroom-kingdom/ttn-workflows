@@ -18,7 +18,6 @@ def main():
     cwd: str = os.getcwd()
     print(f"Current working directory: {cwd}")
 
-    # all_todos_look_good
     for html_filename in html_files_arr:
         comments_with_todos: list[NavigableString] = find_TODOs(html_filename,repo_path)
         todos_missing_jira_story = get_TODOs_missing_jira_nums(comments_with_todos)
@@ -35,15 +34,6 @@ def main():
     else:
         print("All HTML files in the pull request with 'TODO' comments have a corresponding Jira story number.")
         sys.exit(0)
-        
-    # print(f"todos[0] = {todos[0]}")
-    # bad_todos = check_TODOs_for_jira_nums()
-    # if len(bad_todos) > 0 --> print them, set all_todos_look_good = FAIL?
-    # else do nothing
-
-    # if all_todos_look_good
-    # exit 0 (or whatever passing is)
-    # else exit 1 (or whatever failing is)
 
 def find_TODOs(html_filename, path) -> list[NavigableString]:
     
