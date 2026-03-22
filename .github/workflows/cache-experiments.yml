@@ -138,7 +138,7 @@ jobs:
         if: needs.html-exists.outputs.html-files-present == 'true'
         steps:
             
-            - name: "Manual run: Get source branch for dummy files"
+            - name: "Manual run: Set env.SOURCE_BRANCH"
               if: github.event_name == 'workflow_dispatch'
               run: echo "SOURCE_BRANCH=${{ needs.html-exists.outputs.source-branch-name }}" >> $GITHUB_ENV
             
