@@ -132,6 +132,7 @@ jobs:
         needs: html-exists
         env:
             WORKFLOW_FILENAME: ""
+            USE_CACHE: 'true'
             REQ_TYPE: ""
             SOURCE_BRANCH: ${{ github.head_ref }}
         if: needs.html-exists.outputs.html-files-present == 'true'
@@ -198,7 +199,7 @@ jobs:
             # Caches have specific metadata to specify the repository the workflow resides on and the cache version (a hash made based the compression tool and path) 
             - name: "Use actions/cache to speed up dependency installation"
               id: cache-dependencies
-              if: inputs.use-cache
+              if: ${{ env.USE_CACHE  == 'true' }}
               uses: actions/cache@v4
               with: 
                 # path is a list of files/directories/wildcard patterns to cache and restore. This list can be a single item or multiple items (ex. ~/.cache/pip and .venv may both be used when using a virtual environment)
