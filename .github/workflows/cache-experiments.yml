@@ -186,7 +186,7 @@ jobs:
                 # echo "workflow_filename = ${workflow_filename}"
                 echo "WORKFLOW_FILENAME=${workflow_filename}" >> $GITHUB_ENV
 
-                if [[ "${{ inputs.use-simple-req-txt }}" == "true" ]]; then
+                if [[ "${{ github.event_name }}" == 'workflow_dispatch' && "${{ inputs.use-simple-req-txt }}" == "true" ]]; then
                   echo "REQ_TYPE=lite" >> $GITHUB_ENV
                 else
                   echo "REQ_TYPE=heavy" >> $GITHUB_ENV
