@@ -194,7 +194,7 @@ jobs:
 
             - name: "Manual run: Set env.USE_CACHE"
               if: github.event_name == 'workflow_dispatch'
-              run: echo "USE_CACHE=${{ inputs.use-simple-req-txt }}" >> $GITHUB_ENV
+              run: echo "USE_CACHE=${{ inputs.use-cache }}" >> $GITHUB_ENV
 
             # Github-hosted runners (exclusively used by ttn-workflows) start in a clean environment every time, meaning dependencies must be redownloaded
             # Caches speed up workflows by having saved versions of downloaded dependencies (such as Python modules) in Github cloud storage.
