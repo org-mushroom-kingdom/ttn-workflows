@@ -86,6 +86,14 @@ jobs:
               with:
                 ref: feature/matt-cache-experiments
 
+            - name: "Checkout repo (for scripts)"
+              uses: actions/checkout@v4
+              with:
+                path: scripts-path
+                repository: org-mushroom-kingdom/ttn-workflows
+                ref: feature/matt-cache-experiments
+
+
             - name: "Manual trigger: Use dummy HTML files from a ttn-workflows PR (#9)"
               id: dummy-html-get
               if: github.event_name == 'workflow_dispatch' && inputs.test-case != 'none'
@@ -116,7 +124,7 @@ jobs:
             - name: "Assess PR Changed Files for *.html"
               id: check-for-html-files
               run: |
-                bash ./scripts/html-checks/check-for-html-files.sh $PR_NUMBER ${{ inputs.verbose }} ${{ github.event_name }}
+                bash scripts-path/scripts/html-checks/check-for-html-files.sh $PR_NUMBER ${{ inputs.verbose }} ${{ github.event_name }}
 
     cache-experiment-job:
         name: "HTML Checks (example of cache usage)"
