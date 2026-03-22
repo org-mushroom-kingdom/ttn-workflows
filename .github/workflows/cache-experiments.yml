@@ -37,9 +37,9 @@ on:
             type: boolean
             required: false
             default: false
-        # Use this if you only care about seeing the Python script run. Uses a "lite" requirements.txt with only one module
+        # Use this if you only care about seeing the Python script run. Uses a "lite" requirements.txt with only one module (bs4)
         use-simple-req-txt:
-            description: "Use a requirements.txt that only has bs4"
+            description: "Use a requirements.txt that only has needed dependencies"
             required: false
             type: boolean
 
@@ -63,10 +63,6 @@ on:
       - feature/matt-cache-experiments
       - release/**
 
-# Do something like Github CLI command to get array of changed filenames from PR
-# First check if there's any .html files in the array. If there isn't exit early with success (skip job)
-# To really do that though maybe have two jobs: "html-exists", "cache-experiment-job"
-#  cache-experiment-job --> if html-exists.outputs.there-are-html-files == "true"
 env:
     GH_TOKEN: ${{ secrets.github_token }}
 
@@ -93,7 +89,7 @@ jobs:
             - name: "Manual trigger: Use dummy HTML files from a ttn-workflows PR (#9)"
               id: dummy-html-get
               # TODO if workflow-dispatch &&
-              if: inputs.test-case != 'none'
+              if: github.event_name == 'workflow_dispatch' && inputs.test-case != 'none'
               run: |
                 test_pr_num=""
                 if [[ ${{ inputs.test-case }} == 'pass-1' ]]; then
