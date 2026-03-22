@@ -30,7 +30,7 @@ do
     # Using tab as a delimiter, split the string into multiple items. Assign the variables listed (status,file) values based on the delimited items and order of the variables
     # ex. if line is "example.html\tdeleted" --> file = "example.html", status = "deleted"
     IFS=$'\t' read -r filename status <<< "${changed_file}"
-    if [[ "$status" == "deleted" ]]
+    if [[ "$status" == "removed" ]]
     then
         # If file is deleted, no need to continue assessment since we don't care about the contents of a deleted file (even if it's an HTML)
         continue
