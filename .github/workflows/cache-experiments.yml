@@ -134,7 +134,8 @@ jobs:
               run: echo "SOURCE_BRANCH=${{ needs.html-exists.outputs.source-branch-name }}" >> $GITHUB_ENV
             
             # Each job runs in a different environment, so must check out repo again.
-            - name: "Checkout repo (for HTMLs)"
+            # Remember that if a caller workflow triggered, the caller workflow is checked out.
+            - name: "Checkout repo"
               uses: actions/checkout@v6
               # If testing, check out branch with dummy HTML files. Otherwise get the HTML files from the actual source branch of the PR.
               with:
@@ -142,12 +143,14 @@ jobs:
                 ref: "${{ env.SOURCE_BRANCH }}"
 
             # Each job runs in a different environment, so must check out repo again.
+            # We need to access the scripts, so checkout ttn-workflows.
             - name: "Checkout repo (for script/reqs)"
               uses: actions/checkout@v6
-              # TODO: MOD/DELETE?? THIS (path?,ref) once done with testing to be master
+              # TODO: MOD/DELETE?? THIS (path?,ref) once done with testing to be ttn-workflows/master
               # Check out branch with script
               with:
-                path: feature-with-scripts
+                path: scripts-path
+                repository: org-mushroom-kingdom/ttn-workflows
                 ref: feature/matt-cache-experiments
 
 
@@ -237,15 +240,15 @@ jobs:
             - name: "Install dependencies (${{ env.REQ_TYPE }})"
               run: |
                 if [[ "$REQ_TYPE" == "heavy" ]]; then
-                  pip install -r feature-with-scripts/scripts/html-checks/requirements.txt
+                  pip install -r scripts-path/scripts/html-checks/requirements.txt
                 else 
-                  pip install -r feature-with-scripts/scripts/html-checks/requirements-lite.txt
+                  pip install -r scripts-path/scripts/html-checks/requirements-lite.txt
                 fi 
             
             # Can't do one chmod for both Bash and Python in html-exists job because each job runs in a separate environment
             - name: "Give exec permissions to Python scripts"
-              run: chmod a+x feature-with-scripts/scripts/html-checks/*.py
+              run: chmod a+x scripts-path/scripts/html-checks/*.py
 
             - name: "Script: Check each HTML file's TODOs have corresponding story"
               run: |
-                python feature-with-scripts/scripts/html-checks/main.py ${{ needs.html-exists.outputs.html-filenames }} "feature-with-htmls"
+                python scripts-path/scripts/html-checks/main.py ${{ needs.html-exists.outputs.html-filenames }} "feature-with-htmls"
