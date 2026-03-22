@@ -4,8 +4,8 @@ pr_number="$1"
 verbose="$2"
 event_name="$3"
 
-org_name = "org-mushroom-kingdom"
-repo_name = "ttn-workflows"
+org_name="org-mushroom-kingdom"
+repo_name="ttn-workflows"
 
 html_files_found="false"
 html_filenames_str=""
