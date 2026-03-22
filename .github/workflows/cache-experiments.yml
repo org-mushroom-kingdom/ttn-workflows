@@ -1,9 +1,12 @@
 # gh workflow run cache-experiments.yml --ref feature/matt-cache-experiments -f use-cache=true -f use-dummy-html=true -f verbose=true
 
-# Say I have a Github Actions workflow job that functions as a status check. 
 # This workflow is fired whenever a pull request is opened or synchronized. 
-# The workflow will use Python to look at all comments in the HTML, then filter those comments out into an array based on
-#  if the comment has the text "TODO" in it. Comments with the text "TODO" in them can be referred to as "'TODO' comments'. 
+# The workflow will check if the changed files include HTML files (exits early with success if not)
+# If HTML files exist, it will use Python to loop thru them: for each HTML file, comments are filtered out into an array based on
+# if the comment has the text "TODO" in it. Comments with the text "TODO" in them can be referred to as "'TODO' comments'.
+# Each "TODO" comment is checked to see if it has a corresponding, properly formatted Jira story number
+# Will be marked as failure if any "TODO" comment in any HTML does not have a corresponding, properly formatted Jira number
+# Will be marked as success if PR has no HTML files, if all HTML files have no TODO comments, or if all TODO comments have a corresponding, properly formatted Jira number
 
 # A script in the workflow will look at each "TODO" comment and check via pattern matching for a string like "TTNF-1234". 
 
@@ -83,7 +86,7 @@ jobs:
 
             - name: "Checkout repo"
               uses: actions/checkout@v6
-              # TODO: MOD THIS once done with testing to be the name of the source branch
+              # TODO: MOD THIS once done with testing to be master
               with:
                 ref: feature/matt-cache-experiments
 
