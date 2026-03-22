@@ -1,6 +1,6 @@
 #  The only module really needed here is beautifulsoup and re. The rest are to show the difference between caching and not.
 beautifulsoup4==4.12.2
-# Several of these modules should take a decent amount of time to install (without caching. No cache == have to install fresh each time) 
+# Several of these modules should take a decent amount of time to install (without caching. No cache == have to install fresh each time).
 numpy>=1.26.0,<2
 pandas==2.1.1
 scipy>=1.12.1
