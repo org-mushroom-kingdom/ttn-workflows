@@ -192,6 +192,10 @@ jobs:
                   echo "REQ_TYPE=heavy" >> $GITHUB_ENV
                 fi
 
+            - name: "Manual run: Set env.USE_CACHE"
+              if: github.event_name == 'workflow_dispatch'
+              run: echo "USE_CACHE=${{ inputs.use-simple-req-txt }}" >> $GITHUB_ENV
+
             # Github-hosted runners (exclusively used by ttn-workflows) start in a clean environment every time, meaning dependencies must be redownloaded
             # Caches speed up workflows by having saved versions of downloaded dependencies (such as Python modules) in Github cloud storage.
             # Caches can be restored from the workflow's current branch or the default branch (usually main)
@@ -199,7 +203,7 @@ jobs:
             # Caches have specific metadata to specify the repository the workflow resides on and the cache version (a hash made based the compression tool and path) 
             - name: "Use actions/cache to speed up dependency installation"
               id: cache-dependencies
-              if: ${{ env.USE_CACHE  == 'true' }}
+              if: env.USE_CACHE  == 'true'
               uses: actions/cache@v4
               with: 
                 # path is a list of files/directories/wildcard patterns to cache and restore. This list can be a single item or multiple items (ex. ~/.cache/pip and .venv may both be used when using a virtual environment)
@@ -239,7 +243,7 @@ jobs:
 
             # The steps.<step-id>.outputs-cache-hit output shows if there was a cache hit or miss. This info can be useful to conditionally fire off other steps 
             - name: "Show cache-hit value"
-              if: inputs.use-cache
+              if: ${{ env.USE_CACHE  == 'true' }}
               run: echo "${{ steps.cache-dependencies.outputs.cache-hit }}"  
 
             # The time duration of this step (~2 minutes, 20 seconds) should decrease drastically when using a cache
