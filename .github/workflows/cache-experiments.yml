@@ -204,7 +204,7 @@ jobs:
             - name: "Use actions/cache to speed up dependency installation"
               id: cache-dependencies
               if: env.USE_CACHE  == 'true'
-              uses: actions/cache@v4
+              uses: actions/cache@v5
               with: 
                 # path is a list of files/directories/wildcard patterns to cache and restore. This list can be a single item or multiple items (ex. ~/.cache/pip and .venv may both be used when using a virtual environment)
                 #  ~/.cache/pip is where pip stores downloaded packages. (i.e. after pip install is ran) 
