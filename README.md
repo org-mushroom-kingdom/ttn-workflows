@@ -376,3 +376,59 @@ A script in the workflow will look at each "TODO" comment and check via pattern 
 At the end of iterating todo_comments, we check if comments_missing_story_numbers is empty. If it is great, exit 0/status check passes. If not, status check fails. 
 
 Please note: The requirements.txt for this script purposefully has a bunch of modules in it. This is so one can see the difference in installation times when using a cache vs not.
+
+# Notes on environments
+
+Per the Microsoft Learn course "Build continuous integration workflows by using GitHub Actions", Unit 4 of 8, "Customize your workflow with environment variables":
+
+"Use environments to describe a general deployment target like production, staging, or development. When a GitHub Actions workflow deploys to an environment, the environment appears on the main page of the repository. You can use environments to require approval for a job to proceed, restrict which branches can trigger a workflow, gate deployments by using custom deployment protection rules, or limit access to secrets.
+
+Each job in a workflow can reference one environment. Any protection rules that you set for the environment must pass before a job that references the environment is sent to a runner. The job can access the environment's secrets only after the job is sent to a runner."
+
+Note that repositories cannot share environments. A repository can have multiple environments, but they belong to that repository only. 
+
+## Create a New Environment
+
+To create a new environment:
+
+1. Go to the repository page.
+2. Go the Settings page
+3. Hit Environments in the left sidebar
+4. Hit the New Environment button
+5. Enter a name for the environment, then hit the Configure environment button.
+
+This opens the environment configuration page, meaning the environment was created successfully. 
+
+## Environment Configurations
+
+TODO blablabal
+
+### Deployment Protection Rules
+
+When enabled, deployment protection rules require that specific conditions be fulfilled before a job that references the environment can proceed. These protection rules only fire off if the workflow job(s) specifically reference that environment--for example, you might have a reusable workflow that takes the environment as an input (or uses workflow_dispatch with an input that reflects the environment). If you were deploying to the 'dev' environment and the 'preprod' and 'prod' environments were mentioned in the workflow, but not explictly referenced, the workflow is not subject to preprod's or prod's deployment protection rules. Remember that a job in a workflow can only reference one environment, ensuring that deployment protection rules aren't overzealous. 
+
+Basic deployment protection rules can be configured in the environment's configuration page. They are:
+
+- Required reviewers: Indicates the required teams or users needed to approve a workflow job that references the environment before the job can run. Up to six entities (users and/or teams) can be listed. Note that approval here is lazy (like CODEOWNERS): if one reviewer approves the workflow job, the others do not have to and the job will then run.
+    - Prevent self review: This suboption prevents users from approving their own deployment/workflow job. This works even if the user is one of the required reviewers for that environment. This ensures more than one person is reviewing the deployment to a protected environment
+
+- Wait timer: This delays a job for X amount of minutes before it fires off. It must be between 1 and 43,200 (30 days).
+
+- Deployment branches and tags: This options allows you to choose which branches and tags can be used to deploy to the environment. You can choose the 'Protected branches only' option to allow any branch that has protection rules to deploy, or you can use the 'Selected branches and tags' option to allow only the specified branches/tags that match a certain glob-like pattern to be used to deploy to the environment. These patterns can be exclusive (ex. ttn-frontend-release-branch) or inclusive (ex. release/* will allow any branch with the prefix 'release/' to deploy. Note the wildcard * does not match forward slash / in these patterns. To match something like 'release/ttn-frontend/navbar-adhoc' this would have to be patterned as 'release/*/*')
+
+There are also custom deployment protection rules that can be defined by integrating partner services like Datadog, Honeycomb, etc. You can also use Github Apps to do this.
+
+### Environment Secrets
+
+Note: In order to create environment secrets for an organization repo, you must have admin access. In order to create environment secrets for a personal repo, you must be the repository owner (i.e. NOT a collaborator on someone's personal repo). 
+
+To add an environment secret:
+
+1. Go to the repository's environment page.
+2. Hit the Add environment secret button
+3. Add the secret, then click the Add secret button
+
+Environment secrets are still referenced using the secrets context, for example ${{ secrets.env-secret }}. If you have a secret defined in one environment but not in another, and you try to reference the secret in the environment that does not have it defined, the value of the secret will be an empty string.
+
+Environment secrets also take the highest priority in terms of 'resolving' , followed by repository secrets, followed by organization secrets. For example, if an environmental secret is named EXAMPLE_SECRET, and the repo the environment belongs to also has a secret of the same name, the environment EXAMPLE_SECRET will be used. If the organization the repo belongs to also has a secret named EXAMPLE_SECRET, the environment EXAMPLE_SECRET will still be used. This still applies even if the value of the environment secret is blank (the same logic applies for repo vs. organizational secrets)
+
