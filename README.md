@@ -426,9 +426,10 @@ To add an environment secret:
 
 1. Go to the repository's environment page.
 2. Hit the Add environment secret button
-3. Add the secret, then click the Add secret button
+3. Add the secret, then click the <ins>Add secret</ins> button
 
 Environment secrets are still referenced using the secrets context, for example ${{ secrets.env-secret }}. If you have a secret defined in one environment but not in another, and you try to reference the secret in the environment that does not have it defined, the value of the secret will be an empty string.
 
 Environment secrets also take the highest priority in terms of 'resolving' , followed by repository secrets, followed by organization secrets. For example, if an environmental secret is named EXAMPLE_SECRET, and the repo the environment belongs to also has a secret of the same name, the environment EXAMPLE_SECRET will be used. If the organization the repo belongs to also has a secret named EXAMPLE_SECRET, the environment EXAMPLE_SECRET will still be used. This still applies even if the value of the environment secret is blank (the same logic applies for repo vs. organizational secrets)
+
 
