@@ -432,4 +432,13 @@ Environment secrets are still referenced using the secrets context, for example 
 
 Environment secrets also take the highest priority in terms of 'resolving' , followed by repository secrets, followed by organization secrets. For example, if an environmental secret is named EXAMPLE_SECRET, and the repo the environment belongs to also has a secret of the same name, the environment EXAMPLE_SECRET will be used. If the organization the repo belongs to also has a secret named EXAMPLE_SECRET, the environment EXAMPLE_SECRET will still be used. This still applies even if the value of the environment secret is blank (the same logic applies for repo vs. organizational secrets)
 
+### Environment Variables
+
+Note: Note: In order to create environment variables for an organization repo, you must have admin access. In order to create environment secrets for a personal repo, you must be the repository owner (i.e. NOT a collaborator on someone's personal repo). 
+
+To add an environment variable:
+
+1. Go to the repository's environment page.
+2. Hit the Add environment variable button
+3. Add the variable, then click the <ins>Add variable</ins> button
 
