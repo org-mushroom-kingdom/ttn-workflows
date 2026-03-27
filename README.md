@@ -439,9 +439,10 @@ Note: Note: In order to create environment variables for an organization repo, y
 To add an environment variable:
 
 1. Go to the repository's environment page.
-2. Hit the Add environment variable button
+2. Hit the <ins>Add environment</ins> variable button
 3. Add the variable, then click the <ins>Add variable</ins> button
 
 ### Referencing an Environment within a Workflow
 
 TODO The real deal. Mention the environment? key or whatever is used
+
