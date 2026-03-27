@@ -401,7 +401,7 @@ This opens the environment configuration page, meaning the environment was creat
 
 ## Environment Configurations
 
-TODO blablabal
+TODO blablablabla
 
 ### Environment Protection Rules/Deployment Protection Rules
 
