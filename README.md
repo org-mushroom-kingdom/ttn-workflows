@@ -434,7 +434,7 @@ Environment secrets also take the highest priority in terms of 'resolving' , fol
 
 ### Environment Variables
 
-Note: Note: In order to create environment variables for an organization repo, you must have admin access. In order to create environment secrets for a personal repo, you must be the repository owner (i.e. NOT a collaborator on someone's personal repo). 
+Note: In order to create environment variables for an organization repo, you must have admin access. In order to create environment secrets for a personal repo, you must be the repository owner (i.e. NOT a collaborator on someone's personal repo). 
 
 Note 2: This is referencing the 'environment' entity that can be created and then assigned its own secrets, as opposed to 'environmental variables' one can set at a workflow, job, or step level. Although you can technically set a workflow/job/step environmental variable to the value of an environment variable, adding to the confusion.
 
