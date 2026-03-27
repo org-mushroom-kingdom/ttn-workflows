@@ -403,7 +403,7 @@ This opens the environment configuration page, meaning the environment was creat
 
 TODO blablabal
 
-### Deployment Protection Rules
+### Environment Protection Rules/Deployment Protection Rules
 
 When enabled, deployment protection rules require that specific conditions be fulfilled before a job that references the environment can proceed. These protection rules only fire off if the workflow job(s) specifically reference that environment--for example, you might have a reusable workflow that takes the environment as an input (or uses workflow_dispatch with an input that reflects the environment). If you were deploying to the 'dev' environment and the 'preprod' and 'prod' environments were mentioned in the workflow, but not explictly referenced, the workflow is not subject to preprod's or prod's deployment protection rules. Remember that a job in a workflow can only reference one environment, ensuring that deployment protection rules aren't overzealous. 
 
@@ -435,6 +435,8 @@ Environment secrets also take the highest priority in terms of 'resolving' , fol
 ### Environment Variables
 
 Note: Note: In order to create environment variables for an organization repo, you must have admin access. In order to create environment secrets for a personal repo, you must be the repository owner (i.e. NOT a collaborator on someone's personal repo). 
+
+Note 2: This is referencing the 'environment' entity that can be created and then assigned its own secrets, as opposed to 'environmental variables' one can set at a workflow, job, or step level. Although you can technically set a workflow/job/step environmental variable to the value of an environment variable, adding to the confusion.
 
 To add an environment variable:
 
