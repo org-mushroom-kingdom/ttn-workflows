@@ -1,0 +1,19 @@
+name: Example-Composite Caller
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+        - name: Use 'Example Composite' action
+          id: fire-example-composite-action
+          # No need to point to action.yml directly--it will automatically be looked for
+          uses: ./.github/actions/example-composite-action
+          with:
+            node-version: '18'
+
+        - name: "Print example-output from 'Example Composite' action"
+          run: echo "example-output = ${{ steps.fire-example-composite-action.outputs.example-output }}"
