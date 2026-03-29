@@ -1,6 +1,8 @@
+# Note: Readers of the article 'TODO ARTICLE NAME', you can ignore the inputs, as well as the checkout and setup-node steps.   
 # Composite actions bundle multiple workflow steps into a reusable unit
 # This is similar to a reusable workflow, with the distinction that a composite action is a bundle of steps that get inserted into a job (one of the steps of the job calls the action)
 # A composite action thus does not have a 'job' in the traditional sense--it defines a bundle of steps to be executed in the job that called it.
+# Thus, you cannot describe something at 'job-level' or 'workflow-level'
 name: "Example Composite Action"
 description: "A reusable composite action that checks out code and sets up Node.js"
 
@@ -10,9 +12,9 @@ inputs:
     required: true
 
 outputs:
-  example-output:
+  example-comp-output:
     description: "Simple string to show example of action output"
-    value: ${{ steps.set-ex-output.outputs.example-output }}
+    value: ${{ steps.set-ex-output.outputs.example-comp-output }}
 
 # This defines the bundle of steps that will run.
 runs:
@@ -40,4 +42,4 @@ runs:
       id: set-ex-output
       # You don't necessarily need the shell key if you are certain of the caller job's environment, but it doesn't hurt to include
       shell: bash 
-      run: echo "example-output=An example output from the 'Example Composite Action' in .github/actions" >> $GITHUB_OUTPUT
+      run: echo "example-comp-output=An example output from the 'Example Composite Action' in .github/actions" >> $GITHUB_OUTPUT
