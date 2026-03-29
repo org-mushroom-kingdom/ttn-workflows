@@ -1,4 +1,6 @@
-#Composite actions 
+# Composite actions bundle multiple workflow steps into a reusable unit
+# This is similar to a reusable workflow, with the distinction that a composite action is a bundle of steps that get inserted into a job (one of the steps of the job calls the action)
+# A composite action thus does not have a 'job' in the traditional sense--it defines a bundle of steps to be executed in the job that called it.
 name: "Example Composite Action"
 description: "A reusable composite action that checks out code and sets up Node.js"
 
@@ -12,10 +14,16 @@ outputs:
     description: "Simple string to show example of action output"
     value: ${{ steps.set-ex-output.outputs.example-output }}
 
+# This defines the bundle of steps that will run.
 runs:
+
+  # Note that we don't use a 'runs-on' key because the caller job will define the environment that for us.
+
   # The using "composite" field indicates this is a composite action. 
   using: "composite"
   steps:
+    #  While this example has a checkout repository step, it's important to note that not all composite actions need to have one.
+    # This is because a composite action runs inside the scope of its caller job--if the job already did actions/checkout, you're good to go
     - name: Checkout repository
       uses: actions/checkout@v4
 
@@ -24,7 +32,12 @@ runs:
       with:
         node-version: ${{ inputs.node-version }}
     
+    # Setting an output value is the same as it is in a regular workflow since it's still a workflow step.
+    # Referencing an output is a little different though--you cannot reference the action's step id from a workflow
+    # Instead, you must give an id to the workflow step that calls the composite action. In a future workflow step, reference the action-calling step's id, then the action's output name
+    # See .github/workflows/example-composite-caller for an example of this
     - name: "Set Example output"
       id: set-ex-output
-      shell: bash
+      # You don't necessarily need the shell key if you are certain of the caller job's environment, but it doesn't hurt to include
+      shell: bash 
       run: echo "example-output=An example output from the 'Example Composite Action' in .github/actions" >> $GITHUB_OUTPUT
