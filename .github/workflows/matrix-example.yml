@@ -1,0 +1,27 @@
+name: Matrix Workflow Example
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test_deploy:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        version: [1, 2]
+        include:
+            - comment-color: "green"
+            - error-color: "red"
+            - os: "ubuntu-latest"
+              comment-color: "blue"
+            - os: "macos-latest"
+              comment-color: "yellow"
+
+    steps:
+      - name: State matrix values
+        run: |
+          echo "OS: ${{ matrix.os }}"
+          echo "Version: ${{ matrix.version }}"
+          echo "Comment Color: ${{ matrix.comment-color }}"
+          echo "Error Color: ${{ matrix.error-color }}"
