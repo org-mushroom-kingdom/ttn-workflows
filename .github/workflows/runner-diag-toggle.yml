@@ -12,12 +12,13 @@ env:
 
 jobs:
   diagnostic_state:
+    name: Diagnostic Logs
     runs-on: ubuntu-latest
     steps:
       - name: Detect vars.ACTIONS_RUNNER_DEBUG
         run: | 
             echo "vars.ACTIONS_RUNNER_DEBUG = ${{ vars.ACTIONS_RUNNER_DEBUG }}!"
-            if [ "${{ env.ACTIONS_RUNNER_DEBUG }}" == "true" ]
+            if [ "${{ vars.ACTIONS_RUNNER_DEBUG }}" == "true" ]
             then
                 echo "You should see additional diagnostic logs in this workflow run!"
             fi
