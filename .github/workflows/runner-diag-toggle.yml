@@ -9,7 +9,7 @@ on:
         required: false
 env:
     # ACTIONS_RUNNER_DEBUG: ${{ github.event.inputs.env_debug }}
-    ACTIONS_RUNNER_DEBUG: true
+    ACTIONS_RUNNER_DEBUG: false
     YELLOW: "\e[33m"
     ENDCOLOR: "\e[0m"
 
