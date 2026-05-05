@@ -15,8 +15,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Detect vars.ACTIONS_RUNNER_DEBUG
-        run: echo "vars.ACTIONS_RUNNER_DEBUG = ${{ vars.ACTIONS_RUNNER_DEBUG }}!"
-      
+        run: | 
+            echo "vars.ACTIONS_RUNNER_DEBUG = ${{ vars.ACTIONS_RUNNER_DEBUG }}!"
+            if [ "${{ env.ACTIONS_RUNNER_DEBUG }}" == "true" ]
+            then
+                echo "You should see additional diagnostic logs in this workflow run!"
+            fi
       - name: Detect env.ACTIONS_RUNNER_DEBUG
         run: |
             echo "env.ACTIONS_RUNNER_DEBUG = ${{ env.ACTIONS_RUNNER_DEBUG }}!"
