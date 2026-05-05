@@ -18,17 +18,23 @@ jobs:
     name: Diagnostic Logs
     runs-on: ubuntu-latest
     steps:
-      - name: Detect vars.ACTIONS_RUNNER_DEBUG
-        run: | 
+        - name: Detect vars.ACTIONS_RUNNER_DEBUG
+          run: | 
             echo -e "vars.ACTIONS_RUNNER_DEBUG = ${YELLOW}${{ vars.ACTIONS_RUNNER_DEBUG }}${ENDCOLOR}!"
             if [ "${{ vars.ACTIONS_RUNNER_DEBUG }}" == "true" ]
             then
                 echo "You should see additional diagnostic logs in this workflow run!"
             fi
-      - name: Detect env.ACTIONS_RUNNER_DEBUG
-        run: |
+
+        - name: Detect env.ACTIONS_RUNNER_DEBUG
+          run: |
             echo -e "env.ACTIONS_RUNNER_DEBUG = ${YELLOW}${{ env.ACTIONS_RUNNER_DEBUG }}${ENDCOLOR}!"
             if [ "${{ env.ACTIONS_RUNNER_DEBUG }}" == "true" ]
             then
                 echo "You should see additional diagnostic logs in this workflow run!"
             fi
+
+        - name: Additional run details
+          run: |
+            echo "Run ID: ${YELLOW}$GITHUB_RUN_ID${ENDCOLOR}"
+            echo "Run number: ${YELLOW}$GITHUB_RUN_NUMBER${ENDCOLOR}"
