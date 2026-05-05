@@ -8,7 +8,8 @@ on:
         type: boolean
         required: false
 env:
-    ACTIONS_RUNNER_DEBUG: ${{ github.event.inputs.env_debug }}
+    # ACTIONS_RUNNER_DEBUG: ${{ github.event.inputs.env_debug }}
+    ACTIONS_RUNNER_DEBUG: true
     YELLOW: "\e[33m"
     ENDCOLOR: "\e[0m"
 
