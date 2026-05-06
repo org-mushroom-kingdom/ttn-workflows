@@ -1,0 +1,42 @@
+name: Built-In Functions Test
+
+on:
+  workflow_dispatch:
+    inputs:
+      string_input:
+        description: 'string_input: Enter a string value'
+        type: string
+        required: false
+      string_prefix:
+        description: 'string_prefix: Enter a string prefix to match'
+        type: string
+        default: 'Hello'
+        required: false
+      string_suffix:
+        description: 'string_suffix: Enter a string suffix to match'
+        type: string
+        default: 'World'
+        required: false
+
+env:
+    YELLOW: "\e[33m"
+    ENDCOLOR: "\e[0m"
+
+jobs:
+    built-in-functions-test:
+        name: Built-In Functions Test Job
+        runs-on: ubuntu-latest
+        steps:
+            - name: Print String input value
+              run: |
+                echo -e "Input string value = ${YELLOW}${{ github.event.inputs.string_input }}${ENDCOLOR}!"
+            
+            - name: String starts with string_prefix
+              if: startsWith(github.event.inputs.string_input, github.event.inputs.string_prefix)
+              run: |
+                echo -e "This job ran because string_input starts with {YELLOW}${{ github.event.inputs.string_prefix }}${ENDCOLOR}!"
+            
+            - name: String ends with string_suffix
+              if: endsWith(github.event.inputs.string_input, github.event.inputs.string_suffix)
+              run: |
+                echo -e "This job ran because string_input ends with ${YELLOW}${{ github.event.inputs.string_suffix }}${ENDCOLOR}!"
