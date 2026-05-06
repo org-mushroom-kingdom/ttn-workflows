@@ -21,7 +21,7 @@ on:
 
 env:
     YELLOW: "\e[33m"
-    WHITE_BOLD: "\033[1;97m"
+    WHITE_BOLD: "\033[1m"
     ENDCOLOR: "\e[0m"
 
 jobs:
