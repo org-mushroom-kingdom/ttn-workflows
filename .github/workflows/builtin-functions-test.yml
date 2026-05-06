@@ -35,7 +35,7 @@ jobs:
             - name: String starts with string_prefix
               if: startsWith(github.event.inputs.string_input, github.event.inputs.string_prefix)
               run: |
-                echo -e "This job ran because string_input starts with '${YELLOW}${{ github.event.inputs.string_prefix }}${ENDCOLOR}!'"
+                echo -e "This job ran because `string_input` starts with '${YELLOW}${{ github.event.inputs.string_prefix }}${ENDCOLOR}!'"
             
             - name: String ends with string_suffix
               if: endsWith(github.event.inputs.string_input, github.event.inputs.string_suffix)
