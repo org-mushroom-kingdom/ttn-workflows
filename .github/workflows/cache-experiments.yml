@@ -1,0 +1,267 @@
+# gh workflow run cache-experiments.yml --ref feature/matt-cache-experiments -f use-cache=true -f use-dummy-html=true -f verbose=true
+
+# This workflow is fired whenever a pull request is opened or synchronized. 
+# The workflow will check if the changed files include HTML files (exits early with success if not)
+# If HTML files exist, it will use Python to loop thru them: for each HTML file, comments are filtered out into an array based on
+# if the comment has the text "TODO" in it. Comments with the text "TODO" in them can be referred to as "'TODO' comments'.
+# Each "TODO" comment is checked to see if it has a corresponding, properly formatted Jira story number
+# Will be marked as failure if any "TODO" comment in any HTML does not have a corresponding, properly formatted Jira number
+# Will be marked as success if PR has no HTML files, if all HTML files have no TODO comments, or if all TODO comments have a corresponding, properly formatted Jira number
+
+# A script in the workflow will look at each "TODO" comment and check via pattern matching for a string like "TTNF-1234".  
+
+name: Cache Experiments
+
+on:
+  
+  workflow_dispatch:
+    inputs:
+        use-cache:
+            description: "Use the cache"
+            required: true
+            type: boolean
+            default: false
+        test-case:
+            description: "Take HTML file from testing/html-checks/html"
+            required: true
+            type: choice
+            default: 'none'
+            options:
+              - none 
+              - fail # 2 HTMLs: Has TODO comments missing properly formatted Jira stories (PR #9)
+              - pass-1 # 2 HTMLs: All TODO comments have properly formatted Jira stories (PR #10)
+              - pass-2 # 2 HTMLs: No TODO comments present (PR #12)
+              - pass-3 # No HTMLs present (PR #11)
+        verbose:
+            description: "Adds more debug statements"
+            type: boolean
+            required: false
+            default: false
+        # Use this if you only care about seeing the Python script run. Uses a "lite" requirements.txt with only one module (bs4)
+        use-simple-req-txt:
+            description: "Use a requirements.txt that only has needed dependencies"
+            required: false
+            type: boolean
+
+  workflow_call:
+      inputs:
+          use-cache:
+              description: "Use the cache"
+              required: true
+              type: boolean
+              default: false
+          verbose:
+              description: "Adds more debug statements"
+              type: boolean
+              required: false
+              default: false
+
+  pull_request:
+    types: [opened,synchronize]
+    branches: 
+      # TODO: MOD THIS to whatever targets are desired (ex. release/**)
+      - feature/matt-cache-experiments
+      - release/**
+
+env:
+    GH_TOKEN: ${{ secrets.github_token }}
+
+jobs:
+
+    html-exists:
+        name: "Check for HTML files"
+        runs-on: ubuntu-latest
+        env:
+            PR_NUMBER: ${{ github.event.pull_request.number }}
+        outputs: 
+            # General format --> steps.<step-id>.outputs.<var written to GITHUB_OUTPUT>
+            html-files-present: ${{ steps.check-for-html-files.outputs.html-files-present }}
+            html-filenames: ${{ steps.check-for-html-files.outputs.html-filenames }}
+            source-branch-name: ${{ steps.dummy-html-get.outputs.source-branch-name }}
+        steps:
+
+            - name: "Checkout repo"
+              uses: actions/checkout@v6
+              # TODO: MOD THIS once done with testing to be master
+              with:
+                ref: feature/matt-cache-experiments
+
+            - name: "Checkout repo (for scripts)"
+              uses: actions/checkout@v6
+              with:
+                path: scripts-path
+                repository: org-mushroom-kingdom/ttn-workflows
+                ref: feature/matt-cache-experiments
+
+
+            - name: "Manual trigger: Use dummy HTML files from a ttn-workflows PR (#9)"
+              id: dummy-html-get
+              if: github.event_name == 'workflow_dispatch' && inputs.test-case != 'none'
+              run: |
+                test_pr_num=""
+                if [[ ${{ inputs.test-case }} == 'pass-1' ]]; then
+                  test_pr_num='10'
+                  echo "source-branch-name=feature/matt-cache-exp-related-good-htmls" >> $GITHUB_OUTPUT
+                elif [[ ${{ inputs.test-case }} == 'pass-2' ]]; then
+                  test_pr_num='12'
+                  echo "source-branch-name=feature/matt-cache-exp-related-no-todos-htmls" >> $GITHUB_OUTPUT
+                elif [[ ${{ inputs.test-case }} == 'pass-3' ]]; then
+                  test_pr_num='11'
+                  echo "source-branch-name=feature/matt-cache-exp-related-no-htmls" >> "$GITHUB_OUTPUT"
+                elif [[ ${{ inputs.test-case }} == 'fail' ]]; then
+                  test_pr_num='9'
+                  echo "source-branch-name=feature/matt-cache-exp-related-add-htmls" >> $GITHUB_OUTPUT
+                fi
+                echo "Setting PR_NUMBER to ${test_pr_num}"
+                echo "PR_NUMBER=${test_pr_num}" >> $GITHUB_ENV
+
+            # - name: TEMP EARLY EXIT DELETE ME
+            #   run: exit 1
+
+            - name: "Give exec permissions to Bash scripts"
+              run: chmod a+x ./scripts/html-checks/*.sh
+
+            - name: "Assess PR Changed Files for *.html"
+              id: check-for-html-files
+              run: |
+                bash scripts-path/scripts/html-checks/check-for-html-files.sh $PR_NUMBER ${{ inputs.verbose }} ${{ github.event_name }}
+
+    cache-experiment-job:
+        name: "HTML Checks (example of cache usage)"
+        runs-on: ubuntu-latest
+        needs: html-exists
+        env:
+            WORKFLOW_FILENAME: ""
+            USE_CACHE: 'true'
+            REQ_TYPE: ""
+            SOURCE_BRANCH: ${{ github.head_ref }}
+        if: needs.html-exists.outputs.html-files-present == 'true'
+        steps:
+            
+            - name: "Manual run: Set env.SOURCE_BRANCH"
+              if: github.event_name == 'workflow_dispatch'
+              run: echo "SOURCE_BRANCH=${{ needs.html-exists.outputs.source-branch-name }}" >> $GITHUB_ENV
+            
+            # Each job runs in a different environment, so must check out repo again.
+            # Remember that if a caller workflow triggered, the caller workflow is checked out.
+            - name: "Checkout repo"
+              uses: actions/checkout@v6
+              # If testing, check out branch with dummy HTML files. Otherwise get the HTML files from the actual source branch of the PR.
+              with:
+                path: feature-with-htmls
+                ref: "${{ env.SOURCE_BRANCH }}"
+
+            # Each job runs in a different environment, so must check out repo again.
+            # We need to access the scripts, so checkout ttn-workflows.
+            - name: "Checkout repo (for script/reqs)"
+              uses: actions/checkout@v6
+              # TODO: MOD/DELETE?? THIS (path?,ref) once done with testing to be ttn-workflows/master
+              # Check out branch with script
+              with:
+                path: scripts-path
+                repository: org-mushroom-kingdom/ttn-workflows
+                ref: feature/matt-cache-experiments
+
+
+            - name: "Echo outputs from html-exists"
+              run: |
+                echo "output!html-files-present = ${{ needs.html-exists.outputs.html-files-present }}"
+                echo "output!html-filenames = ${{ needs.html-exists.outputs.html-filenames }}"
+
+            # actions/setup-python makes a virtual environment for you and it's already active, so usually no need to do things like "python m venv .venv" or "source .venv/bin/activate"
+            - name: Set up Python
+              uses: actions/setup-python@v6
+              with:
+                python-version: "3.11"
+
+            - name: Set WORKFLOW_FILENAME, REQ_TYPE
+              run: |
+                
+                workflow_full_path="${{ github.workflow_ref }}"
+                # echo "workflow_full_path = ${workflow_full_path}"
+                workflow_filename=${workflow_full_path#*".github/workflows/"}
+                if [[ "$workflow_filename" == *"@"* ]]; then
+                    workflow_filename=${workflow_filename%@*}
+                fi
+                # echo "workflow_filename = ${workflow_filename}"
+                echo "WORKFLOW_FILENAME=${workflow_filename}" >> $GITHUB_ENV
+
+                if [[ "${{ github.event_name }}" == 'workflow_dispatch' && "${{ inputs.use-simple-req-txt }}" == "true" ]]; then
+                  echo "REQ_TYPE=lite" >> $GITHUB_ENV
+                else
+                  echo "REQ_TYPE=heavy" >> $GITHUB_ENV
+                fi
+
+            - name: "Manual run: Set env.USE_CACHE"
+              if: github.event_name == 'workflow_dispatch'
+              run: echo "USE_CACHE=${{ inputs.use-cache }}" >> $GITHUB_ENV
+
+            # Github-hosted runners (exclusively used by ttn-workflows) start in a clean environment every time, meaning dependencies must be redownloaded
+            # Caches speed up workflows by having saved versions of downloaded dependencies (such as Python modules) in Github cloud storage.
+            # Caches can be restored from the workflow's current branch or the default branch (usually main)
+            # Caches persist for 7 days. They are stored (saved) on Github servers. Retrieving the cache is known as restoring the cache. 
+            # Caches have specific metadata to specify the repository the workflow resides on and the cache version (a hash made based the compression tool and path) 
+            - name: "Use actions/cache to speed up dependency installation"
+              id: cache-dependencies
+              if: env.USE_CACHE  == 'true'
+              uses: actions/cache@v5
+              with: 
+                # path is a list of files/directories/wildcard patterns to cache and restore. This list can be a single item or multiple items (ex. ~/.cache/pip and .venv may both be used when using a virtual environment)
+                #  ~/.cache/pip is where pip stores downloaded packages. (i.e. after pip install is ran) 
+                # ~/.cache/pip Has wheels (.whl: pre-built,compiled,ready-to-install packages) and source archives (tar.gz or .zip: raw source code of package, NOT pre-built)
+                path: ~/.cache/pip
+                
+                # actions/cache uses a key to save the cache. A key is a unique string to identify the cache. Caches are saved and restored from the same key. 
+                # actions/cache will look for the cache key: it first looks for an exact match. An exact match is considered a cache hit (anything else is considered a cache miss). 
+                # If no exact matches--> looks for partial matches. This counts as a cache miss. 
+                # If no partial match found, will try to restore using restore-keys. This also counts as a cache miss.
+                # Cache hit --> files of cache restored to path:. | Cache miss -->  try to use restore-keys for current job (see below), new cache made if job completed OK,
+                # hashFiles() is a built-in Github function that creates a hash of the specified path. Here it's pointed to requirements.txt since this is where the dependencies are specified. 
+                # If requirements.txt gets updated, the result of hashFiles() changes and thus the cache key changes. This helps keep it up to date.
+                key: ${{ runner.os }}-${{ env.WORKFLOW_FILENAME }}-${{ hashFiles('**/html-checks/requirements.txt') }}
+                
+                # restore-keys is a list of alternative keys with the same prefix going from more specific to less specific
+                # This allows you to use a similar cache if there is a cache miss for the main key. 
+                # That cache tied to a restore key will most likely share some of the dependencies of the cache tied to the main key, so some time is still saved
+                # This is useful when dependencies change often: for example, if a new dependency was added to requirements.txt, hash associated with requirements.txt changes.
+                # That would result in a cache miss because this changes the value of key:. However, the previous cache that was saved before
+                # this change is most likely still active, and has a similar named cache due to how the key is set up. It will match one of the restore-keys patterns.
+                # If only one new dependency added, still save a huge amount of time with "old" cache because it already has all other dependencies saved
+                # If restore-keys is used: 
+                #   Exact match --> files of restore-keys match restored to path:
+                #   Partial match --> Most recent cache restored to path: 
+                restore-keys: |
+                    ${{ runner.os }}-${{ env.WORKFLOW_FILENAME }}
+                    ${{ runner.os }}-
+                
+                # You can fail the workflow in the event of a cache miss (this is false by default)
+                fail-on-cache-miss: false
+                
+                # lookup-only: If true, only verifies a cache match exists (i.e. detects cache hit/miss) and does NOT download the cache to use. 
+                # Useful for when you want to check for a cache match and not download it (because some caches are very large, leading to slowdown) 
+                lookup-only: false
+
+            # The steps.<step-id>.outputs-cache-hit output shows if there was a cache hit or miss. This info can be useful to conditionally fire off other steps 
+            - name: "Show cache-hit value"
+              if: ${{ env.USE_CACHE  == 'true' }}
+              run: echo "${{ steps.cache-dependencies.outputs.cache-hit }}"  
+
+            # The time duration of this step (~2 minutes, 20 seconds) should decrease drastically when using a cache
+            # Still need an "install dependencies" step if cache is used to unpack/install packages into virtual environment
+            # pip install will download packages from the internet(PyPI), then unpack those files into the /site-packages folder. The "import" in Python draws from site-packages as one of its sources
+            # Using a cache helps skip or speed up the "download packages from the internet" part, but those downloads must still be unpacked.
+            - name: "Install dependencies (${{ env.REQ_TYPE }})"
+              run: |
+                if [[ "$REQ_TYPE" == "heavy" ]]; then
+                  pip install -r scripts-path/scripts/html-checks/requirements.txt
+                else 
+                  pip install -r scripts-path/scripts/html-checks/requirements-lite.txt
+                fi 
+            
+            # Can't do one chmod for both Bash and Python in html-exists job because each job runs in a separate environment
+            - name: "Give exec permissions to Python scripts"
+              run: chmod a+x scripts-path/scripts/html-checks/*.py
+
+            - name: "Script: Check each HTML file's TODOs have corresponding story"
+              run: |
+                python scripts-path/scripts/html-checks/main.py ${{ needs.html-exists.outputs.html-filenames }} "feature-with-htmls"
