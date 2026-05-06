@@ -6,7 +6,7 @@ on:
       string_input:
         description: 'string_input: Enter a string value'
         type: string
-        default: 'Hello, World!'
+        default: 'Hello, World'
         required: false
       string_prefix:
         description: 'string_prefix: Enter a string prefix to match'
