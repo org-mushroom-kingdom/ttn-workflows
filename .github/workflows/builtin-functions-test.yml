@@ -31,14 +31,14 @@ jobs:
         steps:
             - name: Print String input value
               run: |
-                echo -e "Input string value = ${YELLOW}${{ github.event.inputs.string_input }}${ENDCOLOR}!"
+                echo -e "Input string value = ${YELLOW}${{ inputs.string_input }}${ENDCOLOR}!"
             
             - name: String starts with string_prefix
-              if: startsWith(github.event.inputs.string_input, github.event.inputs.string_prefix)
+              if: startsWith(inputs.string_input, inputs.string_prefix)
               run: |
-                echo -e "This job ran because ${LT_BLUE}string_input${ENDCOLOR} starts with '${YELLOW}${{ github.event.inputs.string_prefix }}${ENDCOLOR}!'"
+                echo -e "This job ran because ${LT_BLUE}string_input${ENDCOLOR} starts with '${YELLOW}${{ inputs.string_prefix }}${ENDCOLOR}!'"
             
             - name: String ends with string_suffix
-              if: endsWith(github.event.inputs.string_input, github.event.inputs.string_suffix)
+              if: endsWith(inputs.string_input, inputs.string_suffix)
               run: |
-                echo -e "This job ran because string_input ends with '${YELLOW}${{ github.event.inputs.string_suffix }}${ENDCOLOR}!'"
+                echo -e "This job ran because string_input ends with '${YELLOW}${{ inputs.string_suffix }}${ENDCOLOR}!'"
