@@ -24,7 +24,7 @@ env:
 
 jobs:
     built-in-functions-test:
-        name: Built-In Functions Test Job
+        name: 'Strings: Built-In Functions'
         runs-on: ubuntu-latest
         steps:
             - name: Print String input value
