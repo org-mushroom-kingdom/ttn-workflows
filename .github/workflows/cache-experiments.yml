@@ -8,7 +8,7 @@
 # Will be marked as failure if any "TODO" comment in any HTML does not have a corresponding, properly formatted Jira number
 # Will be marked as success if PR has no HTML files, if all HTML files have no TODO comments, or if all TODO comments have a corresponding, properly formatted Jira number
 
-# A script in the workflow will look at each "TODO" comment and check via pattern matching for a string like "TTNF-1234". 
+# A script in the workflow will look at each "TODO" comment and check via pattern matching for a string like "TTNF-1234".  
 
 name: Cache Experiments
 
