@@ -21,7 +21,7 @@ on:
 
 env:
     YELLOW: "\e[33m"
-    WHITE_BOLD: "\033[1m"
+    LT_BLUE: "\e[0;94m"
     ENDCOLOR: "\e[0m"
 
 jobs:
@@ -36,7 +36,7 @@ jobs:
             - name: String starts with string_prefix
               if: startsWith(github.event.inputs.string_input, github.event.inputs.string_prefix)
               run: |
-                echo -e "This job ran because ${WHITE_BOLD}string_input${ENDCOLOR} starts with '${YELLOW}${{ github.event.inputs.string_prefix }}${ENDCOLOR}!'"
+                echo -e "This job ran because ${LT_BLUE}string_input${ENDCOLOR} starts with '${YELLOW}${{ github.event.inputs.string_prefix }}${ENDCOLOR}!'"
             
             - name: String ends with string_suffix
               if: endsWith(github.event.inputs.string_input, github.event.inputs.string_suffix)
