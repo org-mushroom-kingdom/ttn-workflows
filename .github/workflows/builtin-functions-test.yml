@@ -44,10 +44,14 @@ jobs:
               run: |
                 echo -e "This job ran because string_input ends with '${YELLOW}${{ inputs.string_suffix }}${ENDCOLOR}!'"
 
-            - name: Add mask
+            - name: Add mask and show result
               run: |
                 echo -e "FAKE_SECRET = $FAKE_SECRET"
                 echo "Masking FAKE_SECRET!"
                 echo "::add-mask::$FAKE_SECRET"
-                echo "$FAKE_SECRET"
+                echo "FAKE_SECRET = $FAKE_SECRET"
+
+            - name: This job proves add-mask only needs to be used once per job
+              run: |
+                echo "FAKE_SECRET = $FAKE_SECRET"
 
