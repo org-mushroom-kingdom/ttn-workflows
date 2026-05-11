@@ -20,9 +20,10 @@ on:
         required: false
 
 env:
-    YELLOW: "\e[33m"
-    LT_BLUE: "\e[0;94m"
-    ENDCOLOR: "\e[0m"
+  YELLOW: "\e[33m"
+  LT_BLUE: "\e[0;94m"
+  ENDCOLOR: "\e[0m"
+  FAKE_SECRET: "This is a placeholder for a secret value"
 
 jobs:
     built-in-functions-test:
@@ -42,3 +43,11 @@ jobs:
               if: endsWith(inputs.string_input, inputs.string_suffix)
               run: |
                 echo -e "This job ran because string_input ends with '${YELLOW}${{ inputs.string_suffix }}${ENDCOLOR}!'"
+
+            - name: Add mask
+              run: |
+                echo -e "FAKE_SECRET = $FAKE_SECRET"
+                echo "Masking FAKE_SECRET!"
+                echo "::add-mask::$FAKE_SECRET"
+                echo "$FAKE_SECRET
+
