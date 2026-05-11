@@ -49,5 +49,5 @@ jobs:
                 echo -e "FAKE_SECRET = $FAKE_SECRET"
                 echo "Masking FAKE_SECRET!"
                 echo "::add-mask::$FAKE_SECRET"
-                echo "$FAKE_SECRET
+                echo "$FAKE_SECRET"
 
