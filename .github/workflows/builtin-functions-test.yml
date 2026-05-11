@@ -56,7 +56,7 @@ jobs:
                 echo "FAKE_SECRET = $FAKE_SECRET"
       
     add-mask-proof:
-      name: 'Strings: Prove Add Mask Doesn't Persist Across Jobs'
+      name: "Strings: Prove Add Mask Doesn't Persist Across Jobs"
       runs-on: ubuntu-latest
       steps: 
         - name: Show that FAKE_SECRET is not masked in this job
