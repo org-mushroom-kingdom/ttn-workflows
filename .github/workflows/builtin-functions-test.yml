@@ -69,7 +69,7 @@ jobs:
             - name: Test GITHUB_STEP_SUMMARY in different step, again!
               id: test_step_summary_different_step_2
               run: |
-                echo "*This line* doesn't have the malformatted markdown since it's in a different step (id: `test_step_summary_different_step_2`).  " >> $GITHUB_STEP_SUMMARY
+                echo "*This line* doesn't have the malformatted markdown since it's in a different step (id: \`test_step_summary_different_step_2\`).  " >> $GITHUB_STEP_SUMMARY
                 echo "The italics in the above line work, even though there was no closing star two lines above this." >> $GITHUB_STEP_SUMMARY
       
     add-mask-proof:
