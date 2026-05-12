@@ -54,6 +54,12 @@ jobs:
             - name: This job proves add-mask only needs to be used once per job
               run: |
                 echo "FAKE_SECRET = $FAKE_SECRET"
+
+            - name: Test GITHUB_STEP_SUMMARY
+              run: |
+                echo "This is a test of the GITHUB_STEP_SUMMARY file." >> $GITHUB_STEP_SUMMARY
+                echo "It should appear in the workflow run summary." >> $GITHUB_STEP_SUMMARY
+                echo "What the hell is this" >> $GITHUB_STEP_SUMMARY
       
     add-mask-proof:
       name: "Strings: Prove Add Mask Doesn't Persist Across Jobs"
