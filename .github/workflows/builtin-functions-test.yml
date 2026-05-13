@@ -1,4 +1,4 @@
-name: Built-In Functions Test
+name: Built-In Functions/Functionality Test
 
 on:
   workflow_dispatch:
@@ -24,6 +24,7 @@ env:
   LT_BLUE: "\e[0;94m"
   ENDCOLOR: "\e[0m"
   FAKE_SECRET: "This is a placeholder for a secret value"
+  EXAMPLE_ENV_VAR: "This is the default value for EXAMPLE_ENV_VAR"
 
 jobs:
     built-in-functions-test:
