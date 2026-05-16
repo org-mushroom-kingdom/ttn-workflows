@@ -1,0 +1,11 @@
+name: Non-Main Workflow 2
+
+on:
+  workflow_dispatch:
+
+jobs:
+  non-main-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Echo firing message
+        run: echo 'non-main-workflow-2 firing!'
