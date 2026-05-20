@@ -18,6 +18,16 @@ on:
         type: string
         default: 'World'
         required: false
+      case_test:
+        description: 'case_test: Enter a string for case testing. '
+        type: choice
+        options:
+          - 'default-value'
+          - 'A'
+          - 'Blue'
+          - 'Bagels'
+        default: 'default-value'
+        required: false
 
 env:
   YELLOW: "\e[33m"
@@ -25,6 +35,7 @@ env:
   ENDCOLOR: "\e[0m"
   FAKE_SECRET: "This is a placeholder for a secret value"
   EXAMPLE_ENV_VAR: "This is the default value for EXAMPLE_ENV_VAR"
+  CASE_VAR: ${{ inputs.case_test }}
 
 jobs:
     built-in-functions-test:
@@ -75,6 +86,17 @@ jobs:
                 echo "If the malformatted markdown persisted between steps, the text 'This particular line' in Line N would not be italicized." >> $GITHUB_STEP_SUMMARY
                 echo "In Line M, the text 'here's some malformatted markdown...' all the way to the end of the line would've been italicized." >> $GITHUB_STEP_SUMMARY
       
+            - name: "Case test"
+              env:
+                CASE_VAR_S: |- 
+                  ${{ case(
+                    env.CASE_VAR == 'A', 'You picked A. A-mazing!', 
+                    startsWith(env.CASE_VAR, 'B'), 'Your input began with B',
+                    'You used the default choice, default-case. Boooooooring.'
+                  ) }}
+              run: |
+                echo -e "CASE_VAR_S's value was decided by the `case_test` input and use of `case()`!"
+                echo -e "CASE_VAR_S = ${YELLOW}$CASE_VAR_S${ENDCOLOR}!"
     add-mask-proof:
       name: "Strings: Prove Add Mask Doesn't Persist Across Jobs"
       runs-on: ubuntu-latest
