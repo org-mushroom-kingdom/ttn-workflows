@@ -18,7 +18,16 @@ on:
         type: string
         default: 'World'
         required: false
-
+      case_test:
+        description: 'case_test: Enter a string for case testing. '
+        type: choice
+        options:
+          - 'default-value'
+          - 'A'
+          - 'Blue'
+          - 'Bagels'
+        default: 'default-value'
+        required: false
 env:
   YELLOW: "\e[33m"
   LT_BLUE: "\e[0;94m"
