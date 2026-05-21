@@ -28,6 +28,7 @@ on:
           - 'Bagels'
         default: 'default-value'
         required: false
+
 env:
   YELLOW: "\e[33m"
   LT_BLUE: "\e[0;94m"
