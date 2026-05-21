@@ -95,7 +95,7 @@ jobs:
                     'You used the default choice, default-case. Boooooooring.'
                   ) }}
               run: |
-                echo -e "CASE_VAR_S's value was decided by the `case_test` input and use of `case()`!"
+                echo -e "CASE_VAR_S's value was decided by the TODO LT BLUE`case_test` input and use of `case()`!"
                 echo -e "CASE_VAR_S = ${YELLOW}$CASE_VAR_S${ENDCOLOR}!"
     add-mask-proof:
       name: "Strings: Prove Add Mask Doesn't Persist Across Jobs"
