@@ -3,7 +3,7 @@ name: Upload Example Artifact
 on:
   workflow_dispatch:
 
-  push:
+  # push:
 
 jobs:
   make-and-upload-artifact:
