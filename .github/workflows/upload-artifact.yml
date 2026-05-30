@@ -20,5 +20,5 @@ jobs:
             path: example-artifact.txt
         
         # Uses head_commit instead of commits array
-        - name: Get latest commit message
-          run: echo "Commit message = ${{ github.event.head_commit.message }}"
+        # - name: Get latest commit message
+        #   run: echo "Commit message = ${{ github.event.head_commit.message }}"
