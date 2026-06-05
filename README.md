@@ -379,7 +379,7 @@ I have a Github Actions workflow job that functions as a status check. This work
 
 A script in the workflow will look at each "TODO" comment and check via pattern matching for a substring like "#TTNF-1234". If that substring isn't present, it will add it to another array named comments_missing_story_numbers. 
 
-At the end of iterating todo_comments, we check if comments_missing_story_numbers is empty. If it is great, exit 0/status check passes. If not, status check fails. 
+At the end of iterating `todo_comments`, we check if comments_missing_story_numbers is empty. If it is great, exit 0/status check passes. If not, status check fails. 
 
 Please note: The requirements.txt for this script purposefully has a bunch of modules in it. This is so one can see the difference in installation times when using a cache vs not.
 
