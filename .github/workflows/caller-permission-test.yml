@@ -11,9 +11,13 @@ jobs:
     name: "Test job for caller permissions"
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+        contents: read
     steps:
-      - name: "Call reuable workflow: (contents:read)"
-        uses: ./.github/workflows/reusable-workflow-test.yml
-        with:
-          test-input: "Testing caller permissions for reusable workflow"
+
+        - name: Checkout repository
+          uses: actions/checkout@v3
+
+        - name: "Call reuable workflow: (contents:read)"
+          uses: ./.github/workflows/reusable-workflow-test.yml
+          with:
+            test-input: "Testing caller permissions for reusable workflow"
