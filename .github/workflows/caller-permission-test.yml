@@ -7,8 +7,15 @@ permissions:
   contents: write
 
 jobs:
-  test-job:
-    uses: ./.github/workflows/reusable-workflow-test.yml
-    name: "Test job for caller permissions"
-    permissions:
-        contents: read
+    bs-job:
+        name: "BS job"
+        runs-on: ubuntu-latest
+        steps:
+            - name: Write hi
+              run: echo "hi"
+
+    test-job:
+        uses: ./.github/workflows/reusable-workflow-test.yml
+        name: "Test job for caller permissions"
+        permissions:
+            contents: read
