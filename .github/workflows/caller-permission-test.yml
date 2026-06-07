@@ -8,8 +8,7 @@ permissions:
 
 jobs:
   test-job:
+    uses: ./.github/workflows/reusable-workflow-test.yml
     name: "Test job for caller permissions"
-    runs-on: ubuntu-latest
     permissions:
         contents: read
-    uses: ./.github/workflows/reusable-workflow-test.yml
