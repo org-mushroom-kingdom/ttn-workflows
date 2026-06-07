@@ -1,0 +1,19 @@
+name: Caller Permission Test
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  test-job:
+    name: "Test job for caller permissions"
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: "Call reuable workflow: (contents:read)"
+        uses: ./.github/workflows/reusable-workflow-test.yml
+        with:
+          test-input: "Testing caller permissions for reusable workflow"

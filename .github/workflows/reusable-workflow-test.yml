@@ -1,0 +1,16 @@
+name: Reusable Workflow Test
+
+on:
+  workflow_call:
+
+permissions:
+  contents: write
+
+jobs:
+  test-job:
+    name: "Create dummy issue"
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Create dummy issue"
+        env: GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh issue create --title "Dummy issue from 'Reusable Workflow Test'" --body "This issue was created to test the functionality of reusable workflows in GitHub Actions."
