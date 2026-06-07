@@ -86,8 +86,8 @@ jobs:
     steps:
       
         # This will checkout the caller repo if event is workflow_call
-        # - name: Checkout repo
-        #   uses: actions/checkout@v4
+        - name: Checkout repo
+          uses: actions/checkout@v4
 
         # If testing manually in the ttn-workflows repo ONLY, manually set the PR_NUMBER
         - name: 'Manual run: Set PR_NUMBER, SOURCE_BRANCH, EXPECTED_CHANGELOG_FILENAME'
