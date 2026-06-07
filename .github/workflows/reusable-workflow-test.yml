@@ -3,8 +3,8 @@ name: Reusable Workflow Test
 on:
   workflow_call:
 
-# permissions:
-#   contents: write
+permissions:
+  contents: write
 
 jobs:
   test-job:
