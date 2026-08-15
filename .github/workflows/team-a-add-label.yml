@@ -9,6 +9,7 @@ permissions:
 
 jobs:
   add-label:
+    name: Add 'team-a' label if source branch name contains team-a
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
