@@ -11,9 +11,8 @@ permissions:
   pull-requests: write
 
 jobs:
-  name: Add 'team-a' label if source branch name contains team-a
+  name: "Add 'team-a' label when source branch name contains team-a"
   add-label:
-    name: Add 'team-a' label if source branch name contains team-a
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
