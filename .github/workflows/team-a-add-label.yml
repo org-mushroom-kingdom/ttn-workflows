@@ -2,7 +2,7 @@ name: Add team-a label
 
 on:
   pull_request:
-    types: [opened]
+    types: [opened,synchronize]
 
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
