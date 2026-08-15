@@ -1,4 +1,4 @@
-name: Add team-a label!!
+name: Add team-a label!!!
 
 on:
   pull_request:
@@ -17,3 +17,6 @@ jobs:
       - name: Add team-a label if source branch name contains team-a
         if: contains(github.head_ref, 'team-a')
         run: gh pr edit ${{ github.event.pull_request.number }} --add-label team-a
+
+      - name: "echo something"
+        run: echo "If you see this, it means the workflow is using the code from the source branch"
