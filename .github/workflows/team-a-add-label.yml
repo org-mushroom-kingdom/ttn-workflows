@@ -1,4 +1,4 @@
-name: Add team-a label!!!
+name: Add 'team-a' label
 
 on:
   pull_request:
