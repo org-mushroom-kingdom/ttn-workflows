@@ -18,4 +18,4 @@ jobs:
 
       - name: Add team-a label
         if: contains(github.head_ref, 'team-a')
-        run: gh pr edit ${{ github.event.pull_request.number }} --add-label team-a
+        run: gh pr edit ${{ github.event.pull_request.number }} --add-label "team-a"
