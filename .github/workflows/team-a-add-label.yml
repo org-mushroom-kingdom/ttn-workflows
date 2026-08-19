@@ -18,7 +18,7 @@ jobs:
 
       - name: Add team-a label
         if: contains(github.head_ref, 'team-a')
-        run: gh pr edit ${{ github.event.pull_request.number }} --add-label team-a
+        run: gh pr edit ${{ github.event.pull_request.number }} --add-label team-a --repo ${{ github.repository }}
 
       - name: "echo something GOD"
         run: echo "If you see this, it means the workflow is using the code from the source branch"
