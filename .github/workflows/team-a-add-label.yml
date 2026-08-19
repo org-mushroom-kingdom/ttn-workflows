@@ -15,10 +15,7 @@ jobs:
     name: "Add 'team-a' label when source branch name contains team-a"
     runs-on: ubuntu-latest
     steps:
-
-      - name: Checkout repo
-        uses: actions/checkout@v4
       
       - name: Add team-a label
         if: contains(github.head_ref, 'team-a')
-        run: gh pr edit ${{ github.event.pull_request.number }} --add-label "team-a"
+        run: gh pr edit ${{ github.event.pull_request.number }} --add-label "team-a" --repo ${{ github.repository }}
