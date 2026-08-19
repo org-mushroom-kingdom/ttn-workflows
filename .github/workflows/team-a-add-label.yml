@@ -1,4 +1,4 @@
-name: Add 'team-a' label
+name: Add 'team-a' label!!
 
 on:
   pull_request:
@@ -19,3 +19,9 @@ jobs:
       - name: Add team-a label
         if: contains(github.head_ref, 'team-a')
         run: gh pr edit ${{ github.event.pull_request.number }} --add-label "team-a" --repo ${{ github.repository }}
+
+      - name: Echo multiple things
+        run: |
+          echo "github.head_ref = ${{ github.head_ref }}"
+          echo "github.event.pull_request.number = ${{ github.event.pull_request.number }}"
+          echo "github.repository = ${{ github.repository }}"
