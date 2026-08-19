@@ -18,12 +18,12 @@ name: Non-main workflow
 # Such logic can later be elaborated upon to make programmatic deploy decisions (ex. if server X is down, continue with deploy. If server Y is down, don't) 
 on:
   
-  push:
+  # push:
     # When the workflow isn't merged to main, you don't have to specify the feature branch the workflow is on.
     # This is because Github evaluates only evalutes workflow files that exist in the branch receiving the push. (See dev.solve)
     # You can still include branches: though if you want to make it more explicit or serve as a reminder. 
     # Try testing with the line below commented in or out--the results should be identical
-    branches: [feature/matt-test-workflow-without-main-merge]
+    # branches: [feature/matt-test-workflow-without-main-merge]
     
     # When the workflow isn't merged to main, if you want to fire it whenever a push occurs, DON'T use the below paths: key and its child
     # The paths: key is for fine-tuning. It will see if the changed files in a commit match a certain glob pattern, and fire the workflow ONLY when one of those files matches the glob pattern
